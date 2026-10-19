@@ -1,0 +1,176 @@
+[
+  {
+    "id": "pull-up", "name": "Pull-up", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "dead-hang", "target": { "sets": 3, "seconds": 60 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "scapular-pull", "target": { "sets": 3, "reps": 12 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "trx-row", "target": { "sets": 4, "reps": 12 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "pull-up-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "band-assisted-pull-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "pull-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "chest-to-bar-pull-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "explosive-pull-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "muscle-up", "name": "Muscle-up", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "high-pull-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "band-assisted-muscle-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks muscle-up transition work once you have 8 strict pull-ups, 10 dips and a chest-to-bar pull-up.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 8 }, { "testId": "dip-max", "metric": "reps", "min": 10 }, { "testId": "chest-to-bar-pull-up-max", "metric": "reps", "min": 1 }] } },
+      { "exerciseId": "muscle-up-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "bar-muscle-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "front-lever", "name": "Front lever", "kind": "straight_arm", "straightArm": true,
+    "steps": [
+      { "exerciseId": "tuck-hang", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "tuck-front-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "advanced-tuck-front-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks the advanced tuck front lever once you have 8 pull-ups, a 30 s hollow hold and a 20 s tuck front lever.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 8 }, { "testId": "hollow-hold", "metric": "seconds", "min": 30 }, { "testId": "tuck-front-lever-hold", "metric": "seconds", "min": 20 }] } },
+      { "exerciseId": "one-leg-front-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "straddle-front-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "front-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "back-lever", "name": "Back lever", "kind": "straight_arm", "straightArm": true,
+    "steps": [
+      { "exerciseId": "skin-the-cat", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "german-hang", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "tuck-back-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks back lever holds once you have a controlled skin the cat, a 20 s German hang and 5 pull-ups.", "requirements": [{ "testId": "skin-the-cat", "metric": "pass_fail", "min": 1 }, { "testId": "german-hang-hold", "metric": "seconds", "min": 20 }, { "testId": "pull-up-max", "metric": "reps", "min": 5 }] } },
+      { "exerciseId": "advanced-tuck-back-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "straddle-back-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "back-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "push-up", "name": "Push-up", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "incline-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "knee-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "full-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "diamond-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "archer-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "pseudo-planche-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "dip", "name": "Dip", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "bench-dip", "target": { "sets": 4, "reps": 12 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "dip-support-hold", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "band-assisted-dip", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "dip-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "dip", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "weighted-dip", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "handstand", "name": "Handstand", "kind": "balance", "straightArm": false,
+    "steps": [
+      { "exerciseId": "wall-plank", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "wall-walk", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "chest-to-wall-handstand-hold", "target": { "sets": 3, "seconds": 60 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "wall-shoulder-taps", "target": { "sets": 3, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "handstand-kick-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "freestanding-handstand", "target": { "sets": 5, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks freestanding handstand drills once you hold a 60 s chest-to-wall handstand.", "requirements": [{ "testId": "chest-to-wall-handstand-hold", "metric": "seconds", "min": 60 }] } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "hspu", "name": "Handstand push-up", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "pike-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "elevated-pike-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "wall-hspu-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks wall handstand push-up work once you have 10 elevated pike push-ups.", "requirements": [{ "testId": "elevated-pike-push-up-max", "metric": "reps", "min": 10 }] } },
+      { "exerciseId": "wall-hspu", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "planche", "name": "Planche", "kind": "straight_arm", "straightArm": true,
+    "steps": [
+      { "exerciseId": "planche-lean", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "frog-stand", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks planche work beyond leans once you have 20 push-ups and a 30 s planche lean, with wrist-prep before every session.", "requirements": [{ "testId": "push-up-max", "metric": "reps", "min": 20 }, { "testId": "planche-lean-hold", "metric": "seconds", "min": 30 }] } },
+      { "exerciseId": "tuck-planche", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "advanced-tuck-planche", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "straddle-planche", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "l-sit", "name": "L-sit / V-sit", "kind": "core", "straightArm": false,
+    "steps": [
+      { "exerciseId": "l-sit-foot-supported", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "tuck-l-sit", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "one-leg-l-sit", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "l-sit", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "v-sit", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "pistol", "name": "Pistol squat", "kind": "strength", "straightArm": false,
+    "steps": [
+      { "exerciseId": "box-squat", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "trx-assisted-pistol", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "box-pistol", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "pistol-squat", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "dragon-flag", "name": "Dragon flag", "kind": "core", "straightArm": false,
+    "steps": [
+      { "exerciseId": "dragon-flag-tuck-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 }, "gate": { "description": "Unlocks dragon flag negatives once you have 10 hanging leg raises.", "requirements": [{ "testId": "hanging-leg-raise-max", "metric": "reps", "min": 10 }] } },
+      { "exerciseId": "dragon-flag-straddle-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "dragon-flag-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "dragon-flag", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 }, "gate": { "description": "Unlocks the full dragon flag once you pass the controlled dragon flag negative test.", "requirements": [{ "testId": "dragon-flag-negative", "metric": "pass_fail", "min": 1 }] } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "front-split", "name": "Front split", "kind": "flexibility", "straightArm": false,
+    "steps": [
+      { "exerciseId": "front-split-passive", "target": { "sets": 3, "cmFromFloor": 20 } },
+      { "exerciseId": "front-split-pnf", "target": { "sets": 2, "cmFromFloor": 10 } },
+      { "exerciseId": "front-split-active", "target": { "sets": 3, "cmFromFloor": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "middle-split", "name": "Middle split", "kind": "flexibility", "straightArm": false,
+    "steps": [
+      { "exerciseId": "middle-split-passive", "target": { "sets": 3, "cmFromFloor": 20 } },
+      { "exerciseId": "middle-split-pnf", "target": { "sets": 2, "cmFromFloor": 10 } },
+      { "exerciseId": "horse-stance", "target": { "sets": 3, "cmFromFloor": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "bridge", "name": "Bridge", "kind": "flexibility", "straightArm": false,
+    "steps": [
+      { "exerciseId": "glute-bridge", "target": { "sets": 3, "reps": 15 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "table-top", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "bridge-wall-walk-down", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "bridge", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "handstand-to-bridge", "target": { "sets": 3, "reps": 3 }, "checkSet": { "sets": 3, "reps": 1 }, "gate": { "description": "Unlocks handstand-to-bridge once you pass the bridge test and hold a 60 s chest-to-wall handstand.", "requirements": [{ "testId": "bridge", "metric": "pass_fail", "min": 1 }, { "testId": "chest-to-wall-handstand-hold", "metric": "seconds", "min": 60 }] } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "pike-pancake", "name": "Pike / pancake", "kind": "flexibility", "straightArm": false,
+    "steps": [
+      { "exerciseId": "seated-pike", "target": { "sets": 2, "seconds": 60 }, "checkSet": { "sets": 2, "seconds": 20 } },
+      { "exerciseId": "loaded-pike", "target": { "sets": 3, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
+      { "exerciseId": "pancake-active-lift", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  }
+]

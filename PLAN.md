@@ -146,7 +146,7 @@ Progression only uses sets done in Normal or Push mode. Tired-day sets are logge
 - **Holds:** start at 3×10 s and build to 3×30 s; for the hardest holds the target is 3×20 s. Then move to the next variation.
 - **Effort:** stop sets 1–3 reps before failure. After each set the app asks "how many more could you have done?" Strength gains don't depend on going to failure (Robinson 2024), and the ACSM 2026 statement treats failure training as optional.
 - **Straight-arm work** (planche, levers) progresses more conservatively: at most one variation step per block. Connective-tissue adaptation is debated, and fast ramps are the most common injury pattern.
-- **Prerequisite gates:** a skill tree unlocks only when its gate is met. These gates are coaching heuristics, not trial results:
+- **Prerequisite gates:** gates attach to the **specific step** they protect, not to the whole tree. Earlier steps are never locked: for example, wall kick-ups stay open and only the freestanding drills need the 60 s chest-to-wall hold. A step unlocks only when its gate is met. These gates are coaching heuristics, not trial results:
   - Muscle-up: 8–10 strict pull-ups, 10 dips, chest-to-bar pull-ups.
   - Front lever: 8 pull-ups, 30 s hollow hold, 20 s tuck front lever.
   - Back lever: comfortable skin the cat, 20 s German hang, 5 pull-ups.
@@ -173,7 +173,7 @@ The program follows my actual level, not the calendar.
 - **Other activity (dance, etc.):** a quick log of type, duration and intensity, either in the check-in or any time. It counts toward the 7-day picture:
   - A hard dance class counts as leg/hip work. The next session avoids heavy legs or deep splits within about 24–48 hours, and moves upper-body work forward instead.
   - Stretching done in class counts toward the weekly stretch minutes.
-- **Temporary niggle mode:** "sore wrist / shoulder / elbow / knee / lower back this week". Until I clear it (default 7 days, with a reminder to check), the builder avoids loading that area in **every** exercise and swaps in alternatives. Example: for a wrist niggle, no handstands, planche leans or push-ups on palms, but fist or dumbbell-handle push-ups and pulling work are fine. If it lasts beyond 2 weeks, the app suggests seeing a physio.
+- **Temporary niggle mode:** "sore wrist / shoulder / elbow / knee / lower back this week". Until I clear it (default 7 days, with a reminder to check), the builder avoids heavy loading of that area in **every** exercise and swaps in alternatives. It also **adds a short mobility block for that area** (for example shoulder CARs, wall slides and band external rotations for a shoulder niggle), done pain-free and gently, so the niggle area is worked rather than just rested. Light band shoulder work (face pulls, pull-aparts) stays available. Example: for a wrist niggle, no handstands, planche leans or push-ups on palms, but fist or dumbbell-handle push-ups and pulling work are fine. If it lasts beyond 2 weeks, the app suggests seeing a physio.
 - **Exercise preferences:**
   - A **never-show list:** the builder always picks an alternate instead.
   - **Favourites:** preferred when two options are equally good.

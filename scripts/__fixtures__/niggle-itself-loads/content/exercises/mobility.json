@@ -1,0 +1,61 @@
+[
+  {
+    "id": "cat-cow",
+    "name": "Cat-cow",
+    "aliases": [
+      "cat camel"
+    ],
+    "type": "mobility",
+    "pattern": "warmup",
+    "mode": "reps",
+    "equipment": [
+      "floor"
+    ],
+    "homeOk": true,
+    "loads": [
+      "wrist"
+    ],
+    "stretchAreas": [
+      "back_shoulders"
+    ],
+    "phases": [
+      "warmup"
+    ],
+    "loggable": {
+      "weight": false,
+      "band": false,
+      "setup": null
+    },
+    "technique": {
+      "setup": "Start on hands and knees on a mat, hands under the shoulders and knees under the hips.",
+      "cues": [
+        "Round the spine up and tuck the chin",
+        "Then let the belly drop and look forward",
+        "Move slowly with the breath",
+        "Comfortable range only, no pain"
+      ],
+      "mistakes": [
+        "Moving only the neck",
+        "Rushing through the reps",
+        "Sinking into the shoulders"
+      ],
+      "stopIf": [
+        "Sharp pain in the back",
+        "Wrist pain",
+        "Tingling or numbness in the arms or legs"
+      ]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": [
+          "dead-bug"
+        ]
+      }
+    },
+    "media": {
+      "kind": "exdb",
+      "exdbId": "Dead_Bug"
+    }
+  }
+]

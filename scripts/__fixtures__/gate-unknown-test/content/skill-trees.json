@@ -1,0 +1,30 @@
+[
+  {
+    "id": "core-tree",
+    "name": "Core tree",
+    "kind": "core",
+    "straightArm": false,
+    "steps": [
+      {
+        "exerciseId": "dead-bug",
+        "target": {
+          "sets": 3,
+          "reps": 10
+        },
+        "gate": {
+          "description": "Unlocks dead bug.",
+          "requirements": [
+            {
+              "testId": "nope",
+              "metric": "reps",
+              "min": 5
+            }
+          ]
+        }
+      }
+    ],
+    "maintenance": {
+      "setsPerWeek": 1
+    }
+  }
+]

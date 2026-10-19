@@ -1,0 +1,614 @@
+[
+  {
+    "id": "wall-push-up",
+    "name": "Wall push-up",
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": ["wrist"],
+    "phases": ["warmup", "main"],
+    "dose": { "sets": [3, 3], "reps": [10, 15], "progressionTarget": { "sets": 3, "reps": 15 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand an arm's length from a wall and place the hands on it at chest height, slightly wider than the shoulders. Step the feet back until the body leans in one straight line from head to heels.",
+      "cues": ["Squeeze the glutes and keep the ribs down", "Keep the elbows about 45 degrees from the body", "Lower until the nose nearly touches the wall", "Push the wall away at the top"],
+      "mistakes": ["Hips sagging or sticking out behind", "Elbows flared straight out to the sides", "Only bending the elbows a little instead of using the full range"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "progression": "incline-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": { "wrist": ["band-chest-press", "fist-push-up"] }
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement wall push up beginner tutorial", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "notes": "Starting point if knee or incline push-ups are not yet possible with good form."
+  },
+  {
+    "id": "incline-push-up",
+    "name": "Incline push-up",
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 10 } },
+    "loggable": { "weight": false, "band": false, "setup": "incline_height" },
+    "technique": {
+      "setup": "Place the hands on a sturdy raised surface (kitchen counter, table, box or bench), slightly wider than the shoulders. Walk the feet back until the body is one straight line from head to heels; the higher the surface, the easier the rep.",
+      "cues": ["Squeeze the glutes and keep the ribs down", "Keep the elbows about 45 degrees from the body", "Lower the chest all the way to the edge", "Push the surface away at the top"],
+      "mistakes": ["Hips sagging or piking up", "Elbows flared straight out to the sides", "Half reps that stop well above the edge"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder", "The surface slides or wobbles"]
+    },
+    "regression": "wall-push-up",
+    "progression": "knee-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["fist-push-up", "band-chest-press"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["trx-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Incline_Push-Up" },
+    "sources": ["marchon"],
+    "notes": "Log the surface height; lower it as reps get easy. Marchon press-up progression starts here."
+  },
+  {
+    "id": "knee-push-up",
+    "name": "Knee push-up",
+    "aliases": ["kneeling push-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 10 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Kneel on a mat with the hands under the shoulders, slightly wider, fingers spread. Walk the hands forward until the body is one straight line from head to knees.",
+      "cues": ["Squeeze the glutes so the hips stay in line", "Keep the elbows about 45 degrees from the body", "Lower the chest to a fist's height from the floor", "Push the floor away at the top"],
+      "mistakes": ["Bending at the hips so only the arms move", "Elbows flared straight out to the sides", "Half reps that stop well above the floor"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder", "Kneecap pain (add more padding or switch to incline)"]
+    },
+    "regression": "incline-push-up",
+    "progression": "full-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["fist-push-up", "band-chest-press"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["incline-push-up"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "Hybrid Calisthenics knee push up proper form beginner", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] }
+  },
+  {
+    "id": "full-push-up",
+    "name": "Full push-up",
+    "aliases": ["push-up", "press-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hands under the shoulders, slightly wider, fingers spread. Legs straight, feet together, body in one straight line from head to heels.",
+      "cues": ["Squeeze the glutes and keep the ribs down", "Keep the elbows about 45 degrees from the body", "Lower the chest to a fist's height from the floor", "Push the floor away at the top"],
+      "mistakes": ["Hips sagging or piking up", "Elbows flared straight out to the sides", "Half reps that stop well above the floor", "Head dropping forward first"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "knee-push-up",
+    "progression": "diamond-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["fist-push-up", "dumbbell-handle-push-up", "band-chest-press"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["trx-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Pushups" },
+    "sources": ["journal p01", "journal p09"],
+    "notes": "Journal doses were 12-15 x3; start at 3x5 and build to 3x8 before moving on."
+  },
+  {
+    "id": "diamond-push-up",
+    "name": "Diamond push-up",
+    "aliases": ["close-grip push-up", "triceps push-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "From a full push-up position, bring the hands close together under the chest (thumbs and index fingers can form a diamond, or keep hands just inside shoulder width if that pinches). Body in one straight line from head to heels.",
+      "cues": ["Squeeze the glutes and keep the ribs down", "Keep the elbows tucked close to the ribs", "Lower the chest to the hands", "Push the floor away at the top"],
+      "mistakes": ["Elbows flaring out wide", "Hips sagging as the arms tire", "Half reps that stop well above the hands"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pain at the back or point of the elbow"]
+    },
+    "regression": "full-push-up",
+    "progression": "archer-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["fist-push-up", "dumbbell-handle-push-up"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["dip", "band-triceps-pressdown"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Push-Ups_-_Close_Triceps_Position" },
+    "sources": ["journal p03", "journal p07"],
+    "notes": "Journal used close grip inside WNC push-up clusters."
+  },
+  {
+    "id": "archer-push-up",
+    "name": "Archer push-up",
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Set up in a push-up with the hands about twice shoulder width, fingers turned slightly out. Body in one straight line from head to heels.",
+      "cues": ["Shift toward one hand and bend that elbow", "Keep the other arm long and nearly straight", "Keep the hips square and level to the floor", "Push back to the middle before switching sides"],
+      "mistakes": ["Twisting the hips toward the working side", "Bending both arms equally so it becomes a wide push-up", "Shoulder shrugging up to the ear on the working side"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "diamond-push-up",
+    "progression": "pseudo-planche-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["fist-push-up", "dumbbell-handle-push-up"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["full-push-up"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs archer push up tutorial progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "sources": ["journal p06", "journal p11"],
+    "notes": "Journal dose was 8x4 or 8-10 x3, with normal push-ups as the fallback."
+  },
+  {
+    "id": "pseudo-planche-push-up",
+    "name": "Pseudo-planche push-up",
+    "aliases": ["PPPU"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Do wrist prep first. Set up in a push-up with the fingers turned out and the hands beside the lower ribs, then lean the shoulders forward past the hands.",
+      "cues": ["Keep the lean the whole rep", "Round the upper back slightly and push the floor away", "Squeeze the glutes and keep the ribs down", "Tuck the elbows to the ribs as you lower"],
+      "mistakes": ["Losing the forward lean as the chest goes down", "Hips sagging into a banana shape", "Leaning further than the wrists can tolerate"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pain at the inside of the elbow or the bicep tendon", "Wrist pain that lingers after the set"]
+    },
+    "regression": "archer-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "wrist": ["dumbbell-handle-push-up", "fist-push-up"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["planche-lean"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs pseudo planche push up tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "sources": ["journal p02"],
+    "notes": "Bent-arm, so not straight_arm, but it loads the wrists heavily. Journal dose was 6-8 x3."
+  },
+  {
+    "id": "fist-push-up",
+    "name": "Fist push-up",
+    "aliases": ["knuckle push-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Make fists and place them on a folded mat under the shoulders, knuckles down and thumbs facing forward, wrists straight. Use the knees if full push-ups are not yet possible.",
+      "cues": ["Keep the wrists straight, in line with the forearms", "Squeeze the glutes and keep the ribs down", "Keep the elbows about 45 degrees from the body", "Push the floor away at the top"],
+      "mistakes": ["Wrists bending to the side on the knuckles", "Doing it on a hard floor without padding", "Hips sagging or piking up"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Knuckle pain", "Any wrist pain at all (it should be pain-free with a wrist niggle)"]
+    },
+    "regression": "knee-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": {
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["dumbbell-handle-push-up", "full-push-up"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "knuckle push up wrist pain alternative Antranik", "preferredChannels": ["Antranik", "FitnessFAQs"] },
+    "notes": "Wrist-niggle alternate for palm-loaded pushing: neutral wrist, no extension. Can be done from the knees."
+  },
+  {
+    "id": "dumbbell-handle-push-up",
+    "name": "Dumbbell-handle push-up",
+    "aliases": ["push-up on dumbbells", "push-up handles"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dumbbell", "floor"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Place two hex dumbbells (they must not roll) under the shoulders, handles parallel to the body, and grip them with straight wrists. Body in one straight line from head to heels, or on the knees.",
+      "cues": ["Keep the wrists straight, in line with the forearms", "Squeeze the glutes and keep the ribs down", "Keep the elbows tucked about 45 degrees", "Lower the chest between the handles"],
+      "mistakes": ["Using round dumbbells that can roll", "Sinking the shoulders far below the handles at the bottom", "Hips sagging or piking up"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder", "A dumbbell shifts or rolls"]
+    },
+    "regression": "knee-push-up",
+    "alternates": {
+      "home": ["fist-push-up"],
+      "niggle": {
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["fist-push-up", "full-push-up"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "push up on dumbbells neutral grip wrist friendly form", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Wrist-niggle alternate for palm-loaded pushing: neutral wrist, no extension. Stay within a normal push-up depth."
+  },
+  {
+    "id": "trx-push-up",
+    "name": "TRX push-up",
+    "aliases": ["suspension push-up", "ring push-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["trx"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 8 } },
+    "loggable": { "weight": false, "band": false, "setup": "trx_angle" },
+    "technique": {
+      "setup": "Set the straps to mid-calf, hold the handles under the shoulders and walk the feet back. The more upright the body, the easier; log the angle.",
+      "cues": ["Keep the handles still and close to the body", "Squeeze the glutes and keep the ribs down", "Lower slowly for 3 seconds with elbows at about 45 degrees", "Press up and squeeze the handles together"],
+      "mistakes": ["Handles drifting wide apart", "Hips sagging", "Going so deep the shoulders roll forward"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "incline-push-up",
+    "alternates": {
+      "home": ["incline-push-up", "knee-push-up"],
+      "niggle": {
+        "wrist": ["band-chest-press"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["full-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Suspended_Push-Up" },
+    "sources": ["journal p02", "journal p07"],
+    "notes": "Journal used ring push-ups, slow 3 s down, 8-12 x4."
+  },
+  {
+    "id": "band-chest-press",
+    "name": "Band chest press",
+    "type": "accessory",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor"],
+    "homeOk": true,
+    "loads": ["shoulder"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Anchor the band in a door at chest height and face away from it with one foot forward. Hold the handles at chest level with the elbows about 45 degrees from the body.",
+      "cues": ["Brace the core and keep the ribs down", "Press the hands forward until the arms are straight", "Keep the shoulders down away from the ears", "Return slowly to chest level"],
+      "mistakes": ["Leaning forward to make it easier", "Shrugging the shoulders up", "Letting the band snap the hands back"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder", "A band that is frayed or a door that is not shut"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "shoulder": ["band-triceps-pressdown"] },
+      "general": ["knee-push-up", "incline-push-up"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "resistance band chest press door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "notes": "Wrist-niggle option for pushing at home: wrists stay neutral. Use a heavier band when 3x15 is easy."
+  },
+  {
+    "id": "bench-dip",
+    "name": "Bench dip",
+    "aliases": ["triceps dip"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["bench"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [8, 12], "progressionTarget": { "sets": 4, "reps": 12 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit on the edge of a bench, hands beside the hips with fingers forward, and slide the hips just off the edge. Keep the knees bent and feet flat for the easiest version.",
+      "cues": ["Keep the shoulders down and the chest open", "Lower until the elbows reach about 90 degrees, no deeper", "Keep the hips close to the bench", "Press up until the arms are straight"],
+      "mistakes": ["Dropping far below 90 degrees", "Shoulders rolling forward and shrugging up", "Hips drifting far away from the bench"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching or pain at the front of the shoulder"]
+    },
+    "progression": "dip-support-hold",
+    "alternates": {
+      "home": ["band-triceps-pressdown", "knee-push-up"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["diamond-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Bench_Dips" },
+    "sources": ["journal p02", "journal p06", "journal p11"],
+    "notes": "Journal dose was 12x4 and 12-15 in supersets. Straighten the legs only once bent-knee reps are easy."
+  },
+  {
+    "id": "dip-support-hold",
+    "name": "Dip support hold",
+    "aliases": ["parallel bar support", "top dip hold"],
+    "type": "skill_hold",
+    "pattern": "push",
+    "mode": "time",
+    "equipment": ["dip_station", "box"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on a box between the bars, grip them at the hip, and press up to straight arms. Step back down to the box at the end of the hold.",
+      "cues": ["Push the bars down and keep the shoulders down", "Lock the elbows and keep the chest proud", "Squeeze the legs together and the glutes"],
+      "mistakes": ["Sinking into the shoulders so the neck disappears", "Bent elbows that slowly give way", "Swinging the legs"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "bench-dip",
+    "progression": "band-assisted-dip",
+    "alternates": {
+      "home": ["knee-push-up", "band-triceps-pressdown"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"]
+      }
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement parallel bar support hold dip beginner", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] }
+  },
+  {
+    "id": "band-assisted-dip",
+    "name": "Band-assisted dip",
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dip_station", "band", "box"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 10 } },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Loop a band across the two bars, stand on a box and kneel or step into the band, then press up to straight arms. Finish each set by stepping back onto the box.",
+      "cues": ["Keep the shoulders down away from the ears", "Lean slightly forward and lower until the elbows reach about 90 degrees", "Keep the elbows pointing back, not out", "Press up to straight arms"],
+      "mistakes": ["Dropping below 90 degrees and feeling a stretch at the front of the shoulder", "Shrugging the shoulders up at the bottom", "Bouncing out of the bottom using the band"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching or pain at the front of the shoulder", "The band slipping on the bars"]
+    },
+    "regression": "dip-support-hold",
+    "progression": "dip-negative",
+    "alternates": {
+      "home": ["knee-push-up", "band-triceps-pressdown"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["bench-dip"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "band assisted dip tutorial parallel bars", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "sources": ["marchon"],
+    "notes": "Marchon: banded dips 5-10 to hit the top of the range. Hitting 4x10 moves to the next lighter band."
+  },
+  {
+    "id": "dip-negative",
+    "name": "Dip negative",
+    "aliases": ["eccentric dip"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dip_station", "box"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on a box between the bars and step up to the top support with straight arms. Lower slowly for 3-5 seconds, then put the feet back down on the box and step up again; never drop off the bars.",
+      "cues": ["Keep the shoulders down away from the ears", "Lower for 3-5 seconds to about 90 degrees at the elbow", "Keep the elbows pointing back, not out", "Step down to the box at the bottom"],
+      "mistakes": ["Dropping fast once the elbows pass halfway", "Sinking below 90 degrees", "Jumping off the bars instead of stepping down"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching or pain at the front of the shoulder", "Unable to control the lowering"]
+    },
+    "regression": "band-assisted-dip",
+    "progression": "dip",
+    "alternates": {
+      "home": ["knee-push-up", "band-triceps-pressdown"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["band-assisted-dip"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "negative dip eccentric tutorial beginner", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] }
+  },
+  {
+    "id": "dip",
+    "name": "Dip",
+    "aliases": ["parallel bar dip", "P-bar dip"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dip_station"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Grip the bars and press up to straight arms with the shoulders down. Use a box to get on and off.",
+      "cues": ["Keep the shoulders down away from the ears", "Lean slightly forward and lower until the elbows reach about 90 degrees", "Keep the elbows pointing back, not out", "Press up to straight arms"],
+      "mistakes": ["Dropping far below 90 degrees", "Shoulders rolling forward and shrugging up at the bottom", "Kicking the legs to get up"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching or pain at the front of the shoulder or collarbone"]
+    },
+    "regression": "dip-negative",
+    "progression": "weighted-dip",
+    "alternates": {
+      "home": ["full-push-up", "band-triceps-pressdown"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["band-assisted-dip", "diamond-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Dips_-_Triceps_Version" },
+    "sources": ["journal p02", "journal p08", "journal p09"],
+    "notes": "Journal dose was 6-10 x3-4 on parallel bars."
+  },
+  {
+    "id": "weighted-dip",
+    "name": "Weighted dip",
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dip_station", "dumbbell"],
+    "homeOk": false,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang a dumbbell or plate from a dip belt, or hold a light dumbbell between the feet. Get onto the bars from a box and press up to straight arms.",
+      "cues": ["Keep the shoulders down away from the ears", "Lower under control until the elbows reach about 90 degrees", "Keep the elbows pointing back, not out", "Press up to straight arms without swinging the weight"],
+      "mistakes": ["Adding weight before 3x8 bodyweight dips are solid", "Going deeper than 90 degrees under load", "Letting the weight swing"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching or pain at the front of the shoulder or collarbone"]
+    },
+    "regression": "dip",
+    "alternates": {
+      "home": ["full-push-up", "band-triceps-pressdown"],
+      "niggle": {
+        "wrist": ["band-triceps-pressdown"],
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise", "hollow-hold"]
+      },
+      "general": ["dip"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Dips_-_Triceps_Version" },
+    "sources": ["journal p03", "journal p07", "journal p11"],
+    "notes": "Journal doses were 5x5, 8x3 and 8-10 x4. Hitting the top of the range means the next weight up. A dip belt is not in the equipment list, so dumbbell stands in."
+  },
+  {
+    "id": "dumbbell-overhead-press",
+    "name": "Dumbbell overhead press",
+    "aliases": ["DB shoulder press", "seated dumbbell press"],
+    "type": "accessory",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dumbbell", "bench"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [10, 12] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit on an upright bench with the back supported and a dumbbell in each hand at shoulder height, palms forward or facing each other. Feet flat on the floor.",
+      "cues": ["Brace the core and keep the ribs down", "Press the dumbbells up and slightly in until the arms are straight", "Keep the forearms vertical under the weights", "Lower slowly back to shoulder height"],
+      "mistakes": ["Arching the lower back to push the weight up", "Flaring the elbows straight out to the sides", "Choosing a weight that needs a leg drive or a bounce"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the top of the shoulder when the arms go overhead"]
+    },
+    "alternates": {
+      "home": ["pike-push-up", "band-chest-press"],
+      "niggle": {
+        "shoulder": ["band-triceps-pressdown"],
+        "elbow": ["lateral-raise"]
+      },
+      "general": ["pike-push-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Seated_Dumbbell_Press" },
+    "sources": ["journal p03", "journal p07", "journal p09", "journal p11"],
+    "notes": "Journal doses were 10x3, 12x3 and 10-12 x3."
+  },
+  {
+    "id": "lateral-raise",
+    "name": "Dumbbell lateral raise",
+    "aliases": ["side raise", "lateral raise"],
+    "type": "accessory",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["dumbbell"],
+    "homeOk": false,
+    "loads": ["shoulder"],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with a light dumbbell in each hand at the sides, elbows slightly bent. Lean the chest a little forward.",
+      "cues": ["Raise the arms out to the sides to shoulder height, no higher", "Lead with the elbows, thumbs level or slightly down", "Keep the shoulders down away from the ears", "Lower slowly for 2-3 seconds"],
+      "mistakes": ["Swinging the body to lift the weight", "Shrugging the shoulders up", "Lifting above shoulder height"],
+      "stopIf": ["Sharp or joint pain in the shoulder", "Pinching at the top of the shoulder"]
+    },
+    "alternates": {
+      "home": ["band-pull-apart", "band-face-pull"],
+      "niggle": { "shoulder": ["band-triceps-pressdown"] }
+    },
+    "media": { "kind": "exdb", "exdbId": "Side_Lateral_Raise" },
+    "sources": ["journal p06", "marchon"],
+    "notes": "Journal: 12 reps superset with DB chest press, x3. A band version works too (stand on the band) but has no id of its own yet."
+  },
+  {
+    "id": "band-triceps-pressdown",
+    "name": "Band triceps pressdown",
+    "type": "accessory",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor"],
+    "homeOk": true,
+    "loads": ["elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Anchor the band high in a door and face it, holding the band with both hands at chest height. Pin the elbows to the sides.",
+      "cues": ["Keep the elbows pinned to the ribs", "Push the hands down until the arms are straight", "Keep the shoulders down and the chest tall", "Return slowly to chest height"],
+      "mistakes": ["Elbows drifting forward and away from the body", "Leaning over the hands to push with body weight", "Letting the band snap back up"],
+      "stopIf": ["Sharp or joint pain in the elbow", "A band that is frayed or a door that is not shut"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "elbow": ["lateral-raise", "hollow-hold"] },
+      "general": ["bench-dip"]
+    },
+    "media": { "kind": "youtube", "videoId": null, "searchHint": "resistance band tricep pushdown door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "notes": "Shoulder-friendly triceps work; the default shoulder-niggle swap for dips and push-ups."
+  }
+]
