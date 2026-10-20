@@ -217,6 +217,28 @@ The program follows my actual level, not the calendar.
 - The app tracks **weekly stretch minutes per target area**: hamstrings, hip flexors, adductors, back/shoulders. It aims for at least 10 min each per week, spread across warm-ups and cool-downs.
 - PNF / contract-relax stretching goes in cool-downs only, never before explosive work. Active end-range strength work follows trainer practice (Tom Merrick, Kit Laughlin).
 
+### Movement maintenance (dance + taekwondo background)
+
+Calisthenics stays the focus. This track keeps the range, balance and springiness I already have from dance and taekwondo, and builds on them. Kick height is currently at head height or above, so the goal is to **keep it**, and to keep it under control.
+
+- **Active flexibility** (strength at end range, so the leg goes high *and stays there*): standing front, side and back leg raises with a hold at the top, slow controlled kicks, side-lying leg lifts, pancake active lifts. One drill goes in every Flexibility cool-down, after the passive stretches.
+- **Balance and control:**
+  - Single-leg stance progressions: eyes closed, then on toes, then on a soft surface.
+  - Hip airplanes, single-leg RDLs, and holding a raised knee (chamber) for time.
+  - About 1 minute in every warm-up.
+- **Light on the toes / spring:**
+  - Jump rope (the gym has one), pogo hops, skipping and low hops focused on soft landings.
+  - Calf raises, tibialis raises, and foot work: short foot and toe yoga.
+  - Plyometric volume stays low (contacts are counted) and is kept away from hard leg days.
+- **Small stabilisers:** TFL and glute medius (side-lying hip abduction, banded lateral walks, clamshells), hip rotators (90/90 lifts), adductors (Copenhagen plank) and feet. They rotate in as accessories, 1–2 per session.
+- **How it fits in:**
+  - **Every session:** about 1–2 min of balance, feet and ankles in the warm-up (jump rope at the gym), plus one active-flexibility drill in the cool-down.
+  - **5+ sessions a week:** one of the light days becomes a **Movement day** with balance, spring, active flexibility and small stabilisers.
+- **Milestones** (in the week 1/4/8/12 tests):
+  - active front and side leg-raise height (wall marks, cm, per side)
+  - single-leg balance with eyes closed (seconds, per side)
+  - continuous jump rope (minutes)
+
 ### Readiness and cycle-aware adjustments
 
 - Training is adjusted **by symptoms, not by calendar phase**. Reviews find no meaningful effect of cycle phase on strength or adaptations (Colenso-Semple 2023, McNulty 2020, NSCA 2025), but symptoms and motivation do vary.
