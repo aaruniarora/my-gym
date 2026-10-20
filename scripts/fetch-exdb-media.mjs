@@ -17,7 +17,8 @@ async function worker() {
       const data = Buffer.from(await res.arrayBuffer())
       mkdirSync(dirname(join(out, path)), { recursive: true })
       writeFileSync(join(out, path), data)
-      fetched++, bytes += data.length
+      fetched++
+      bytes += data.length
     } catch (err) {
       failed++
       console.error(`failed ${path}: ${err.message}`)

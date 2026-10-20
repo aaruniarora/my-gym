@@ -22,6 +22,7 @@ export default function Today({ settings, recent, onSettings, build, onStart }: 
   const bare = mode === 'bare'
   const effective = { minutes: bare ? 10 : Math.min(120, Math.max(10, minutes)), location, mode }
   // settings covers the draft, niggles and never-show, so the plan follows every input
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- build and effective are fresh every render; settings and recent are the real inputs
   const plan = useMemo(() => (showPlan ? build(effective) : undefined), [showPlan, settings, recent])
 
   function toggleNiggle(area: NiggleArea) {

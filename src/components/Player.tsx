@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react'
 import type { Exercise } from '../../content/schema'
 import { exerciseById } from '../content'
 import { beep, speak, unlockAudio } from '../lib/audio'
@@ -87,13 +87,14 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const left = pausedLeft ?? Math.max(0, deadline - now)
   const secLeft = Math.ceil(left / 1000)
 
+  const retitle = useEffectEvent(() => { if (started.current && settings.headphoneControls) setMediaTitle(ex.name) })
   useEffect(() => {
     let live = true
     lastSetLog(ex.id).then((l) => live && setDbLast(l)).catch(() => {})
     if (ex.loggable.cm) Promise.all([lastSetLog(ex.id, 'left', true), lastSetLog(ex.id, 'right', true)]).then(([left, right]) => live && setDbSides({ left, right })).catch(() => {})
-    if (started.current && settings.headphoneControls) setMediaTitle(ex.name)
+    retitle()
     return () => { live = false }
-  }, [ex.id])
+  }, [ex.id, ex.loggable.cm])
 
   // the card shows once per slot+exercise, for the session's first exercise and main blocks only
   const needsCard = (i: number, seenList = seen, swaps = swapped) =>
@@ -224,7 +225,8 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     startTimer(3)
   }
 
-  useEffect(() => {
+  // runs once per timer second or phase change, reading the latest render's values
+  const onTick = useEffectEvent(() => {
     if (phase === 'ready') {
       if (secLeft >= 1 && secLeft <= 3) beep('tick', settings)
       if (secLeft === 0) startWork()
@@ -246,7 +248,8 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
       if (secLeft === 0 && card) { beep('done', settings); enter(pos) }
       else if (secLeft === 0) startWork()
     }
-  }, [secLeft, phase])
+  })
+  useEffect(() => { onTick() }, [secLeft, phase])
 
   const paused = pausedLeft !== null
   const togglePause = () => {
