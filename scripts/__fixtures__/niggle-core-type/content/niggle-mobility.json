@@ -1,0 +1,17 @@
+{
+  "wrist": [
+    "dead-bug"
+  ],
+  "shoulder": [
+    "cat-cow"
+  ],
+  "elbow": [
+    "cat-cow"
+  ],
+  "knee": [
+    "cat-cow"
+  ],
+  "lower_back": [
+    "cat-cow"
+  ]
+}

@@ -1,0 +1,737 @@
+[
+  {
+    "id": "bodyweight-squat",
+    "name": "Bodyweight squat",
+    "aliases": ["air squat", "prisoner squat"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand with feet about hip to shoulder width, toes turned out slightly. Arms forward for balance or hands behind the head for the prisoner version.",
+      "cues": ["Keep knees tracking over the middle toes", "Keep heels down the whole rep", "Sit hips back and down between the heels", "Stand tall and squeeze glutes at the top"],
+      "mistakes": ["Knees caving inward", "Heels lifting as you go down", "Rounding the lower back at the bottom"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching at the front of the hip"]
+    },
+    "regression": "box-squat",
+    "progression": "goblet-squat",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge"] },
+      "general": ["cossack-squat"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Bodyweight_Squat" },
+    "sources": ["journal p10"],
+    "notes": "Journal used wide/normal/close stances 10 each x3; keep dance turnout out of it, knees follow toes."
+  },
+  {
+    "id": "box-squat",
+    "name": "Box squat",
+    "aliases": ["squat to box", "bench squat"],
+    "type": "main_strength",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["box"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 10 } },
+    "loggable": { "weight": false, "band": false, "setup": "box_height" },
+    "technique": {
+      "setup": "Stand a short step in front of a box or bench, feet hip width. Start with a box that puts the thighs about parallel and lower it as you get stronger.",
+      "cues": ["Reach hips back to the box slowly", "Touch the box lightly, do not sit and relax", "Keep knees over the toes and heels down", "Drive through the whole foot to stand"],
+      "mistakes": ["Dropping onto the box", "Rocking back to stand up", "Knees caving in as you rise"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching at the front of the hip"]
+    },
+    "progression": "trx-assisted-pistol",
+    "alternates": {
+      "home": ["bodyweight-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["bodyweight-squat"]
+    },
+    "media": { "kind": "youtube", "videoId": "7LpLZOdz68A", "searchHint": "GMB Fitness box squat pistol squat progression", "preferredChannels": ["GMB Fitness", "Calisthenicmovement"] },
+    "notes": "First step of the pistol tree. Progress by lowering the box before moving on."
+  },
+  {
+    "id": "goblet-squat",
+    "name": "Goblet squat",
+    "aliases": ["kettlebell goblet squat", "dumbbell goblet squat"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["kettlebell"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hold a kettlebell (or one dumbbell) by the horns against the chest, elbows pointing down. Feet a little wider than hips, toes turned out slightly.",
+      "cues": ["Keep the weight tight to the chest", "Push knees out over the toes", "Keep heels down and chest tall", "Stand by driving the floor away"],
+      "mistakes": ["Letting the weight pull the chest forward", "Knees caving in on the way up", "Heels lifting at the bottom"],
+      "stopIf": ["Sharp or joint pain in the knee", "Lower back pain or pinching"]
+    },
+    "regression": "bodyweight-squat",
+    "alternates": {
+      "home": ["bodyweight-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["split-squat"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Goblet_Squat" },
+    "sources": ["journal p06", "journal p11"],
+    "notes": "A dumbbell held vertically works the same. Hitting 3x15 means the next weight up."
+  },
+  {
+    "id": "split-squat",
+    "name": "Split squat",
+    "aliases": ["static lunge"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Take a long step so one foot is forward and the back heel is lifted. Hold a wall or doorframe for balance if needed.",
+      "cues": ["Drop the back knee straight down", "Keep the front heel down", "Keep the front knee over the middle toes", "Stay tall with ribs down"],
+      "mistakes": ["Stance too short so the front heel lifts", "Front knee caving inward", "Leaning far forward over the front leg"],
+      "stopIf": ["Sharp or joint pain in either knee", "Pinching at the front of the hip"]
+    },
+    "progression": "bulgarian-split-squat",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge"] },
+      "general": ["step-up", "walking-lunge"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Split_Squat_with_Dumbbells" },
+    "sources": ["marchon"],
+    "notes": "Add a 15 s hold at the bottom per side as a warm-up variant (marchon)."
+  },
+  {
+    "id": "bulgarian-split-squat",
+    "name": "Bulgarian split squat",
+    "aliases": ["rear-foot-elevated split squat", "RFESS"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["bench"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "dose": { "reps": [8, 12] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand about one long stride in front of a bench and rest the top of the back foot on it. Start bodyweight; hold dumbbells or a kettlebell once 3x12 is easy.",
+      "cues": ["Lower the back knee straight down", "Keep the front heel down", "Let the front knee travel over the toes, in line with them", "Push through the front foot to stand"],
+      "mistakes": ["Front foot too close so the heel lifts", "Pushing off the back foot instead of the front leg", "Front knee collapsing inward"],
+      "stopIf": ["Sharp or joint pain in the front knee", "Strain or pinching at the front of the back hip"]
+    },
+    "regression": "split-squat",
+    "alternates": {
+      "home": ["split-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["step-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "lG3MsPmEQQk", "searchHint": "Hybrid Calisthenics Bulgarian split squat form tutorial", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] },
+    "sources": ["journal p04", "marchon"],
+    "notes": "Journal: 8 each x3 at 15 kg; marchon 5-10 with KB or dual DB."
+  },
+  {
+    "id": "trx-assisted-pistol",
+    "name": "TRX-assisted pistol squat",
+    "aliases": ["assisted pistol", "suspension pistol"],
+    "type": "main_strength",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["trx"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Face the TRX anchor holding both handles with arms long. Stand on one leg with the other leg reaching forward off the floor.",
+      "cues": ["Lower slowly for 3 seconds", "Keep the standing heel down", "Keep the knee tracking over the middle toes", "Pull on the straps only as much as you need"],
+      "mistakes": ["Pulling the whole way up with the arms", "Knee caving inward at the bottom", "Dropping fast into the bottom"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching at the front of the hip"]
+    },
+    "regression": "box-squat",
+    "progression": "box-pistol",
+    "alternates": {
+      "home": ["split-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["bulgarian-split-squat"]
+    },
+    "media": { "kind": "youtube", "videoId": "jUQzp0KWgQY", "searchHint": "FitnessFAQs assisted pistol squat progression TRX", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
+    "sources": ["journal p08"],
+    "notes": "Journal: 6 per leg, slow 3 s down, x3. Use less arm help as you progress."
+  },
+  {
+    "id": "box-pistol",
+    "name": "Box pistol",
+    "aliases": ["partial-range pistol", "single-leg box squat"],
+    "type": "main_strength",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["box"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": "box_height" },
+    "technique": {
+      "setup": "Stand on one leg with your back to a box or bench, the other leg reaching forward. Start high and lower the box as you get stronger.",
+      "cues": ["Lower slowly to touch the box", "Keep the standing heel down", "Keep the knee over the middle toes", "Reach arms forward and stand without rocking"],
+      "mistakes": ["Plopping onto the box", "Rocking back to get momentum", "Knee caving inward on the way up"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching at the front of the hip"]
+    },
+    "regression": "trx-assisted-pistol",
+    "progression": "pistol-squat",
+    "alternates": {
+      "home": ["split-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["bulgarian-split-squat"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Single-Leg_High_Box_Squat" },
+    "notes": "Lowest box for 3x8 per side means try the full pistol."
+  },
+  {
+    "id": "pistol-squat",
+    "name": "Pistol squat",
+    "aliases": ["single-leg squat", "full pistol"],
+    "type": "main_strength",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on one leg, the other leg straight out in front, arms reaching forward. Practise next to a wall or doorframe until balance is steady.",
+      "cues": ["Lower slowly for 3 seconds", "Keep the standing heel down", "Keep the knee tracking over the middle toes", "Reach arms forward to stay balanced"],
+      "mistakes": ["Heel lifting at the bottom", "Knee caving inward", "Bouncing out of the bottom"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching at the front of the hip"]
+    },
+    "regression": "box-pistol",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["bulgarian-split-squat"]
+    },
+    "media": { "kind": "youtube", "videoId": "F85WzNX3YPw", "searchHint": "GMB Fitness pistol squat tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "sources": ["journal p06", "journal p08"],
+    "notes": "Journal: 5 per leg x3; 6 per leg slow 3 s down x3. Hold a light weight forward if balance limits depth."
+  },
+  {
+    "id": "nordic-negative",
+    "name": "Band-assisted Nordic negative",
+    "aliases": ["nordic curl negative", "nordic hamstring curl"],
+    "type": "main_strength",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["band", "bench"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "dose": { "reps": [3, 6], "progressionTarget": { "sets": 3, "reps": 6 } },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Kneel on a pad with ankles hooked under a heavy bench or held by a partner. Loop a band around the chest and anchor it to a sturdy point behind and above you.",
+      "cues": ["Squeeze glutes and keep hips straight", "Lower forward slowly for 3-5 seconds", "Keep hands up, ready to catch yourself", "Push back up with the hands, do not curl up"],
+      "mistakes": ["Bending at the hips to make it easier", "Falling the last part with no control", "Using a band too light to control the whole range"],
+      "stopIf": ["Sharp pain or a pull at the back of the thigh", "Knee pain on the pad or behind the knee", "Hamstring cramp"]
+    },
+    "regression": "band-hamstring-curl",
+    "alternates": {
+      "home": ["band-hamstring-curl"],
+      "niggle": { "knee": ["kettlebell-rdl", "glute-bridge"] },
+      "general": ["single-leg-rdl"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Natural_Glute_Ham_Raise" },
+    "sources": ["journal p10"],
+    "notes": "Journal: Nordic curl 6x4. Hitting 3x6 slow negatives moves to the next lighter band. Avoid within 48 h of a hard dance class."
+  },
+  {
+    "id": "band-hamstring-curl",
+    "name": "Band hamstring curl",
+    "aliases": ["lying band leg curl"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor", "floor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Anchor a band low in a door and loop it around both ankles. Lie face down far enough away that the band is taut with legs straight.",
+      "cues": ["Press hips into the floor", "Curl heels toward the glutes", "Lower slowly for 2-3 seconds"],
+      "mistakes": ["Lifting the hips to finish the rep", "Letting the band snap the legs back", "Arching the lower back"],
+      "stopIf": ["Sharp pain or cramp at the back of the thigh", "Pain behind the knee"]
+    },
+    "progression": "nordic-negative",
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["glute-bridge", "single-leg-rdl"]
+    },
+    "media": { "kind": "youtube", "videoId": "Yb6H3iJlo8g", "searchHint": "lying banded hamstring curl door anchor form", "preferredChannels": ["Bodyweight Warrior", "Antranik"] },
+    "sources": ["journal p06"],
+    "notes": "Journal: lying hamstring curl 12x3. One leg at a time once both legs is easy with the heaviest band."
+  },
+  {
+    "id": "glute-bridge",
+    "name": "Glute bridge",
+    "aliases": ["hip bridge"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on your back, knees bent, feet flat and hip width, heels close enough to touch with the fingertips.",
+      "cues": ["Tuck the ribs down before you lift", "Drive through the heels", "Squeeze glutes to lift hips to a straight line", "Pause one second at the top"],
+      "mistakes": ["Arching the lower back instead of using the glutes", "Pushing through the toes", "Knees falling in or out"],
+      "stopIf": ["Lower back pain or pinching", "Hamstring cramp"]
+    },
+    "progression": "single-leg-glute-bridge",
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["hip-thrust"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Butt_Lift_Bridge" },
+    "sources": ["journal p10"],
+    "notes": "First step of the bridge tree. Journal: 12x3."
+  },
+  {
+    "id": "single-leg-glute-bridge",
+    "name": "Single-leg glute bridge",
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on your back with one foot flat and the knee bent, the other knee pulled in toward the chest or the leg held straight up.",
+      "cues": ["Tuck the ribs down first", "Drive through the planted heel", "Keep hips level as you lift", "Lower slowly"],
+      "mistakes": ["Hips tilting to one side", "Arching the lower back", "Pushing through the toes"],
+      "stopIf": ["Lower back pain or pinching", "Hamstring cramp"]
+    },
+    "regression": "glute-bridge",
+    "progression": "hip-thrust",
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["glute-bridge"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Single_Leg_Glute_Bridge" },
+    "sources": ["journal p08"],
+    "notes": "Journal: 15 per leg."
+  },
+  {
+    "id": "hip-thrust",
+    "name": "Hip thrust",
+    "aliases": ["dumbbell hip thrust", "bench hip thrust"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["bench", "dumbbell"],
+    "homeOk": false,
+    "loads": [],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit on the floor with the shoulder blades against a bench, knees bent, feet flat. Rest a dumbbell on the hip crease over a pad or towel, holding it with both hands.",
+      "cues": ["Tuck the chin and ribs down", "Drive through the heels", "Lift hips until shins are vertical", "Squeeze glutes hard at the top"],
+      "mistakes": ["Overarching the lower back at the top", "Feet too far out so hamstrings take over", "Bench slipping away"],
+      "stopIf": ["Lower back pain or pinching", "Pain where the weight sits on the hips"]
+    },
+    "regression": "single-leg-glute-bridge",
+    "alternates": {
+      "home": ["glute-bridge", "single-leg-glute-bridge"],
+      "niggle": {},
+      "general": ["glute-bridge"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Barbell_Hip_Thrust" },
+    "sources": ["journal p04", "marchon"],
+    "notes": "Journal: 8x3 heavy. Single-leg bodyweight version also works (marchon 5-10)."
+  },
+  {
+    "id": "kettlebell-rdl",
+    "name": "Kettlebell Romanian deadlift",
+    "aliases": ["KB RDL", "dumbbell RDL"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["kettlebell"],
+    "homeOk": false,
+    "loads": ["lower_back"],
+    "phases": ["main"],
+    "dose": { "reps": [8, 12] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand hip width holding a kettlebell (or two dumbbells) in front of the thighs, knees soft.",
+      "cues": ["Push hips back like closing a door", "Keep the back long and the weight close to the legs", "Stop when the hamstrings are tight", "Squeeze glutes to stand tall"],
+      "mistakes": ["Rounding the back to reach lower", "Bending the knees into a squat", "Leaning back at the top"],
+      "stopIf": ["Lower back pain or pinching", "Sharp pull at the back of the thigh", "Numbness or tingling down the leg"]
+    },
+    "progression": "single-leg-rdl",
+    "alternates": {
+      "home": ["band-hamstring-curl", "glute-bridge"],
+      "niggle": { "lower_back": ["glute-bridge", "band-hamstring-curl"] },
+      "general": ["single-leg-rdl"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Romanian_Deadlift" },
+    "sources": ["journal p04", "marchon"],
+    "notes": "Journal: RDL 8x3; marchon 5-10. Hitting 3x12 means the next weight up."
+  },
+  {
+    "id": "single-leg-rdl",
+    "name": "Single-leg Romanian deadlift",
+    "aliases": ["single-leg deadlift", "inverted deadlift"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "flags": ["balance"],
+    "dose": { "reps": [6, 10] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on one leg with the knee soft, arms hanging or reaching forward. Lightly touch a wall with one hand until balance is steady.",
+      "cues": ["Hinge at the hip as the back leg reaches back", "Keep hips square to the floor", "Keep the back long from head to heel", "Stand by squeezing the standing glute"],
+      "mistakes": ["Opening the hip so the back leg turns out", "Rounding the back to reach lower", "Locking the standing knee"],
+      "stopIf": ["Lower back pain or pinching", "Sharp pull at the back of the thigh"]
+    },
+    "regression": "kettlebell-rdl",
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["kettlebell-rdl"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Kettlebell_One-Legged_Deadlift" },
+    "sources": ["journal p07"],
+    "notes": "Journal: inverted deadlift (bodyweight) 5x4. Balance limits reps at first; hold a light kettlebell to progress."
+  },
+  {
+    "id": "step-up",
+    "name": "Step-up",
+    "aliases": ["box step-up"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["box"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": "box_height" },
+    "technique": {
+      "setup": "Stand facing a stable box and place one whole foot on top. Start at about knee height or lower.",
+      "cues": ["Push through the heel of the top foot", "Keep the knee over the middle toes", "Stand fully tall on top", "Step down slowly with control"],
+      "mistakes": ["Pushing off the bottom foot", "Knee caving inward on the way up", "Box so high the hip tucks under"],
+      "stopIf": ["Sharp or joint pain in the knee", "Box wobbling or slipping"]
+    },
+    "regression": "split-squat",
+    "alternates": {
+      "home": ["split-squat"],
+      "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
+      "general": ["bulgarian-split-squat"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Dumbbell_Step_Ups" },
+    "sources": ["journal p06"],
+    "notes": "Journal: 10 each x3."
+  },
+  {
+    "id": "cossack-squat",
+    "name": "Cossack squat",
+    "aliases": ["side squat"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "dose": { "reps": [6, 10] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand in a wide stance, toes turned out slightly. Hold a doorframe or reach arms forward for balance.",
+      "cues": ["Shift into one hip and sit down over that heel", "Keep the bent knee over the toes and heel down", "Keep the straight leg's toes pointing up", "Go only as deep as you can control"],
+      "mistakes": ["Heel of the bent leg lifting", "Knee caving inward", "Rounding the back to get lower"],
+      "stopIf": ["Sharp or joint pain in the knee", "Groin pain or a pull on the inner thigh"]
+    },
+    "regression": "bodyweight-squat",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge"] },
+      "general": ["split-squat"]
+    },
+    "media": { "kind": "youtube", "videoId": "4CXGCpxx7Rg", "searchHint": "GMB Fitness cossack squat tutorial", "preferredChannels": ["GMB Fitness", "Bodyweight Warrior"] },
+    "sources": ["journal p06"],
+    "notes": "Journal: 10 each x3. Also works as an adductor warm-up."
+  },
+  {
+    "id": "calf-raise",
+    "name": "Calf raise",
+    "aliases": ["single-leg calf raise", "step calf raise"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["spring"],
+    "dose": { "reps": [15, 20] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand with the balls of the feet on a step edge, heels hanging, a hand on a wall for balance. Flat floor works too.",
+      "cues": ["Rise straight up onto the big toe", "Hold the top for 3 seconds", "Lower slowly below the step"],
+      "mistakes": ["Bouncing at the bottom", "Rolling out onto the little toes", "Rushing the hold"],
+      "stopIf": ["Sharp pain in the Achilles or calf", "Calf cramp"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": []
+    },
+    "media": { "kind": "exdb", "exdbId": "Standing_Dumbbell_Calf_Raise" },
+    "sources": ["journal p06", "journal p08", "journal p10"],
+    "notes": "Journal: 20x3 with 3 s hold; single-leg slow 20 per leg as the progression."
+  },
+  {
+    "id": "walking-lunge",
+    "name": "Walking lunge",
+    "aliases": ["lunge"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with space to walk forward. Hands on hips, or hold dumbbells at the sides once bodyweight is easy.",
+      "cues": ["Take a long step and drop the back knee straight down", "Keep the front heel down", "Keep the front knee over the middle toes", "Push through the front foot to step through"],
+      "mistakes": ["Short steps so the front heel lifts", "Front knee caving inward", "Slamming the back knee into the floor"],
+      "stopIf": ["Sharp or joint pain in either knee", "Pinching at the front of the hip"]
+    },
+    "regression": "split-squat",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge"] },
+      "general": ["step-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Bodyweight_Walking_Lunge" },
+    "sources": ["journal p04", "journal p10"],
+    "notes": "Journal: 10 each x3; 20x3 at 20 kg."
+  },
+  {
+    "id": "tibialis-raise",
+    "name": "Tibialis raise",
+    "aliases": ["tib raise", "toe raise against wall"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["spring"],
+    "dose": { "sets": [2, 3], "reps": [15, 25] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lean your back against a wall with the heels about a foot away from it. Legs straight, feet flat.",
+      "cues": ["Pull the toes up towards the shins as high as you can", "Pause 1 s at the top", "Lower slowly, toes just kiss the floor", "Move the heels further out to make it harder"],
+      "mistakes": ["Bending the knees to help", "Bouncing the toes off the floor", "Half reps"],
+      "stopIf": ["Sharp pain in the shin or ankle", "Shin cramp that does not settle"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["calf-raise"] },
+    "media": { "kind": "youtube", "videoId": "VzIcGAgBiaM", "searchHint": "tibialis raise against wall tutorial shin strength", "preferredChannels": ["Antranik"] }
+  },
+  {
+    "id": "short-foot",
+    "name": "Short foot",
+    "aliases": ["foot doming", "arch lift"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["spring"],
+    "dose": { "sets": [2, 2] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit or stand barefoot with the foot flat. Draw the ball of the foot towards the heel to lift the arch without curling the toes.",
+      "cues": ["Dome the arch, toes stay long and flat", "Big toe pad stays on the floor", "Hold 3-5 s, then relax", "Progress from sitting to standing to one leg"],
+      "mistakes": ["Curling or clawing the toes", "Rolling onto the outside of the foot", "Holding the breath"],
+      "stopIf": ["Foot cramp that does not settle", "Sharp pain in the foot or ankle"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["toe-yoga"] },
+    "media": { "kind": "youtube", "videoId": "iy1Qxt2mnsE", "searchHint": "short foot exercise foot doming tutorial", "preferredChannels": ["Antranik"] }
+  },
+  {
+    "id": "toe-yoga",
+    "name": "Toe yoga",
+    "aliases": ["toe lifts", "big toe isolation"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["spring"],
+    "dose": { "sets": [2, 2] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit or stand barefoot with both feet flat. Alternate lifting only the big toes, then only the four small toes.",
+      "cues": ["Lift the big toes, small toes stay down", "Switch: small toes up, big toes down", "Keep the arch and ankle still", "One switch is one rep"],
+      "mistakes": ["Rolling the ankle to help", "Rushing so both groups lift together", "Pressing so hard the toes cramp"],
+      "stopIf": ["Foot cramp that does not settle", "Sharp pain in the foot"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["short-foot"] },
+    "media": { "kind": "youtube", "videoId": "QVZpBSVV9js", "searchHint": "toe yoga exercise big toe isolation", "preferredChannels": ["Antranik"] }
+  },
+  {
+    "id": "side-lying-hip-abduction",
+    "name": "Side-lying hip abduction",
+    "aliases": ["side-lying leg raise", "glute medius raise"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "flags": ["stabiliser"],
+    "dose": { "sets": [2, 3], "reps": [12, 15], "restSeconds": 45 },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on one side with the bottom knee bent and the top leg straight in line with the body. Turn the top toes slightly down.",
+      "cues": ["Lift the top leg slightly behind the body", "Lead with the heel, toes slightly down", "Lift about 30 cm and pause 1 s", "Lower slowly"],
+      "mistakes": ["Bringing the leg forward so the hip flexor lifts it", "Rolling the hips backwards", "Lifting too high and hitching the waist"],
+      "stopIf": ["Sharp pain in the hip", "Pinching at the side of the hip"]
+    },
+    "regression": "clamshell",
+    "progression": "banded-lateral-walk",
+    "alternates": { "home": [], "niggle": {}, "general": ["clamshell", "banded-lateral-walk"] },
+    "media": { "kind": "youtube", "videoId": "-rDiQXjeXO0", "searchHint": "Antranik side lying hip abduction glute medius", "preferredChannels": ["Antranik"] },
+    "notes": "Glute medius and TFL. Add a band above the knees to progress."
+  },
+  {
+    "id": "banded-lateral-walk",
+    "name": "Banded lateral walk",
+    "aliases": ["band walk", "lateral band walk", "crab walk"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps",
+    "equipment": ["band"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "flags": ["stabiliser"],
+    "dose": { "sets": [2, 3], "restSeconds": 45 },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Loop a light band around the legs just above the knees or around the ankles. Stand in a quarter squat with the feet hip-width apart.",
+      "cues": ["Step sideways, keep tension on the band", "Knees push out over the toes", "Stay low and keep the trunk still", "Step back the other way for the same count"],
+      "mistakes": ["Letting the feet come together and the band go slack", "Knees caving in", "Rocking the trunk side to side"],
+      "stopIf": ["Sharp pain in the hip or knee", "Pinching at the side of the hip"]
+    },
+    "regression": "side-lying-hip-abduction",
+    "alternates": { "home": [], "niggle": {}, "general": ["side-lying-hip-abduction", "clamshell"] },
+    "media": { "kind": "youtube", "videoId": "M5uxEQH5BUM", "searchHint": "banded lateral walk glute medius technique", "preferredChannels": ["Calisthenicmovement", "Antranik"] },
+    "notes": "Reps are steps each way."
+  },
+  {
+    "id": "clamshell",
+    "name": "Clamshell",
+    "aliases": ["clams", "banded clamshell"],
+    "type": "accessory",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["main"],
+    "flags": ["stabiliser"],
+    "dose": { "sets": [2, 3], "reps": [12, 15], "restSeconds": 45 },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on one side with the hips and knees bent about 45 degrees and the heels together. Hips stacked, head on the lower arm.",
+      "cues": ["Keep the heels together and open the top knee", "Turn from the hip, not by rolling the pelvis back", "Pause 1 s at the top", "Lower slowly"],
+      "mistakes": ["Rolling the pelvis backwards to get the knee higher", "Rushing the reps", "Letting the heels split apart"],
+      "stopIf": ["Sharp pain in the hip", "Pinching at the front of the hip"]
+    },
+    "progression": "side-lying-hip-abduction",
+    "alternates": { "home": [], "niggle": {}, "general": ["side-lying-hip-abduction"] },
+    "media": { "kind": "youtube", "videoId": "EG5_gXcfozw", "searchHint": "Antranik clamshell exercise glute medius", "preferredChannels": ["Antranik"] },
+    "notes": "A light band above the knees is optional and makes it harder."
+  },
+  {
+    "id": "ninety-ninety-lift",
+    "name": "90/90 hip lift",
+    "aliases": ["90 90 leg lift", "90/90 rotator lift"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "flags": ["stabiliser"],
+    "dose": { "sets": [2, 2], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit tall in the 90/90 position, front and back legs both bent at 90 degrees. Hands on the floor behind you or lightly beside the hips.",
+      "cues": ["Lift the back shin and foot off the floor together", "Rotate from the hip, keep the trunk tall", "Hold 2 s at the top, lower slowly", "Lift the front foot and knee the same way"],
+      "mistakes": ["Leaning far away to cheat the lift", "Lifting only the foot so the knee stays down", "Rushing the reps"],
+      "stopIf": ["Sharp or joint pain in the knee", "Pinching in the hip", "A cramp that does not settle"]
+    },
+    "alternates": { "home": [], "niggle": { "knee": ["clamshell"] }, "general": ["ninety-ninety"] },
+    "media": { "kind": "youtube", "videoId": "DVDBBYeGLsg", "searchHint": "GMB Fitness 90 90 hip lift ups rotation", "preferredChannels": ["GMB Fitness"] },
+    "notes": "Hip rotator strength from the 90/90 seat."
+  },
+  {
+    "id": "copenhagen-plank",
+    "name": "Copenhagen plank",
+    "aliases": ["copenhagen adductor plank", "adductor side plank"],
+    "type": "core",
+    "pattern": "core",
+    "mode": "time_per_side",
+    "equipment": ["bench"],
+    "homeOk": false,
+    "loads": ["shoulder", "knee"],
+    "phases": ["main"],
+    "flags": ["stabiliser"],
+    "dose": { "sets": [2, 3], "seconds": [15, 30] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on your side with the forearm under the shoulder and the top leg on a bench, knee on the bench for the short version. Lift the hips so the body makes a straight line.",
+      "cues": ["Press the top leg down into the bench", "Hips up in line with the shoulders and feet", "Elbow under the shoulder", "Straighten the leg on the bench to make it harder"],
+      "mistakes": ["Hips sagging towards the floor", "Rolling the chest forward or back", "Starting with the long lever too soon"],
+      "stopIf": ["Sharp pain in the groin or inner knee", "Pinching in the supporting shoulder"]
+    },
+    "regression": "side-plank",
+    "alternates": { "home": ["side-plank", "clamshell"], "niggle": { "shoulder": ["clamshell"], "knee": ["side-lying-hip-abduction"] }, "general": ["side-plank"] },
+    "media": { "kind": "youtube", "videoId": "bU8aazv5voo", "searchHint": "copenhagen plank short lever bench tutorial adductor", "preferredChannels": ["Calisthenicmovement"] },
+    "notes": "Adductor stabiliser. Short lever (knee on the bench) first."
+  }
+]

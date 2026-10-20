@@ -1,0 +1,468 @@
+[
+  {
+    "id": "tuck-hang",
+    "name": "Tuck hang",
+    "aliases": ["active tuck hang", "hanging tuck hold"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip at shoulder width and straight arms. Pull the shoulders down into an active hang, then bring the knees up to the chest and hold.",
+      "cues": ["Pull the shoulders down away from the ears", "Keep the arms locked straight", "Knees to chest, tailbone tucked under", "Breathe slowly through the hold"],
+      "mistakes": ["Bending the elbows to make it feel easier", "Shrugging into a passive hang", "Swinging the legs up with momentum"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "Grip slipping or the hands going numb"]
+    },
+    "regression": "active-hang",
+    "progression": "tuck-front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["hanging-knee-raise"]
+    },
+    "media": { "kind": "youtube", "videoId": "Wp0_XZVT0XA", "searchHint": "FitnessFAQs front lever progression tuck hang active hang beginner", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "First step of the front lever tree, a Q2+ skill. Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "tuck-front-lever",
+    "name": "Tuck front lever",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Only start once the front lever gate is met (8 pull-ups, 30 s hollow hold). From an active hang with knees tucked, press the bar down with straight arms until the hips rise to bar height and the back is level with the floor.",
+      "cues": ["Press the bar down towards the hips", "Lock the elbows straight", "Round the upper back slightly, knees to chest", "Keep the back level with the floor"],
+      "mistakes": ["Bending the arms into a row position", "Hips sagging below the shoulders", "Holding the breath and grinding to failure"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "tuck-hang",
+    "progression": "advanced-tuck-front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["front-lever-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "EkdHh8DYlQ0", "searchHint": "FitnessFAQs tuck front lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "A 20 s tuck front lever is part of the front lever gate. Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "advanced-tuck-front-lever",
+    "name": "Advanced tuck front lever",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after a solid 3x30 s tuck front lever. Get into a tuck front lever, then open the hips until the back is flat and the thighs sit at about 90 degrees to the body.",
+      "cues": ["Flatten the back, no rounding", "Press the bar down with straight arms", "Keep the knees tucked at 90 degrees", "Squeeze the glutes to hold the hips up"],
+      "mistakes": ["Letting the hips drop as the back flattens", "Bending the elbows", "Moving up from the tuck too early"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "tuck-front-lever",
+    "progression": "one-leg-front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["front-lever-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "cQWwBx_C_NY", "searchHint": "FitnessFAQs advanced tuck front lever flat back tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "one-leg-front-lever",
+    "name": "One-leg front lever",
+    "aliases": ["single-leg front lever"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [10, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after a solid advanced tuck front lever. From the advanced tuck, extend one leg straight out in line with the body while the other stays tucked; switch the extended leg each set.",
+      "cues": ["Reach the straight leg long, toes pointed", "Keep the hips level with the shoulders", "Press the bar down with locked arms", "Switch legs every set"],
+      "mistakes": ["Hips piking or sagging as the leg extends", "Always extending the same leg", "Bending the elbows"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "advanced-tuck-front-lever",
+    "progression": "straddle-front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["front-lever-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "uTNzgCJt8LQ", "searchHint": "FitnessFAQs one leg front lever progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Hard hold: target 3x20 s. Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "straddle-front-lever",
+    "name": "Straddle front lever",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [10, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after 3x20 s one-leg front lever. Press into a front lever with both legs straight and spread wide; the wider the straddle, the easier it is.",
+      "cues": ["Spread the legs wide and keep them straight", "Body in one line from shoulders to hips", "Press the bar down with locked arms", "Squeeze the glutes and point the toes"],
+      "mistakes": ["Piking at the hips", "Bending the knees or the elbows", "Holding past good form"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "one-leg-front-lever",
+    "progression": "front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["front-lever-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "bgRVpNRMjG4", "searchHint": "FitnessFAQs straddle front lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Hard hold: target 3x20 s. Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "front-lever",
+    "name": "Front lever",
+    "aliases": ["full front lever"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [10, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after 3x20 s straddle front lever. Press into a horizontal hold with the legs straight and together, body in one line under the bar.",
+      "cues": ["Legs together, glutes and toes squeezed", "Press the bar down with locked arms", "Ribs down, body in one straight line", "Hold level with the floor"],
+      "mistakes": ["Piking or arching instead of a straight line", "Bending the elbows", "Kicking up into the hold with momentum"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "straddle-front-lever",
+    "alternates": {
+      "home": ["hollow-hold"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["front-lever-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "rzs8DDEIjD8", "searchHint": "FitnessFAQs full front lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Hardest hold: target 3x20 s, then switch to maintenance."
+  },
+  {
+    "id": "front-lever-row",
+    "name": "Band-assisted front lever row",
+    "aliases": ["FL row", "tuck front lever row"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "band"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [5, 8] },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Loop a band over the bar and rest the hips or feet in it from a box. Hold a tuck front lever position under the bar, then row the hips up to the bar and lower slowly back to straight arms.",
+      "cues": ["Keep the body level as you pull", "Drive the elbows down to the hips", "Touch the bar to the lower chest or belly", "Lower slowly to straight arms"],
+      "mistakes": ["Hips dropping so it turns into a pull-up", "Half reps that stop before straight arms", "Using a band too light to keep the body level"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "inverted-row",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["hollow-hold"], "elbow": ["hollow-hold"] },
+      "general": ["inverted-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "GcEHM620IzU", "searchHint": "FitnessFAQs band assisted front lever row tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "notes": "Accessory for the front lever tree; hitting 3x8 moves to the next lighter band, then tuck front lever rows without a band."
+  },
+  {
+    "id": "skin-the-cat",
+    "name": "Skin the cat",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "sets": [3, 3], "reps": [2, 5], "restSeconds": 120, "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Use a bar low enough that your feet can touch the floor or a box. From an active hang, tuck the knees and slowly rotate backwards through the arms, only as far as the shoulders allow, then come back the same way.",
+      "cues": ["Move slowly, no swinging", "Keep the shoulder blades pulled down and engaged", "Arms straight the whole way", "Stop at the first sign of pinching and come back up"],
+      "mistakes": ["Dropping into the bottom with momentum", "Relaxing the shoulders into a passive stretch", "Going deeper than is comfortable"],
+      "stopIf": ["Pinching at the front of the shoulder", "Sharp or joint pain in the shoulder, elbow or biceps", "Numbness or tingling in the hands"]
+    },
+    "regression": "tuck-hang",
+    "progression": "german-hang",
+    "alternates": {
+      "home": ["band-pull-apart"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["german-hang"]
+    },
+    "media": { "kind": "youtube", "videoId": "8DNTKdpLPyo", "searchHint": "FitnessFAQs skin the cat tutorial shoulder mobility", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "sources": ["journal p01", "journal p03"],
+    "notes": "First step of the back lever tree, a Q2+ skill. Comfortable skin the cat is part of the back lever gate."
+  },
+  {
+    "id": "german-hang",
+    "name": "German hang",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [5, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Use a low bar with the feet on the floor or a box for support at first. Rotate back slowly as in skin the cat and hold at the bottom with the arms behind you, only as deep as is comfortable.",
+      "cues": ["Lower in slowly, never drop in", "Keep the shoulder blades engaged, not hanging loose", "Arms straight, hold at a comfortable depth", "Back out at the first sign of pinching"],
+      "mistakes": ["Sinking passively into the end range", "Holding through pain to reach the time", "Coming out of the hold fast or jerky"],
+      "stopIf": ["Pinching at the front of the shoulder", "Sharp or joint pain in the shoulder, elbow or biceps", "Numbness or tingling in the hands"]
+    },
+    "regression": "skin-the-cat",
+    "progression": "tuck-back-lever",
+    "alternates": {
+      "home": ["band-pull-apart"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["skin-the-cat"]
+    },
+    "media": { "kind": "youtube", "videoId": "5KaDOUeMY98", "searchHint": "FitnessFAQs german hang tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "notes": "A 20 s German hang is part of the back lever gate, so the target is 3x20 s. Build depth gradually with feet supported."
+  },
+  {
+    "id": "tuck-back-lever",
+    "name": "Tuck back lever",
+    "aliases": ["back tuck hold"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Only start once the back lever gate is met (comfortable skin the cat, 20 s German hang, 5 pull-ups). From a German hang, tuck tight and lift the hips until the back is level with the floor, face down.",
+      "cues": ["Arms straight, press the bar towards the hips", "Knees tucked tight to the chest", "Back level with the floor", "Come out the way you went in, slowly"],
+      "mistakes": ["Bending the elbows", "Hips too low so the shoulders carry everything", "Dropping out of the hold"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Numbness or tingling in the hands"]
+    },
+    "regression": "german-hang",
+    "progression": "advanced-tuck-back-lever",
+    "alternates": {
+      "home": ["arch-hold"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["skin-the-cat"]
+    },
+    "media": { "kind": "youtube", "videoId": "2SOWwPTr4es", "searchHint": "FitnessFAQs tuck back lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "sources": ["journal p02", "journal p03"],
+    "notes": "Straight-arm work with high biceps tendon load: move at most one step per block."
+  },
+  {
+    "id": "advanced-tuck-back-lever",
+    "name": "Advanced tuck back lever",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after a solid 3x30 s tuck back lever. From the tuck back lever, open the hips so the back is flat and the thighs sit at about 90 degrees to the body.",
+      "cues": ["Flatten the back, hips in line with the shoulders", "Arms locked straight", "Knees bent at 90 degrees", "Squeeze the glutes"],
+      "mistakes": ["Hips sagging as the back flattens", "Bending the elbows", "Moving up from the tuck too early"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "tuck-back-lever",
+    "progression": "straddle-back-lever",
+    "alternates": {
+      "home": ["arch-hold"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["german-hang"]
+    },
+    "media": { "kind": "youtube", "videoId": "HrQzG_ePIeU", "searchHint": "FitnessFAQs advanced tuck back lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "straddle-back-lever",
+    "name": "Straddle back lever",
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [10, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after a solid advanced tuck back lever. From the advanced tuck, extend both legs straight and wide into a straddle, body horizontal and face down.",
+      "cues": ["Legs straight and wide, toes pointed", "Body in one line, hips level with the shoulders", "Arms locked straight", "Squeeze the glutes, ribs down"],
+      "mistakes": ["Arching the lower back to hold the legs up", "Piking at the hips", "Bending the elbows"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "advanced-tuck-back-lever",
+    "progression": "back-lever",
+    "alternates": {
+      "home": ["arch-hold"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["german-hang"]
+    },
+    "media": { "kind": "youtube", "videoId": "2SOWwPTr4es", "searchHint": "FitnessFAQs straddle back lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Hard hold: target 3x20 s. Straight-arm work: move at most one step per block."
+  },
+  {
+    "id": "back-lever",
+    "name": "Back lever",
+    "aliases": ["full back lever"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["straight_arm", "needs_wrist_prep"],
+    "dose": { "seconds": [10, 20], "progressionTarget": { "sets": 3, "seconds": 20 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start only after 3x20 s straddle back lever. From a German hang, lift into a horizontal face-down hold with the legs straight and together.",
+      "cues": ["Legs together, glutes squeezed", "Body in one straight line", "Arms locked straight", "Lower out slowly the way you came in"],
+      "mistakes": ["Arching the lower back", "Piking at the hips", "Bending the elbows"],
+      "stopIf": ["Sharp or joint pain in the elbow or biceps", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "regression": "straddle-back-lever",
+    "alternates": {
+      "home": ["arch-hold"],
+      "niggle": { "shoulder": ["arch-hold"], "elbow": ["arch-hold"] },
+      "general": ["german-hang"]
+    },
+    "media": { "kind": "youtube", "videoId": "7-J4CNFmkYk", "searchHint": "FitnessFAQs full back lever tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "sources": ["journal p02", "journal p03"],
+    "notes": "Hardest hold: target 3x20 s, then switch to maintenance."
+  },
+  {
+    "id": "band-assisted-muscle-up",
+    "name": "Band-assisted muscle-up transition",
+    "aliases": ["band muscle-up", "assisted muscle-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "band", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow", "wrist"],
+    "phases": ["main"],
+    "dose": { "reps": [3, 5], "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Only start once the muscle-up gate is met (8-10 strict pull-ups, 10 dips, chest-to-bar pull-ups). Loop a band over the bar, step into it from a box, and pull high to the bar, then lean the chest over and press up to straight arms; step back down to the box to finish.",
+      "cues": ["Pull high, bar to the lower chest", "Lean the chest over the bar as the elbows come back", "Press up to straight arms at the top", "Lower with control and step down to the box"],
+      "mistakes": ["Pulling too low so the transition stalls", "One arm turning over before the other", "Dropping from the top instead of lowering"],
+      "stopIf": ["Sharp or joint pain in the elbow, wrist or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "high-pull-up",
+    "progression": "muscle-up-negative",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["hollow-hold"], "wrist": ["high-pull-up"] },
+      "general": ["chest-to-bar-pull-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "ZseoNNiEtIw", "searchHint": "Calisthenicmovement band assisted muscle up transition tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "sources": ["journal p04", "journal p05"],
+    "notes": "Q2+ skill. Hitting 3x5 moves to the next lighter band; after the lightest band, go to negatives."
+  },
+  {
+    "id": "muscle-up-negative",
+    "name": "Muscle-up negative",
+    "aliases": ["slow muscle-up negative"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow", "wrist"],
+    "phases": ["main"],
+    "dose": { "reps": [3, 5], "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": "box_height" },
+    "technique": {
+      "setup": "Place a box under the bar so you can step up into a straight-arm support on top of the bar. Lower slowly over 3-5 s through the transition and down to straight arms, then step down to the box; never drop from the bar.",
+      "cues": ["Start tall in support, arms straight", "Lower slowly through the transition, chest over the bar", "Keep the elbows close as you pass under", "Step down to the box, never drop"],
+      "mistakes": ["Falling through the transition in under 2 s", "Dropping off the bar at the bottom", "Elbows flaring wide"],
+      "stopIf": ["Sharp or joint pain in the elbow, wrist or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "band-assisted-muscle-up",
+    "progression": "bar-muscle-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["hollow-hold"], "wrist": ["high-pull-up"] },
+      "general": ["dip-negative"]
+    },
+    "media": { "kind": "youtube", "videoId": "vEyBx9tdxB8", "searchHint": "FitnessFAQs muscle up negative tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Box height logged so the step-down stays safe. A dip station can be used for the support part only if a box is still underfoot."
+  },
+  {
+    "id": "bar-muscle-up",
+    "name": "Bar muscle-up",
+    "aliases": ["strict muscle-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow", "wrist"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "dose": { "reps": [1, 5], "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with a grip just narrower than shoulder width. Pull explosively high, turn the chest over the bar and press to straight arms, then lower with control back to a hang and step down to a box.",
+      "cues": ["Pull explosively towards the hips, not the chin", "Lean the chest over the bar fast", "Press up to straight arms", "Lower with control, no dropping"],
+      "mistakes": ["Kipping or chicken-winging one arm over", "Pulling too low to clear the bar", "Dropping from the top"],
+      "stopIf": ["Sharp or joint pain in the elbow, wrist or shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "muscle-up-negative",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["hollow-hold"], "wrist": ["high-pull-up"] },
+      "general": ["explosive-pull-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Muscle_Up" },
+    "sources": ["journal p04", "journal p05"],
+    "notes": "Low reps on purpose: quality over volume. Do it fresh, at the start of the session."
+  }
+]

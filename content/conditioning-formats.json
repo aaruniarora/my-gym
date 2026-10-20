@@ -1,0 +1,44 @@
+[
+  {
+    "id": "emom",
+    "name": "EMOM",
+    "description": "Every minute on the minute, do the set reps and rest for what is left of the minute.",
+    "params": { "minutes": 5, "repsPerMinute": "5-10" },
+    "sourcesSeen": ["journal p01", "journal p06", "marchon"]
+  },
+  {
+    "id": "amrap",
+    "name": "AMRAP",
+    "description": "As many rounds as possible of a short circuit within a fixed time.",
+    "params": { "minutes": "10-20" },
+    "sourcesSeen": ["journal p10", "marchon"]
+  },
+  {
+    "id": "ladder",
+    "name": "Ladder",
+    "description": "Repeat a circuit with the reps per exercise following a fixed descending or pyramid scheme.",
+    "params": { "scheme": [10, 8, 6, 4, 2, 4, 6, 8, 10], "alternatives": [[21, 15, 9]] },
+    "sourcesSeen": ["journal p05", "marchon"]
+  },
+  {
+    "id": "tabata",
+    "name": "Tabata",
+    "description": "Eight rounds of 20 seconds all-out work and 10 seconds rest on one exercise.",
+    "params": { "workSeconds": 20, "restSeconds": 10, "rounds": 8 },
+    "sourcesSeen": ["f45"]
+  },
+  {
+    "id": "stations",
+    "name": "Timed stations",
+    "description": "Rotate through stations with fixed work and rest intervals for one or more laps.",
+    "params": {
+      "workSeconds": 35,
+      "restSeconds": 25,
+      "alternatives": [
+        { "workSeconds": 40, "restSeconds": 20 },
+        { "workSeconds": 45, "restSeconds": 15 }
+      ]
+    },
+    "sourcesSeen": ["f45", "journal p05"]
+  }
+]

@@ -1,0 +1,348 @@
+[
+  {
+    "id": "burpee",
+    "name": "Burpee",
+    "aliases": ["squat thrust"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "knee"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand with feet hip-width apart and clear floor space in front of you. Pick a pace you can keep for the whole interval.",
+      "cues": ["Squat down and plant the hands under the shoulders", "Jump or step the feet back to a straight plank", "Bring the feet back under the hips and stand tall", "Land softly on the balls of the feet with knees bent"],
+      "mistakes": ["Letting the hips sag in the plank and arching the lower back", "Landing stiff-legged from the jump", "Rushing so form breaks down halfway through the interval"],
+      "stopIf": ["Sharp or joint pain in the wrist or knee", "Dizziness or chest pain", "Lower back pain when the feet kick back"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "wrist": ["jumping-jack", "high-knees"], "knee": ["mountain-climber", "kettlebell-swing"] },
+      "general": ["mountain-climber", "slam-ball"]
+    },
+    "media": { "kind": "youtube", "videoId": "NCqbpkoiyXE", "searchHint": "Bodyweight Warrior how to do a burpee beginner modification", "preferredChannels": ["Bodyweight Warrior"] },
+    "sources": ["journal p01", "journal p05", "journal p07", "journal p10", "f45"],
+    "notes": "Scaled version: step the feet back and forward one at a time, skip the push-up and replace the jump with a rise onto the toes; add the jump back first, then the step-free kick-back."
+  },
+  {
+    "id": "mountain-climber",
+    "name": "Mountain climber",
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start in a high plank with hands under the shoulders and the body in a straight line from head to heels.",
+      "cues": ["Push the floor away and keep the shoulders over the hands", "Drive one knee toward the chest, then switch", "Keep the hips level with the shoulders", "Breathe steadily and keep the pace even"],
+      "mistakes": ["Piking the hips up high", "Shoulders drifting behind the hands", "Bouncing the hips side to side"],
+      "stopIf": ["Sharp or joint pain in the wrist", "Pinching at the front of the shoulder", "Lower back pain"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "wrist": ["high-knees", "jumping-jack"] },
+      "general": ["bear-crawl", "burpee"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Mountain_Climbers" },
+    "sources": ["journal p02", "journal p05", "journal p08"],
+    "notes": "Slow version: step each knee in with a 1 s pause, which also works as core work."
+  },
+  {
+    "id": "kettlebell-swing",
+    "name": "Kettlebell swing",
+    "aliases": ["Russian KB swing", "two-hand swing"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["kettlebell"],
+    "homeOk": false,
+    "loads": ["lower_back"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand with feet a little wider than the hips and the kettlebell about a foot in front of you. Hinge at the hips with a flat back and grip the handle with both hands.",
+      "cues": ["Hinge at the hips, it is not a squat", "Hike the bell back high between the thighs", "Snap the hips forward and squeeze the glutes to float the bell to chest height", "Keep the lower back neutral and ribs down at the top"],
+      "mistakes": ["Squatting the bell down instead of hinging", "Lifting the bell with the arms", "Rounding the lower back at the bottom", "Leaning back at the top"],
+      "stopIf": ["Sharp or joint pain in the lower back", "Numbness or tingling down the leg", "Losing grip or control of the bell"]
+    },
+    "regression": "kettlebell-rdl",
+    "alternates": {
+      "home": ["burpee", "high-knees"],
+      "niggle": { "lower_back": ["jumping-jack", "high-knees", "mountain-climber"] },
+      "general": ["slam-ball"]
+    },
+    "media": { "kind": "youtube", "videoId": "MD0elv2Paew", "searchHint": "two hand kettlebell swing hip hinge tutorial beginner", "preferredChannels": ["GMB Fitness"] },
+    "sources": ["journal p11"],
+    "notes": "Learn the hinge with kettlebell-rdl first. Start light (8-12 kg); to stop, let the bell swing back and park it on the floor in front of you."
+  },
+  {
+    "id": "box-jump",
+    "name": "Box jump",
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "reps",
+    "equipment": ["box"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "dose": { "reps": [5, 10], "restSeconds": 60 },
+    "loggable": { "weight": false, "band": false, "setup": "box_height" },
+    "technique": {
+      "setup": "Stand about a foot from a stable box that will not slide, starting low (30-40 cm). After every rep step down one foot at a time, never jump down.",
+      "cues": ["Swing the arms back and dip the hips", "Jump up and land softly with the whole foot on the box", "Knees track over the toes on landing", "Stand tall, then step down one foot at a time"],
+      "mistakes": ["Jumping back down off the box", "Knees caving in on landing", "Picking a box so high you land in a deep squat"],
+      "stopIf": ["Sharp or joint pain in the knee", "Ankle or Achilles pain", "Clipping the box edge with the toes"]
+    },
+    "alternates": {
+      "home": ["skipping", "burpee"],
+      "niggle": { "knee": ["mountain-climber", "kettlebell-swing"] },
+      "general": ["burpee"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Front_Box_Jump" },
+    "sources": ["journal p01", "journal p10", "journal p11"],
+    "notes": "Raise box height only when every landing is quiet and stable."
+  },
+  {
+    "id": "slam-ball",
+    "name": "Slam ball",
+    "aliases": ["medicine ball slam", "ball slam"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["slam_ball"],
+    "homeOk": false,
+    "loads": ["lower_back", "shoulder"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand with feet shoulder-width apart holding a non-bouncing slam ball at the chest. Use a light ball (4-6 kg) to start.",
+      "cues": ["Reach the ball overhead with ribs down", "Slam it down hard in front of the feet", "Hinge at the hips with a flat back to pick it up", "Brace the core before every slam"],
+      "mistakes": ["Rounding the lower back to pick the ball up", "Arching the back hard at the top", "Using a bouncy ball that rebounds into the face"],
+      "stopIf": ["Sharp or joint pain in the lower back or shoulder", "Pinching at the front of the shoulder overhead"]
+    },
+    "alternates": {
+      "home": ["burpee", "jumping-jack"],
+      "niggle": { "lower_back": ["jumping-jack", "high-knees"], "shoulder": ["high-knees", "skipping"] },
+      "general": ["kettlebell-swing", "burpee"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Overhead_Slam" },
+    "sources": ["journal p01", "journal p05", "journal p10"],
+    "notes": "Needs a slam ball, which the equipment list cannot express (logged here as floor)."
+  },
+  {
+    "id": "bear-crawl",
+    "name": "Bear crawl",
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start on hands and knees with hands under the shoulders and knees under the hips, then lift the knees a few centimetres off the floor.",
+      "cues": ["Keep the knees hovering just off the floor", "Move the opposite hand and foot together", "Keep the back flat and hips low", "Take small steps and push the floor away"],
+      "mistakes": ["Hips shooting up high", "Moving the same-side hand and foot together", "Taking big steps that twist the hips"],
+      "stopIf": ["Sharp or joint pain in the wrist", "Pinching at the front of the shoulder"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "wrist": ["jumping-jack", "high-knees"] },
+      "general": ["mountain-climber"]
+    },
+    "media": { "kind": "youtube", "videoId": "Ee1BQNI6zN4", "searchHint": "GMB Fitness bear crawl tutorial", "preferredChannels": ["GMB Fitness"] },
+    "sources": ["journal p01", "journal p05"],
+    "notes": "Crawl forward and backward over a few metres, or hold the hover in place if space is short."
+  },
+  {
+    "id": "jumping-jack",
+    "name": "Jumping jack",
+    "aliases": ["star jumps"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with feet together and arms by your sides.",
+      "cues": ["Jump the feet out wide as the arms sweep overhead", "Jump back to feet together, arms down", "Stay light on the balls of the feet", "Keep a soft bend in the knees"],
+      "mistakes": ["Landing flat-footed and heavy", "Locking the knees on landing"],
+      "stopIf": ["Sharp or joint pain in the knee or ankle", "Dizziness or chest pain"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["high-knees", "skipping"]
+    },
+    "media": { "kind": "youtube", "videoId": "yg3KQQn3QWg", "searchHint": "how to do jumping jacks correctly low impact step jack", "preferredChannels": ["Bodyweight Warrior"] },
+    "notes": "Low-impact version: step one foot out at a time instead of jumping."
+  },
+  {
+    "id": "high-knees",
+    "name": "High knees",
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with feet hip-width apart and arms bent at 90 degrees.",
+      "cues": ["Drive each knee up to hip height", "Land softly on the balls of the feet", "Stand tall and pump the arms", "Keep a quick, steady rhythm"],
+      "mistakes": ["Leaning back as the knees come up", "Knees only reaching halfway", "Stomping the feet down"],
+      "stopIf": ["Sharp or joint pain in the knee, hip or ankle", "Dizziness or chest pain"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["jumping-jack", "skipping"]
+    },
+    "media": { "kind": "youtube", "videoId": "-rcDSnwHJ7s", "searchHint": "high knees exercise proper form tutorial", "preferredChannels": ["Bodyweight Warrior"] },
+    "sources": ["journal p08", "journal p10"],
+    "notes": "Marching high knees (no hop) is the low-impact version."
+  },
+  {
+    "id": "shuttle-run",
+    "name": "Shuttle run",
+    "aliases": ["shuttle sprint", "suicides"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Mark two lines 5-10 m apart on a non-slip surface. Run between them for the interval, touching the line at each turn.",
+      "cues": ["Lower the hips and shorten the steps before each turn", "Plant the outside foot and push off in the new direction", "Touch the line with the hand closest to it", "Accelerate out of every turn"],
+      "mistakes": ["Turning upright with straight legs", "Knees caving in on the turn", "Sliding into the line on a slippery floor"],
+      "stopIf": ["Sharp or joint pain in the knee or ankle", "A twist or give-way feeling in the knee"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["mountain-climber", "bear-crawl"] },
+      "general": ["high-knees", "burpee"]
+    },
+    "media": { "kind": "youtube", "videoId": "ycsTDajmjWg", "searchHint": "shuttle run turn technique conditioning drill", "preferredChannels": ["Bodyweight Warrior"] },
+    "sources": ["f45"],
+    "notes": "Needs 5-10 m of clear space; the equipment list has no value for space, so it is logged as none."
+  },
+  {
+    "id": "skipping",
+    "name": "Skipping",
+    "aliases": ["skipping rope"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hold the rope handles at hip height with elbows close to the sides. Without a rope, mimic the same movement.",
+      "cues": ["Turn the rope with the wrists, not the arms", "Make small, quick hops on the balls of the feet", "Keep the knees soft and the body tall"],
+      "mistakes": ["Jumping too high", "Landing flat-footed", "Swinging the rope with the whole arm"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["calf-raise"] },
+      "general": ["jumping-jack", "high-knees"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Rope_Jumping" },
+    "notes": "Needs a skipping rope, which the equipment list cannot express (logged as none; rope-less skipping works too)."
+  },
+  {
+    "id": "jump-rope",
+    "name": "Jump rope",
+    "aliases": ["rope skipping", "skipping rope"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["jump_rope"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [1, 3], "seconds": [30, 60] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hold the handles at hip height with the elbows close to the sides. Rope length about to the armpits when you stand on its middle.",
+      "cues": ["Easy bounce on the balls of the feet, heels just off the floor", "Turn the rope with the wrists", "Jump only high enough to clear the rope", "Land quietly with soft knees"],
+      "mistakes": ["Jumping too high and landing hard", "Turning the rope with the whole arm", "Double bouncing between turns when tired"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain", "Shin pain"]
+    },
+    "regression": "pogo-hop",
+    "alternates": { "home": ["pogo-hop"], "niggle": { "knee": ["calf-raise"] }, "general": ["skipping"] },
+    "media": { "kind": "exdb", "exdbId": "Rope_Jumping" },
+    "notes": "The gym has a rope. Contacts count as seconds x 2."
+  },
+  {
+    "id": "pogo-hop",
+    "name": "Pogo hops",
+    "aliases": ["ankle hops", "pogo jumps"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [2, 3], "reps": [15, 25] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with the feet hip-width apart and the arms relaxed. Hop in place using mostly the ankles.",
+      "cues": ["Stiff, springy ankles with the knees nearly straight", "Short ground contact, bounce straight back up", "Stay on the balls of the feet", "Land quietly"],
+      "mistakes": ["Bending the knees deeply on each landing", "Landing on the heels", "Hopping too high and losing rhythm"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain", "Shin pain"]
+    },
+    "regression": "low-hop-soft-landing",
+    "progression": "jump-rope",
+    "alternates": { "home": [], "niggle": { "knee": ["calf-raise"] }, "general": ["skipping"] },
+    "media": { "kind": "youtube", "videoId": "Odp7J26_47s", "searchHint": "pogo hops tutorial ankle stiffness plyometric", "preferredChannels": ["Bodyweight Warrior", "Hybrid Calisthenics"] }
+  },
+  {
+    "id": "low-hop-soft-landing",
+    "name": "Low hops with soft landing",
+    "aliases": ["soft landing hops", "quiet hops"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [2, 3], "reps": [8, 12] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with the feet hip-width apart. Hop a few cm off the floor and stick each landing before the next hop.",
+      "cues": ["Land as quietly as possible", "Toes first, then let the heels kiss the floor", "Knees bend softly over the toes", "Pause and reset between hops"],
+      "mistakes": ["Loud, flat-footed landings", "Knees caving in on landing", "Hopping higher than a few cm"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain"]
+    },
+    "progression": "pogo-hop",
+    "alternates": { "home": [], "niggle": { "knee": ["calf-raise"] }, "general": ["pogo-hop"] },
+    "media": { "kind": "youtube", "videoId": "6vFPDrpSiis", "searchHint": "soft landing low hops technique quiet landing drill", "preferredChannels": ["Bodyweight Warrior"] }
+  }
+]

@@ -1,0 +1,678 @@
+[
+ {
+  "id": "Band_Assisted_Pull-Up",
+  "name": "Band Assisted Pull-Up",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Band_Assisted_Pull-Up/0.jpg",
+   "Band_Assisted_Pull-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Band_Pull_Apart",
+  "name": "Band Pull Apart",
+  "equipment": "bands",
+  "category": "strength",
+  "primaryMuscles": [
+   "shoulders"
+  ],
+  "images": [
+   "Band_Pull_Apart/0.jpg",
+   "Band_Pull_Apart/1.jpg"
+  ]
+ },
+ {
+  "id": "Barbell_Hip_Thrust",
+  "name": "Barbell Hip Thrust",
+  "equipment": "barbell",
+  "category": "powerlifting",
+  "primaryMuscles": [
+   "glutes"
+  ],
+  "images": [
+   "Barbell_Hip_Thrust/0.jpg",
+   "Barbell_Hip_Thrust/1.jpg"
+  ]
+ },
+ {
+  "id": "Bench_Dips",
+  "name": "Bench Dips",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "triceps"
+  ],
+  "images": [
+   "Bench_Dips/0.jpg",
+   "Bench_Dips/1.jpg"
+  ]
+ },
+ {
+  "id": "Bodyweight_Squat",
+  "name": "Bodyweight Squat",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Bodyweight_Squat/0.jpg",
+   "Bodyweight_Squat/1.jpg"
+  ]
+ },
+ {
+  "id": "Bodyweight_Walking_Lunge",
+  "name": "Bodyweight Walking Lunge",
+  "equipment": null,
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Bodyweight_Walking_Lunge/0.jpg",
+   "Bodyweight_Walking_Lunge/1.jpg"
+  ]
+ },
+ {
+  "id": "Butt_Lift_Bridge",
+  "name": "Butt Lift (Bridge)",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "glutes"
+  ],
+  "images": [
+   "Butt_Lift_Bridge/0.jpg",
+   "Butt_Lift_Bridge/1.jpg"
+  ]
+ },
+ {
+  "id": "Cat_Stretch",
+  "name": "Cat Stretch",
+  "equipment": null,
+  "category": "stretching",
+  "primaryMuscles": [
+   "lower back"
+  ],
+  "images": [
+   "Cat_Stretch/0.jpg",
+   "Cat_Stretch/1.jpg"
+  ]
+ },
+ {
+  "id": "Childs_Pose",
+  "name": "Child's Pose",
+  "equipment": null,
+  "category": "stretching",
+  "primaryMuscles": [
+   "lower back"
+  ],
+  "images": [
+   "Childs_Pose/0.jpg",
+   "Childs_Pose/1.jpg"
+  ]
+ },
+ {
+  "id": "Chin-Up",
+  "name": "Chin-Up",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Chin-Up/0.jpg",
+   "Chin-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Dead_Bug",
+  "name": "Dead Bug",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "abdominals"
+  ],
+  "images": [
+   "Dead_Bug/0.jpg",
+   "Dead_Bug/1.jpg"
+  ]
+ },
+ {
+  "id": "Dips_-_Triceps_Version",
+  "name": "Dips - Triceps Version",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "triceps"
+  ],
+  "images": [
+   "Dips_-_Triceps_Version/0.jpg",
+   "Dips_-_Triceps_Version/1.jpg"
+  ]
+ },
+ {
+  "id": "Dumbbell_Bicep_Curl",
+  "name": "Dumbbell Bicep Curl",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "biceps"
+  ],
+  "images": [
+   "Dumbbell_Bicep_Curl/0.jpg",
+   "Dumbbell_Bicep_Curl/1.jpg"
+  ]
+ },
+ {
+  "id": "Dumbbell_Step_Ups",
+  "name": "Dumbbell Step Ups",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Dumbbell_Step_Ups/0.jpg",
+   "Dumbbell_Step_Ups/1.jpg"
+  ]
+ },
+ {
+  "id": "External_Rotation_with_Band",
+  "name": "External Rotation with Band",
+  "equipment": "bands",
+  "category": "strength",
+  "primaryMuscles": [
+   "shoulders"
+  ],
+  "images": [
+   "External_Rotation_with_Band/0.jpg",
+   "External_Rotation_with_Band/1.jpg"
+  ]
+ },
+ {
+  "id": "Front_Box_Jump",
+  "name": "Front Box Jump",
+  "equipment": "other",
+  "category": "plyometrics",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Front_Box_Jump/0.jpg",
+   "Front_Box_Jump/1.jpg"
+  ]
+ },
+ {
+  "id": "Front_Leg_Raises",
+  "name": "Front Leg Raises",
+  "equipment": "body only",
+  "category": "stretching",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Front_Leg_Raises/0.jpg",
+   "Front_Leg_Raises/1.jpg"
+  ]
+ },
+ {
+  "id": "Goblet_Squat",
+  "name": "Goblet Squat",
+  "equipment": "kettlebells",
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Goblet_Squat/0.jpg",
+   "Goblet_Squat/1.jpg"
+  ]
+ },
+ {
+  "id": "Handstand_Push-Ups",
+  "name": "Handstand Push-Ups",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "shoulders"
+  ],
+  "images": [
+   "Handstand_Push-Ups/0.jpg",
+   "Handstand_Push-Ups/1.jpg"
+  ]
+ },
+ {
+  "id": "Hanging_Leg_Raise",
+  "name": "Hanging Leg Raise",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "abdominals"
+  ],
+  "images": [
+   "Hanging_Leg_Raise/0.jpg",
+   "Hanging_Leg_Raise/1.jpg"
+  ]
+ },
+ {
+  "id": "Incline_Push-Up",
+  "name": "Incline Push-Up",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "chest"
+  ],
+  "images": [
+   "Incline_Push-Up/0.jpg",
+   "Incline_Push-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Inverted_Row",
+  "name": "Inverted Row",
+  "equipment": null,
+  "category": "strength",
+  "primaryMuscles": [
+   "middle back"
+  ],
+  "images": [
+   "Inverted_Row/0.jpg",
+   "Inverted_Row/1.jpg"
+  ]
+ },
+ {
+  "id": "Jackknife_Sit-Up",
+  "name": "Jackknife Sit-Up",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "abdominals"
+  ],
+  "images": [
+   "Jackknife_Sit-Up/0.jpg",
+   "Jackknife_Sit-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Kettlebell_One-Legged_Deadlift",
+  "name": "Kettlebell One-Legged Deadlift",
+  "equipment": "kettlebells",
+  "category": "strength",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Kettlebell_One-Legged_Deadlift/0.jpg",
+   "Kettlebell_One-Legged_Deadlift/1.jpg"
+  ]
+ },
+ {
+  "id": "Kneeling_Hip_Flexor",
+  "name": "Kneeling Hip Flexor",
+  "equipment": null,
+  "category": "stretching",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Kneeling_Hip_Flexor/0.jpg",
+   "Kneeling_Hip_Flexor/1.jpg"
+  ]
+ },
+ {
+  "id": "Mountain_Climbers",
+  "name": "Mountain Climbers",
+  "equipment": null,
+  "category": "plyometrics",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Mountain_Climbers/0.jpg",
+   "Mountain_Climbers/1.jpg"
+  ]
+ },
+ {
+  "id": "Muscle_Up",
+  "name": "Muscle Up",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Muscle_Up/0.jpg",
+   "Muscle_Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Natural_Glute_Ham_Raise",
+  "name": "Natural Glute Ham Raise",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Natural_Glute_Ham_Raise/0.jpg",
+   "Natural_Glute_Ham_Raise/1.jpg"
+  ]
+ },
+ {
+  "id": "One-Arm_Dumbbell_Row",
+  "name": "One-Arm Dumbbell Row",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "middle back"
+  ],
+  "images": [
+   "One-Arm_Dumbbell_Row/0.jpg",
+   "One-Arm_Dumbbell_Row/1.jpg"
+  ]
+ },
+ {
+  "id": "Overhead_Slam",
+  "name": "Overhead Slam",
+  "equipment": "medicine ball",
+  "category": "plyometrics",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Overhead_Slam/0.jpg",
+   "Overhead_Slam/1.jpg"
+  ]
+ },
+ {
+  "id": "Plank",
+  "name": "Plank",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "abdominals"
+  ],
+  "images": [
+   "Plank/0.jpg",
+   "Plank/1.jpg"
+  ]
+ },
+ {
+  "id": "Pullups",
+  "name": "Pullups",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Pullups/0.jpg",
+   "Pullups/1.jpg"
+  ]
+ },
+ {
+  "id": "Push-Ups_-_Close_Triceps_Position",
+  "name": "Push-Ups - Close Triceps Position",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "triceps"
+  ],
+  "images": [
+   "Push-Ups_-_Close_Triceps_Position/0.jpg",
+   "Push-Ups_-_Close_Triceps_Position/1.jpg"
+  ]
+ },
+ {
+  "id": "Pushups",
+  "name": "Pushups",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "chest"
+  ],
+  "images": [
+   "Pushups/0.jpg",
+   "Pushups/1.jpg"
+  ]
+ },
+ {
+  "id": "Romanian_Deadlift",
+  "name": "Romanian Deadlift",
+  "equipment": "barbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Romanian_Deadlift/0.jpg",
+   "Romanian_Deadlift/1.jpg"
+  ]
+ },
+ {
+  "id": "Rope_Jumping",
+  "name": "Rope Jumping",
+  "equipment": "other",
+  "category": "cardio",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Rope_Jumping/0.jpg",
+   "Rope_Jumping/1.jpg"
+  ]
+ },
+ {
+  "id": "Scapular_Pull-Up",
+  "name": "Scapular Pull-Up",
+  "equipment": null,
+  "category": "strength",
+  "primaryMuscles": [
+   "traps"
+  ],
+  "images": [
+   "Scapular_Pull-Up/0.jpg",
+   "Scapular_Pull-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Seated_Dumbbell_Press",
+  "name": "Seated Dumbbell Press",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "shoulders"
+  ],
+  "images": [
+   "Seated_Dumbbell_Press/0.jpg",
+   "Seated_Dumbbell_Press/1.jpg"
+  ]
+ },
+ {
+  "id": "Side_Lateral_Raise",
+  "name": "Side Lateral Raise",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "shoulders"
+  ],
+  "images": [
+   "Side_Lateral_Raise/0.jpg",
+   "Side_Lateral_Raise/1.jpg"
+  ]
+ },
+ {
+  "id": "Single-Leg_High_Box_Squat",
+  "name": "Single-Leg High Box Squat",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Single-Leg_High_Box_Squat/0.jpg",
+   "Single-Leg_High_Box_Squat/1.jpg"
+  ]
+ },
+ {
+  "id": "Single_Leg_Glute_Bridge",
+  "name": "Single Leg Glute Bridge",
+  "equipment": "body only",
+  "category": "strength",
+  "primaryMuscles": [
+   "glutes"
+  ],
+  "images": [
+   "Single_Leg_Glute_Bridge/0.jpg",
+   "Single_Leg_Glute_Bridge/1.jpg"
+  ]
+ },
+ {
+  "id": "Split_Squat_with_Dumbbells",
+  "name": "Split Squat with Dumbbells",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "quadriceps"
+  ],
+  "images": [
+   "Split_Squat_with_Dumbbells/0.jpg",
+   "Split_Squat_with_Dumbbells/1.jpg"
+  ]
+ },
+ {
+  "id": "Standing_Dumbbell_Calf_Raise",
+  "name": "Standing Dumbbell Calf Raise",
+  "equipment": "dumbbell",
+  "category": "strength",
+  "primaryMuscles": [
+   "calves"
+  ],
+  "images": [
+   "Standing_Dumbbell_Calf_Raise/0.jpg",
+   "Standing_Dumbbell_Calf_Raise/1.jpg"
+  ]
+ },
+ {
+  "id": "Standing_Hamstring_and_Calf_Stretch",
+  "name": "Standing Hamstring and Calf Stretch",
+  "equipment": "other",
+  "category": "stretching",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Standing_Hamstring_and_Calf_Stretch/0.jpg",
+   "Standing_Hamstring_and_Calf_Stretch/1.jpg"
+  ]
+ },
+ {
+  "id": "Standing_Hip_Circles",
+  "name": "Standing Hip Circles",
+  "equipment": "body only",
+  "category": "stretching",
+  "primaryMuscles": [
+   "abductors"
+  ],
+  "images": [
+   "Standing_Hip_Circles/0.jpg",
+   "Standing_Hip_Circles/1.jpg"
+  ]
+ },
+ {
+  "id": "Superman",
+  "name": "Superman",
+  "equipment": "body only",
+  "category": "stretching",
+  "primaryMuscles": [
+   "lower back"
+  ],
+  "images": [
+   "Superman/0.jpg",
+   "Superman/1.jpg"
+  ]
+ },
+ {
+  "id": "Suspended_Push-Up",
+  "name": "Suspended Push-Up",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "chest"
+  ],
+  "images": [
+   "Suspended_Push-Up/0.jpg",
+   "Suspended_Push-Up/1.jpg"
+  ]
+ },
+ {
+  "id": "Suspended_Row",
+  "name": "Suspended Row",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "middle back"
+  ],
+  "images": [
+   "Suspended_Row/0.jpg",
+   "Suspended_Row/1.jpg"
+  ]
+ },
+ {
+  "id": "The_Straddle",
+  "name": "The Straddle",
+  "equipment": null,
+  "category": "stretching",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "The_Straddle/0.jpg",
+   "The_Straddle/1.jpg"
+  ]
+ },
+ {
+  "id": "Weighted_Pull_Ups",
+  "name": "Weighted Pull Ups",
+  "equipment": "other",
+  "category": "strength",
+  "primaryMuscles": [
+   "lats"
+  ],
+  "images": [
+   "Weighted_Pull_Ups/0.jpg",
+   "Weighted_Pull_Ups/1.jpg"
+  ]
+ },
+ {
+  "id": "Worlds_Greatest_Stretch",
+  "name": "World's Greatest Stretch",
+  "equipment": null,
+  "category": "stretching",
+  "primaryMuscles": [
+   "hamstrings"
+  ],
+  "images": [
+   "Worlds_Greatest_Stretch/0.jpg",
+   "Worlds_Greatest_Stretch/1.jpg"
+  ]
+ },
+ {
+  "id": "Wrist_Circles",
+  "name": "Wrist Circles",
+  "equipment": "body only",
+  "category": "stretching",
+  "primaryMuscles": [
+   "forearms"
+  ],
+  "images": [
+   "Wrist_Circles/0.jpg",
+   "Wrist_Circles/1.jpg"
+  ]
+ }
+]

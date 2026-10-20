@@ -1,0 +1,60 @@
+{
+  "$ref": "#/definitions/TestBattery",
+  "definitions": {
+    "TestBattery": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exerciseId": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "metric": {
+            "type": "string",
+            "enum": [
+              "reps",
+              "seconds",
+              "cm_from_floor",
+              "pass_fail",
+              "cm_height"
+            ]
+          },
+          "protocol": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scheduledWeeks": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minItems": 1
+          },
+          "higherIsBetter": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "metric",
+          "protocol",
+          "scheduledWeeks",
+          "higherIsBetter"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

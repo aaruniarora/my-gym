@@ -1,0 +1,13 @@
+{
+  "wrist": [
+    "wrist-circles",
+    "wrist-rocks",
+    "elbow-cars",
+    { "id": "forearm-flexor-stretch", "allowLoaded": true },
+    { "id": "forearm-extensor-stretch", "allowLoaded": true }
+  ],
+  "shoulder": ["shoulder-cars", "wall-slide", "band-external-rotation", "thoracic-extension"],
+  "elbow": ["elbow-cars", "forearm-flexor-stretch", "forearm-extensor-stretch", "wrist-circles"],
+  "knee": ["heel-slides", "band-terminal-knee-extension", "hip-circle"],
+  "lower_back": ["pelvic-tilt", "cat-cow", "child-pose", "ninety-ninety", "hip-circle"]
+}

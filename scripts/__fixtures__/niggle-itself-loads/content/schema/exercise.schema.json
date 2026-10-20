@@ -1,0 +1,442 @@
+{
+  "$ref": "#/definitions/Exercises",
+  "definitions": {
+    "Exercises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "skill_hold",
+              "main_strength",
+              "accessory",
+              "core",
+              "conditioning",
+              "mobility",
+              "stretch"
+            ]
+          },
+          "pattern": {
+            "type": "string",
+            "enum": [
+              "pull",
+              "push",
+              "legs",
+              "core",
+              "handstand",
+              "flexibility",
+              "conditioning",
+              "warmup"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "reps",
+              "time",
+              "time_per_side",
+              "reps_per_side"
+            ]
+          },
+          "equipment": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "pull_up_bar",
+                "dip_station",
+                "trx",
+                "band",
+                "door_anchor",
+                "dumbbell",
+                "kettlebell",
+                "slam_ball",
+                "box",
+                "bench",
+                "wall",
+                "floor",
+                "none",
+                "jump_rope"
+              ]
+            },
+            "minItems": 1
+          },
+          "homeOk": {
+            "type": "boolean"
+          },
+          "loads": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "wrist",
+                "shoulder",
+                "elbow",
+                "knee",
+                "lower_back"
+              ]
+            }
+          },
+          "stretchAreas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "hamstrings",
+                "hip_flexors",
+                "adductors",
+                "back_shoulders",
+                "wrists",
+                "other"
+              ]
+            }
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "warmup",
+                "main",
+                "cooldown"
+              ]
+            },
+            "minItems": 1
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "pnf",
+                "explosive",
+                "straight_arm",
+                "hand_balancing",
+                "needs_wrist_prep",
+                "balance",
+                "spring",
+                "active_flex",
+                "stabiliser"
+              ]
+            }
+          },
+          "dose": {
+            "type": "object",
+            "properties": {
+              "sets": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                ]
+              },
+              "reps": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                ]
+              },
+              "seconds": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                ]
+              },
+              "restSeconds": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "progressionTarget": {
+                "type": "object",
+                "properties": {
+                  "sets": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "reps": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "cmFromFloor": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "sets"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "loggable": {
+            "type": "object",
+            "properties": {
+              "weight": {
+                "type": "boolean"
+              },
+              "band": {
+                "type": "boolean"
+              },
+              "setup": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "trx_angle",
+                      "box_height",
+                      "incline_height",
+                      "foot_elevation"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "cm": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "weight",
+              "band",
+              "setup"
+            ],
+            "additionalProperties": false
+          },
+          "technique": {
+            "type": "object",
+            "properties": {
+              "setup": {
+                "type": "string",
+                "minLength": 1
+              },
+              "cues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 3,
+                "maxItems": 4
+              },
+              "mistakes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 2
+              },
+              "stopIf": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "setup",
+              "cues",
+              "mistakes",
+              "stopIf"
+            ],
+            "additionalProperties": false
+          },
+          "regression": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "progression": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "alternates": {
+            "type": "object",
+            "properties": {
+              "home": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                }
+              },
+              "niggle": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                  }
+                },
+                "propertyNames": {
+                  "enum": [
+                    "wrist",
+                    "shoulder",
+                    "elbow",
+                    "knee",
+                    "lower_back"
+                  ]
+                }
+              },
+              "general": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+                }
+              }
+            },
+            "required": [
+              "home",
+              "niggle"
+            ],
+            "additionalProperties": false
+          },
+          "media": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "exdb"
+                  },
+                  "exdbId": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "exdbId"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "const": "youtube"
+                  },
+                  "videoId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9_-]{11}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "searchHint": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "preferredChannels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "FitnessFAQs",
+                        "Calisthenicmovement",
+                        "Antranik",
+                        "GMB Fitness",
+                        "Bodyweight Warrior",
+                        "Hybrid Calisthenics",
+                        "Stretch Therapy"
+                      ]
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "videoId",
+                  "searchHint",
+                  "preferredChannels"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "pattern",
+          "mode",
+          "equipment",
+          "homeOk",
+          "loads",
+          "phases",
+          "loggable",
+          "technique",
+          "alternates",
+          "media"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

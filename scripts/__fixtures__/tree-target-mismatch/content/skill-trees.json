@@ -1,0 +1,20 @@
+[
+  {
+    "id": "core-tree",
+    "name": "Core tree",
+    "kind": "core",
+    "straightArm": false,
+    "steps": [
+      {
+        "exerciseId": "dead-bug",
+        "target": {
+          "sets": 3,
+          "reps": 10
+        }
+      }
+    ],
+    "maintenance": {
+      "setsPerWeek": 1
+    }
+  }
+]

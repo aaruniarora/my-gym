@@ -1,0 +1,652 @@
+[
+  {
+    "id": "dead-hang",
+    "name": "Dead hang",
+    "aliases": ["passive hang", "bar hang"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder"],
+    "phases": ["warmup", "main"],
+    "dose": { "sets": [3, 3], "seconds": [15, 60], "progressionTarget": { "sets": 3, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on a box under the bar and take an overhand grip just wider than the shoulders. Lift the feet off the box to hang, and step back onto it to finish.",
+      "cues": ["Wrap the thumbs around the bar and squeeze", "Let the arms go fully straight", "Keep the ribs down and legs together", "Breathe slowly through the hold"],
+      "mistakes": ["Dropping off the bar instead of stepping down to the box", "Swinging or kicking the legs", "Holding the breath"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front or top of the shoulder", "Numbness or tingling in the hands or fingers"]
+    },
+    "progression": "active-hang",
+    "alternates": {
+      "home": ["band-straight-arm-pulldown", "band-row"],
+      "niggle": { "shoulder": ["band-row"] }
+    },
+    "media": { "kind": "youtube", "videoId": "dOCQjaasbGs", "searchHint": "Hybrid Calisthenics dead hang how to and benefits", "preferredChannels": ["Hybrid Calisthenics", "FitnessFAQs"] },
+    "sources": ["journal p01", "journal p02"],
+    "notes": "Journal dose: 60 s or max time x3. Start where the hold feels controlled and build towards 60 s."
+  },
+  {
+    "id": "active-hang",
+    "name": "Active hang",
+    "aliases": ["active bar hang", "engaged hang"],
+    "type": "skill_hold",
+    "pattern": "pull",
+    "mode": "time",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder"],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip just wider than the shoulders, starting from a box. Keep the arms straight the whole time.",
+      "cues": ["Pull the shoulders down away from the ears", "Keep the arms straight, don't bend the elbows", "Squeeze the glutes and keep the legs together"],
+      "mistakes": ["Bending the elbows to fake the shoulder pull", "Arching the lower back to lift the chest", "Shrugging back up during the hold"],
+      "stopIf": ["Sharp or joint pain in the shoulder", "Pinching at the front of the shoulder", "Numbness or tingling in the hands"]
+    },
+    "regression": "dead-hang",
+    "progression": "scapular-pull",
+    "alternates": {
+      "home": ["band-straight-arm-pulldown", "band-pull-apart"],
+      "niggle": { "shoulder": ["band-row"] }
+    },
+    "media": { "kind": "youtube", "videoId": "aGpThXQhHuA", "searchHint": "FitnessFAQs active hang scapula depression tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "sources": ["marchon"],
+    "notes": "Marchon uses 20 s active hangs in supersets."
+  },
+  {
+    "id": "scapular-pull",
+    "name": "Scapular pull-up",
+    "aliases": ["scap pull", "scapula pull-up"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder"],
+    "phases": ["warmup", "main"],
+    "dose": { "reps": [10, 12] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Start from a box and hang from the bar with straight arms, overhand grip just wider than the shoulders.",
+      "cues": ["Pull the shoulders down and slightly back", "Keep the elbows straight, the body rises a few centimetres", "Pause one second at the top, then lower slowly to a full hang"],
+      "mistakes": ["Bending the elbows and turning it into a small pull-up", "Swinging to get the body up", "Rushing the lowering"],
+      "stopIf": ["Sharp or joint pain in the shoulder", "Pinching or clicking pain at the front of the shoulder", "Numbness or tingling in the hands"]
+    },
+    "regression": "active-hang",
+    "progression": "trx-row",
+    "alternates": {
+      "home": ["band-straight-arm-pulldown", "band-pull-apart"],
+      "niggle": { "shoulder": ["band-face-pull"] }
+    },
+    "media": { "kind": "exdb", "exdbId": "Scapular_Pull-Up" },
+    "sources": ["journal p02"]
+  },
+  {
+    "id": "trx-row",
+    "name": "TRX row",
+    "aliases": ["ring row", "suspension row"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["trx"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [3, 4], "reps": [8, 12], "restSeconds": 90, "progressionTarget": { "sets": 4, "reps": 12 } },
+    "loggable": { "weight": false, "band": false, "setup": "trx_angle" },
+    "technique": {
+      "setup": "Hold the handles and walk the feet forward until the arms are straight and the body leans back. The more upright you stand, the easier it is: start steep, then walk the feet forward to make it harder.",
+      "cues": ["Body in one line, squeeze glutes", "Pull the shoulders back first, then drive the elbows back", "Handles to the bottom of the ribs", "Lower slowly to straight arms"],
+      "mistakes": ["Hips sagging during the pull", "Shrugging the shoulders to the ears", "Half reps that stop before straight arms"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder"]
+    },
+    "regression": "scapular-pull",
+    "progression": "pull-up-negative",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-face-pull"], "elbow": ["band-pull-apart"] },
+      "general": ["inverted-row"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Suspended_Row" },
+    "sources": ["journal p01", "journal p04", "journal p09"],
+    "notes": "Log the angle as steep, medium or flat (body close to horizontal). Hitting 4x12 at one angle moves to the next flatter angle."
+  },
+  {
+    "id": "band-row",
+    "name": "Band row",
+    "aliases": ["door anchor row", "seated band row"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor"],
+    "homeOk": true,
+    "loads": ["elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [10, 15] },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Anchor the band in a closed door at chest height. Hold both ends, step back until the band is taut with straight arms, and stand tall with soft knees.",
+      "cues": ["Shoulders down and back before the arms move", "Drive the elbows back past the ribs", "Squeeze the shoulder blades for one second", "Return slowly against the band"],
+      "mistakes": ["Leaning back to pull with the body", "Shrugging the shoulders up", "Letting the band snap the arms forward"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "The door or anchor shifting"]
+    },
+    "progression": "trx-row",
+    "alternates": {
+      "home": [],
+      "niggle": { "elbow": ["band-pull-apart"] },
+      "general": ["trx-row", "dumbbell-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "0qUC7wc6E2s", "searchHint": "Calisthenicmovement resistance band row door anchor at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "notes": "Close the door towards you so the anchor pulls the door shut, not open. Hitting 3x15 moves to the next heavier band."
+  },
+  {
+    "id": "inverted-row",
+    "name": "Inverted row",
+    "aliases": ["Australian pull-up", "Australian row", "feet-elevated row"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [3, 4], "reps": [8, 12], "restSeconds": 90, "progressionTarget": { "sets": 4, "reps": 12 } },
+    "loggable": { "weight": false, "band": false, "setup": "foot_elevation" },
+    "technique": {
+      "setup": "Set a bar at about hip height. Lie under it, grip just wider than the shoulders, and straighten the body with heels on the floor (bend the knees to make it easier, raise the feet to make it harder).",
+      "cues": ["Body in one line, squeeze glutes", "Pull the chest to the bar, elbows about 45 degrees", "Pause with the chest at the bar", "Lower slowly to straight arms"],
+      "mistakes": ["Hips sagging or piking up", "Reaching the chin to the bar instead of the chest", "Elbows flared straight out to the sides"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder"]
+    },
+    "regression": "trx-row",
+    "progression": "pull-up-negative",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-face-pull"], "elbow": ["band-pull-apart"] },
+      "general": ["trx-row"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Inverted_Row" },
+    "sources": ["journal p02", "journal p08", "journal p09"],
+    "notes": "Journal: 10-12 x3-4, feet elevated; a variant holds the chest at the bar for 3 s each rep (8x4, p09). Log foot elevation as floor, box or bench."
+  },
+  {
+    "id": "pull-up-negative",
+    "name": "Pull-up slow negative",
+    "aliases": ["eccentric pull-up", "negative chin-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [3, 3], "reps": [3, 5], "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on a box high enough that you can step up into the top position with the chin over the bar. Lower yourself, then step back down onto the box: never drop from a full hang.",
+      "cues": ["Start chin over the bar, shoulders down", "Lower for 3-5 seconds, counting out loud", "Keep tension all the way to straight arms", "Step back onto the box to reset"],
+      "mistakes": ["Dropping fast through the bottom half", "Jumping up and dropping off the bar", "Shrugging the shoulders to the ears at the bottom"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "You can no longer control a 3-second lowering"]
+    },
+    "regression": "trx-row",
+    "progression": "band-assisted-pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["inverted-row"]
+    },
+    "media": { "kind": "youtube", "videoId": "IMvvF2PsIzM", "searchHint": "FitnessFAQs negative pull ups eccentric tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "sources": ["journal p02"],
+    "notes": "Works with either grip (chin-up grip is often easier). Stop the set when a rep drops faster than 3 s."
+  },
+  {
+    "id": "band-assisted-pull-up",
+    "name": "Band-assisted pull-up",
+    "aliases": ["assisted pull-up", "banded pull-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "band", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "sets": [4, 4], "reps": [6, 10], "progressionTarget": { "sets": 4, "reps": 10 } },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Loop the band over the bar and step one foot (or both knees) into it from a box. Grip just wider than the shoulders and hang with straight arms.",
+      "cues": ["Pull the shoulders down first", "Drive the elbows to the ribs", "Chin over the bar, then lower slowly", "Ribs down, legs together"],
+      "mistakes": ["Kicking or swinging to get up", "Half reps that stop before straight arms", "Shrugging the shoulders to the ears"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "The band slipping off the foot"]
+    },
+    "regression": "pull-up-negative",
+    "progression": "pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["trx-row"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Band_Assisted_Pull-Up" },
+    "sources": ["journal p02", "marchon"],
+    "notes": "Hitting 4x10 moves to the next lighter band. Step out of the band onto the box at the end of the set."
+  },
+  {
+    "id": "pull-up",
+    "name": "Strict pull-up",
+    "aliases": ["pull-up", "pullup"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip just wider than the shoulders, arms straight and legs together. Use a box to reach the bar and to step down after the set.",
+      "cues": ["Pull the shoulders down before bending the arms", "Drive the elbows down to the ribs", "Chin clearly over the bar", "Lower under control to straight arms"],
+      "mistakes": ["Kicking or swinging (kipping) to get up", "Half reps that stop before straight arms", "Craning the neck to get the chin over"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "Numbness or tingling in the hands"]
+    },
+    "regression": "band-assisted-pull-up",
+    "progression": "chest-to-bar-pull-up",
+    "alternates": {
+      "home": ["band-row", "band-straight-arm-pulldown"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["chin-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Pullups" },
+    "sources": ["journal p03", "journal p07", "journal p09"],
+    "notes": "Journal formats: 8x4, 5x4 per grip (wide, normal, close), 5 min EMOM with the same reps each minute."
+  },
+  {
+    "id": "chin-up",
+    "name": "Chin-up",
+    "aliases": ["underhand pull-up", "supinated pull-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an underhand grip, hands shoulder-width apart, arms straight. Use a box to reach the bar and to step down after the set.",
+      "cues": ["Shoulders down, chest up", "Pull the elbows down and in to the ribs", "Chin over the bar, then lower slowly", "Keep the wrists straight, not bent back"],
+      "mistakes": ["Swinging or kicking to get up", "Stopping short of straight arms at the bottom", "Gripping so narrow the elbows and wrists twist"],
+      "stopIf": ["Pain on the inside of the elbow or the front of the forearm", "Sharp or joint pain in the shoulder or wrist", "Pinching at the front of the shoulder"]
+    },
+    "regression": "band-assisted-pull-up",
+    "alternates": {
+      "home": ["band-row", "band-curl"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["pull-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Chin-Up" },
+    "sources": ["journal p01", "journal p02", "journal p04", "journal p09"],
+    "notes": "Journal variant: 5 s hold at the top plus a 3 s lowering. Underhand grip stresses the inner elbow more; switch to pull-ups if that area gets sore."
+  },
+  {
+    "id": "chest-to-bar-pull-up",
+    "name": "Chest-to-bar pull-up",
+    "aliases": ["C2B pull-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip just wider than the shoulders, legs together and slightly forward of the bar.",
+      "cues": ["Pull the shoulders down and back hard", "Drive the elbows down behind the body", "Touch the upper chest to the bar", "Lower slowly to straight arms"],
+      "mistakes": ["Kipping or swinging to reach the bar", "Only reaching chin height", "Flaring the ribs to fake the height"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder"]
+    },
+    "regression": "pull-up",
+    "progression": "explosive-pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["pull-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "HdYb6S26gKM", "searchHint": "FitnessFAQs chest to bar pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "Part of the muscle-up gate."
+  },
+  {
+    "id": "explosive-pull-up",
+    "name": "Explosive pull-up",
+    "aliases": ["power pull-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "dose": { "sets": [3, 4], "reps": [3, 5], "restSeconds": 150, "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip just wider than the shoulders, arms straight and body still. Do these fresh, early in the session.",
+      "cues": ["Start from a dead stop, no swing", "Pull as fast as possible, chest towards the bar", "Keep the hands on the bar", "Lower slowly to straight arms"],
+      "mistakes": ["Kipping or swinging to create speed", "Letting go of the bar before the technique is solid", "Grinding slow reps when tired instead of ending the set"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder", "Reps visibly slowing down"]
+    },
+    "regression": "chest-to-bar-pull-up",
+    "progression": "high-pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["chest-to-bar-pull-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "okzIrysCngo", "searchHint": "Calisthenicmovement explosive pull ups tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "notes": "Quality over quantity: end the set as soon as a rep is slower than the first."
+  },
+  {
+    "id": "high-pull-up",
+    "name": "High pull-up",
+    "aliases": ["waist-to-bar pull-up", "explosive high pull-up"],
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["explosive"],
+    "dose": { "sets": [3, 4], "reps": [3, 5], "restSeconds": 150, "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip about shoulder-width, legs together and slightly in front of the bar. Do these fresh, early in the session.",
+      "cues": ["Pull explosively, driving the bar towards the hips", "Lean the shoulders back as you rise", "Keep the legs together and the body tight", "Lower slowly to straight arms"],
+      "mistakes": ["Kicking the legs to get height", "Pulling straight up instead of pulling the bar towards the hips", "Doing them when tired at the end of a session"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder", "Wrist pain from the grip rolling over the bar"]
+    },
+    "regression": "explosive-pull-up",
+    "progression": "band-assisted-muscle-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["chest-to-bar-pull-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "MKwKvjm6m3M", "searchHint": "Calisthenicmovement high pull ups muscle up progression", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "notes": "First step of the muscle-up tree; only after the muscle-up gate (8-10 strict pull-ups, 10 dips, chest-to-bar)."
+  },
+  {
+    "id": "archer-pull-up",
+    "name": "Archer pull-up",
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps_per_side",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [3, 6], "progressionTarget": { "sets": 3, "reps": 6 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Take a wide overhand grip, about twice shoulder-width, and hang with straight arms and legs together.",
+      "cues": ["Pull towards one hand, that elbow bends to the ribs", "Slide the other arm out straight along the bar", "Chin over the working hand", "Lower slowly to the middle, then switch sides"],
+      "mistakes": ["Bending the straight arm so both arms share the work", "Swinging or twisting the body", "Rushing the lowering"],
+      "stopIf": ["Sharp or joint pain in the elbow of the straight arm", "Sharp or joint pain in the shoulder", "Pinching at the front of the shoulder"]
+    },
+    "regression": "pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["chest-to-bar-pull-up"]
+    },
+    "media": { "kind": "youtube", "videoId": "6qtY8j92gA8", "searchHint": "FitnessFAQs archer pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "sources": ["journal p07"],
+    "notes": "Journal dose was 8x4 (alternating); start lower. Part of the one-arm pull-up gate."
+  },
+  {
+    "id": "weighted-pull-up",
+    "name": "Weighted pull-up",
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar", "dumbbell", "box"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hold a light dumbbell between the feet (or use a dip belt) while standing on a box, then take an overhand grip just wider than the shoulders. Step back onto the box after the last rep.",
+      "cues": ["Squeeze the weight tight with the feet", "Shoulders down, then elbows to the ribs", "Chin clearly over the bar", "Lower under control to straight arms"],
+      "mistakes": ["Adding weight before 3x8 strict bodyweight reps", "Swinging the weight to get up", "Dropping off the bar with the weight attached"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Pinching at the front of the shoulder", "The weight starting to slip"]
+    },
+    "regression": "pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["pull-up"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Weighted_Pull_Ups" },
+    "sources": ["journal p06"],
+    "notes": "Journal used a 5 min EMOM. Hitting 3x8 moves to the next weight up."
+  },
+  {
+    "id": "l-sit-pull-up",
+    "name": "L-sit pull-up",
+    "type": "main_strength",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["pull_up_bar"],
+    "homeOk": false,
+    "loads": ["shoulder", "elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [3, 6], "progressionTarget": { "sets": 3, "reps": 6 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hang from the bar with an overhand grip just wider than the shoulders and lift straight legs to hip height (bend the knees into a tuck if needed). Late progression: only once strict pull-ups and an L-sit hold are solid.",
+      "cues": ["Lift the legs first and keep them still", "Shoulders down, then pull the elbows to the ribs", "Chin over the bar without the legs dropping", "Lower slowly to straight arms"],
+      "mistakes": ["Legs dropping or swinging during the pull", "Rounding forward and losing the shoulder position", "Half reps at the bottom"],
+      "stopIf": ["Sharp or joint pain in the shoulder or elbow", "Pinching at the front of the shoulder", "Cramping or sharp pain at the front of the hip"]
+    },
+    "regression": "pull-up",
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
+      "general": ["pull-up", "l-sit"]
+    },
+    "media": { "kind": "youtube", "videoId": "F0SEnDl5HN8", "searchHint": "FitnessFAQs L-sit pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] }
+  },
+  {
+    "id": "band-straight-arm-pulldown",
+    "name": "Band straight-arm pulldown",
+    "aliases": ["straight-arm lat pulldown"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor"],
+    "homeOk": true,
+    "loads": ["shoulder"],
+    "phases": ["warmup", "main"],
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Anchor the band at the top of a closed door. Hold the ends with straight arms in front at head height, step back until taut and hinge slightly forward.",
+      "cues": ["Shoulders down away from the ears", "Sweep the straight arms down to the thighs", "Ribs down, don't arch the back", "Return slowly to head height"],
+      "mistakes": ["Bending the elbows to turn it into a row", "Arching the lower back at the bottom", "Letting the band pull the arms up fast"],
+      "stopIf": ["Sharp or joint pain in the shoulder", "Pinching at the front or top of the shoulder", "The door or anchor shifting"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "shoulder": ["band-row"] },
+      "general": ["scapular-pull"]
+    },
+    "media": { "kind": "youtube", "videoId": "N-847q3CbK4", "searchHint": "Calisthenicmovement resistance band straight arm pulldown lats", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "sources": ["marchon"],
+    "notes": "Home stand-in for hangs and pull-up work: trains the lats and shoulder pull-down without a bar."
+  },
+  {
+    "id": "dumbbell-row",
+    "name": "One-arm dumbbell row",
+    "aliases": ["bench row", "DB row"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps_per_side",
+    "equipment": ["dumbbell", "bench"],
+    "homeOk": false,
+    "loads": ["elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [10, 12] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Place one knee and the same-side hand on a bench, other foot on the floor, back flat. Hold the dumbbell with the free arm hanging straight.",
+      "cues": ["Back flat, neck long", "Pull the elbow back towards the hip", "Squeeze the shoulder blade at the top", "Lower slowly to a full stretch"],
+      "mistakes": ["Twisting the torso to swing the weight up", "Rounding the back", "Shrugging the shoulder to the ear"],
+      "stopIf": ["Sharp or joint pain in the elbow or shoulder", "Sharp pain in the lower back"]
+    },
+    "alternates": {
+      "home": ["band-row"],
+      "niggle": { "elbow": ["band-pull-apart"] },
+      "general": ["band-row", "trx-row"]
+    },
+    "media": { "kind": "exdb", "exdbId": "One-Arm_Dumbbell_Row" },
+    "sources": ["journal p01", "journal p03", "journal p07"],
+    "notes": "Hitting 3x12 per side moves to the next weight up."
+  },
+  {
+    "id": "band-face-pull",
+    "name": "Band face pull",
+    "aliases": ["face pull"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["band", "door_anchor"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "dose": { "reps": [12, 15] },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Anchor a light band in a closed door at face height. Hold the ends with palms facing down, step back until taut and stand tall.",
+      "cues": ["Pull the hands towards the forehead, elbows high", "Rotate the hands back so the fists end beside the ears", "Squeeze the upper back for one second", "Return slowly"],
+      "mistakes": ["Using a band so heavy the lower back arches", "Dropping the elbows into a row", "Shrugging the shoulders up"],
+      "stopIf": ["Pinching at the front or top of the shoulder", "Sharp or joint pain in the shoulder or elbow"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["band-pull-apart"]
+    },
+    "media": { "kind": "youtube", "videoId": "1s-0WtJMsu8", "searchHint": "FitnessFAQs resistance band face pull shoulder health", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "sources": ["journal p08", "journal p11"],
+    "notes": "Light shoulder-health work; the journal pairs it with dips (15x3)."
+  },
+  {
+    "id": "band-pull-apart",
+    "name": "Band pull-apart",
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["band"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "dose": { "reps": [12, 15] },
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Hold a light band in front of the chest with straight arms, hands shoulder-width apart, palms down.",
+      "cues": ["Ribs down, stand tall", "Pull the band apart until it touches the chest", "Keep the arms straight and the shoulders down", "Return slowly"],
+      "mistakes": ["Bending the elbows to make it easier", "Arching the lower back", "Shrugging the shoulders up"],
+      "stopIf": ["Pinching at the front or top of the shoulder", "Sharp or joint pain in the shoulder"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {},
+      "general": ["band-face-pull"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Band_Pull_Apart" },
+    "sources": ["marchon"],
+    "notes": "Warm-up staple before pull or push days."
+  },
+  {
+    "id": "iyt-raise",
+    "name": "IYT raise",
+    "aliases": ["prone I-Y-T", "Y-T-I raise"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["shoulder"],
+    "phases": ["warmup", "main"],
+    "dose": { "reps": [8, 15] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie face down on the floor, forehead on a folded towel, arms straight. Bodyweight is enough to start; very light dumbbells (0.5-2 kg) are optional.",
+      "cues": ["Thumbs up, shoulders down away from the ears", "Lift the arms in an I (overhead), then a Y, then a T", "Lift from the shoulder blades, not the lower back", "Pause one second at the top of each letter"],
+      "mistakes": ["Arching the lower back to lift higher", "Shrugging the shoulders", "Using weights heavy enough to swing"],
+      "stopIf": ["Pinching at the top or front of the shoulder, especially in the I and Y", "Sharp or joint pain in the shoulder"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "shoulder": ["band-pull-apart"] },
+      "general": ["band-face-pull"]
+    },
+    "media": { "kind": "youtube", "videoId": "aFtzZl4ySMo", "searchHint": "Antranik prone Y T I raises scapular strength", "preferredChannels": ["Antranik", "FitnessFAQs"] },
+    "sources": ["journal p01", "journal p08", "journal p11"],
+    "notes": "Reps count per letter: journal used 15 each x3. Can also be done bent over with a band or prone on a bench."
+  },
+  {
+    "id": "dumbbell-curl",
+    "name": "Dumbbell curl",
+    "aliases": ["biceps curl", "hammer curl"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["dumbbell"],
+    "homeOk": false,
+    "loads": ["elbow"],
+    "phases": ["main"],
+    "dose": { "reps": [10, 12] },
+    "loggable": { "weight": true, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with a dumbbell in each hand, arms straight by the sides and palms forward (palms in for hammer curls).",
+      "cues": ["Elbows pinned to the sides", "Curl up without swinging the body", "Squeeze at the top, then lower for 2-3 seconds"],
+      "mistakes": ["Swinging the hips to lift the weight", "Elbows drifting forward", "Dropping the weight on the way down"],
+      "stopIf": ["Sharp pain in the elbow or the front of the forearm", "Sharp or joint pain in the wrist"]
+    },
+    "alternates": {
+      "home": ["band-curl"],
+      "niggle": { "elbow": ["band-pull-apart"] },
+      "general": ["band-curl"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Dumbbell_Bicep_Curl" },
+    "sources": ["journal p03", "journal p04", "journal p06", "journal p09"],
+    "notes": "Journal variant: 10 curls plus a 10 s hammer hold at 90 degrees. Hitting 3x12 moves to the next weight up."
+  },
+  {
+    "id": "band-curl",
+    "name": "Band curl",
+    "aliases": ["resistance band biceps curl"],
+    "type": "accessory",
+    "pattern": "pull",
+    "mode": "reps",
+    "equipment": ["band"],
+    "homeOk": true,
+    "loads": ["elbow"],
+    "phases": ["main"],
+    "loggable": { "weight": false, "band": true, "setup": null },
+    "technique": {
+      "setup": "Stand on the middle of the band with feet hip-width apart and hold the ends, arms straight by the sides, palms forward.",
+      "cues": ["Elbows pinned to the sides", "Curl up without leaning back", "Squeeze at the top, then lower slowly against the band"],
+      "mistakes": ["Leaning back to finish the rep", "Elbows drifting forward", "Letting the band snap the hands down"],
+      "stopIf": ["Sharp pain in the elbow or the front of the forearm", "Sharp or joint pain in the wrist", "The band slipping from under the feet"]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": { "elbow": ["band-pull-apart"] },
+      "general": ["dumbbell-curl"]
+    },
+    "media": { "kind": "youtube", "videoId": "3g-1J2KkX_8", "searchHint": "Calisthenicmovement resistance band biceps curl at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "notes": "Hitting 3x15 moves to the next heavier band."
+  }
+]

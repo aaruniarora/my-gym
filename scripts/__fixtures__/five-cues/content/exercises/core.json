@@ -1,0 +1,58 @@
+[
+  {
+    "id": "dead-bug",
+    "name": "Dead bug",
+    "aliases": [
+      "deadbug"
+    ],
+    "type": "core",
+    "pattern": "core",
+    "mode": "reps",
+    "equipment": [
+      "floor"
+    ],
+    "homeOk": true,
+    "loads": [],
+    "phases": [
+      "main",
+      "warmup"
+    ],
+    "loggable": {
+      "weight": false,
+      "band": false,
+      "setup": null
+    },
+    "technique": {
+      "setup": "Lie on your back with arms pointing to the ceiling and knees bent at 90 degrees above the hips. Press the lower back into the floor.",
+      "cues": [
+        "Press the lower back into the floor",
+        "Reach the opposite arm and leg away slowly",
+        "Breathe out as you reach",
+        "Cue four",
+        "Cue five"
+      ],
+      "mistakes": [
+        "Lower back lifting as the leg extends",
+        "Rushing the reps",
+        "Moving the arm and leg on the same side"
+      ],
+      "stopIf": [
+        "Sharp pain in the lower back or hips"
+      ]
+    },
+    "alternates": {
+      "home": [],
+      "niggle": {}
+    },
+    "media": {
+      "kind": "exdb",
+      "exdbId": "Dead_Bug"
+    },
+    "sources": [
+      "journal p01",
+      "journal p10",
+      "marchon"
+    ],
+    "notes": "Count each side as one rep."
+  }
+]
