@@ -53,7 +53,7 @@
       "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
       "general": ["bodyweight-squat"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness box squat pistol squat progression", "preferredChannels": ["GMB Fitness", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "7LpLZOdz68A", "searchHint": "GMB Fitness box squat pistol squat progression", "preferredChannels": ["GMB Fitness", "Calisthenicmovement"] },
     "notes": "First step of the pistol tree. Progress by lowering the box before moving on."
   },
   {
@@ -137,7 +137,7 @@
       "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
       "general": ["step-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Hybrid Calisthenics Bulgarian split squat form tutorial", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "lG3MsPmEQQk", "searchHint": "Hybrid Calisthenics Bulgarian split squat form tutorial", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] },
     "sources": ["journal p04", "marchon"],
     "notes": "Journal: 8 each x3 at 15 kg; marchon 5-10 with KB or dual DB."
   },
@@ -166,7 +166,7 @@
       "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
       "general": ["bulgarian-split-squat"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs assisted pistol squat progression TRX", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "jUQzp0KWgQY", "searchHint": "FitnessFAQs assisted pistol squat progression TRX", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
     "sources": ["journal p08"],
     "notes": "Journal: 6 per leg, slow 3 s down, x3. Use less arm help as you progress."
   },
@@ -222,7 +222,7 @@
       "niggle": { "knee": ["glute-bridge", "hip-thrust"] },
       "general": ["bulgarian-split-squat"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness pistol squat tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "F85WzNX3YPw", "searchHint": "GMB Fitness pistol squat tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
     "sources": ["journal p06", "journal p08"],
     "notes": "Journal: 5 per leg x3; 6 per leg slow 3 s down x3. Hold a light weight forward if balance limits depth."
   },
@@ -279,7 +279,7 @@
       "niggle": {},
       "general": ["glute-bridge", "single-leg-rdl"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "lying banded hamstring curl door anchor form", "preferredChannels": ["Bodyweight Warrior", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "Yb6H3iJlo8g", "searchHint": "lying banded hamstring curl door anchor form", "preferredChannels": ["Bodyweight Warrior", "Antranik"] },
     "sources": ["journal p06"],
     "notes": "Journal: lying hamstring curl 12x3. One leg at a time once both legs is easy with the heaviest band."
   },
@@ -478,7 +478,7 @@
       "niggle": { "knee": ["glute-bridge"] },
       "general": ["split-squat"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness cossack squat tutorial", "preferredChannels": ["GMB Fitness", "Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "4CXGCpxx7Rg", "searchHint": "GMB Fitness cossack squat tutorial", "preferredChannels": ["GMB Fitness", "Bodyweight Warrior"] },
     "sources": ["journal p06"],
     "notes": "Journal: 10 each x3. Also works as an adductor warm-up."
   },

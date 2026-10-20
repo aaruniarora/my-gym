@@ -21,7 +21,7 @@
     "regression": "dead-bug",
     "progression": "hollow-rock",
     "alternates": { "home": [], "niggle": {}, "general": ["dead-bug", "plank"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik hollow body hold tutorial progression", "preferredChannels": ["Antranik", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "LlDNef_Ztsc", "searchHint": "Antranik hollow body hold tutorial progression", "preferredChannels": ["Antranik", "GMB Fitness"] },
     "sources": ["journal p03", "journal p11", "marchon"],
     "notes": "Regress by bending the knees or bringing the arms to the sides. Gate test for front lever (30 s)."
   },
@@ -45,7 +45,7 @@
     },
     "regression": "hollow-hold",
     "alternates": { "home": [], "niggle": {}, "general": ["v-up"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness hollow body rock tutorial", "preferredChannels": ["GMB Fitness", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "YBxhBkD4gYU", "searchHint": "GMB Fitness hollow body rock tutorial", "preferredChannels": ["GMB Fitness", "Antranik"] },
     "sources": ["journal p04", "marchon"]
   },
   {
@@ -140,7 +140,7 @@
     },
     "regression": "plank",
     "alternates": { "home": [], "niggle": { "shoulder": ["dead-bug"] }, "general": ["plank"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement side plank correct form", "preferredChannels": ["Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "txXmXESlzwA", "searchHint": "Calisthenicmovement side plank correct form", "preferredChannels": ["Calisthenicmovement"] },
     "sources": ["journal p01", "journal p10"],
     "notes": "Regress by bending the bottom knee and resting it on the floor."
   },
@@ -165,7 +165,7 @@
     "regression": "seated-leg-lift",
     "progression": "hanging-leg-raise",
     "alternates": { "home": ["dead-bug", "hollow-hold"], "niggle": { "shoulder": ["dead-bug", "seated-leg-lift"] }, "general": ["v-up"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement hanging knee raise tutorial beginner", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "l7OroezzX9k", "searchHint": "Calisthenicmovement hanging knee raise tutorial beginner", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "sources": ["journal p02"]
   },
   {
@@ -238,7 +238,7 @@
     },
     "progression": "l-sit-foot-supported",
     "alternates": { "home": [], "niggle": {}, "general": ["hanging-knee-raise"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs seated leg lifts compression L-sit", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "iTX2lgpH7sw", "searchHint": "FitnessFAQs seated leg lifts compression L-sit", "preferredChannels": ["FitnessFAQs", "Antranik"] },
     "sources": ["journal p11"],
     "notes": "Builds the compression strength the L-sit tree needs."
   },
@@ -263,7 +263,7 @@
     "regression": "seated-leg-lift",
     "progression": "tuck-l-sit",
     "alternates": { "home": ["seated-leg-lift", "hollow-hold"], "niggle": { "wrist": ["hollow-hold", "hanging-knee-raise"], "shoulder": ["dead-bug", "seated-leg-lift"] } },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs L-sit progression parallel bars beginner", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "nusni3Mawr8", "searchHint": "FitnessFAQs L-sit progression parallel bars beginner", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p06", "journal p07", "journal p09", "journal p11"]
   },
   {
@@ -287,7 +287,7 @@
     "regression": "l-sit-foot-supported",
     "progression": "one-leg-l-sit",
     "alternates": { "home": ["seated-leg-lift", "hollow-hold"], "niggle": { "wrist": ["hollow-hold", "hanging-knee-raise"], "shoulder": ["dead-bug", "seated-leg-lift"] } },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs tuck L-sit parallettes dip bars tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "z-gbvxX8fHg", "searchHint": "FitnessFAQs tuck L-sit parallettes dip bars tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p06", "journal p07", "journal p09", "journal p11"]
   },
   {
@@ -311,7 +311,7 @@
     "regression": "tuck-l-sit",
     "progression": "l-sit",
     "alternates": { "home": ["seated-leg-lift", "hollow-hold"], "niggle": { "wrist": ["hollow-hold", "hanging-knee-raise"], "shoulder": ["dead-bug", "seated-leg-lift"] } },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement L-sit progression one leg", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "Jb5_jIiEl8E", "searchHint": "Calisthenicmovement L-sit progression one leg", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "sources": ["journal p06", "journal p07", "journal p09", "journal p11"],
     "notes": "Alternate the straight leg between sets so both sides get equal time."
   },
@@ -337,7 +337,7 @@
     "regression": "one-leg-l-sit",
     "progression": "v-sit",
     "alternates": { "home": ["seated-leg-lift", "hollow-hold"], "niggle": { "wrist": ["hollow-hold", "hanging-knee-raise"], "shoulder": ["dead-bug", "seated-leg-lift"] } },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs perfect L-sit tutorial dip bars", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "iTX2lgpH7sw", "searchHint": "FitnessFAQs perfect L-sit tutorial dip bars", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p06", "journal p07", "journal p09", "journal p11"]
   },
   {
@@ -360,7 +360,7 @@
     },
     "regression": "l-sit",
     "alternates": { "home": ["seated-leg-lift", "v-up"], "niggle": { "wrist": ["hollow-hold", "hanging-knee-raise"], "shoulder": ["dead-bug", "seated-leg-lift"] } },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs V-sit progression tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "iLHva1nqDM8", "searchHint": "FitnessFAQs V-sit progression tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p07", "journal p09", "journal p11"],
     "notes": "Needs good pike flexibility; pair with seated-pike work."
   },
@@ -384,7 +384,7 @@
     "regression": "hanging-leg-raise",
     "progression": "dragon-flag-straddle-negative",
     "alternates": { "home": ["hollow-hold", "dead-bug"], "niggle": { "lower_back": ["dead-bug", "side-plank"], "shoulder": ["dead-bug"] }, "general": ["hanging-leg-raise"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs dragon flag progression tuck negative", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "1SMBYF0UTQs", "searchHint": "FitnessFAQs dragon flag progression tuck negative", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p03", "journal p08", "journal p09"],
     "notes": "Tree gate: 10 hanging leg raises. Lower only as far as the straight line holds."
   },
@@ -408,7 +408,7 @@
     "regression": "dragon-flag-tuck-negative",
     "progression": "dragon-flag-negative",
     "alternates": { "home": ["hollow-hold", "dead-bug"], "niggle": { "lower_back": ["dead-bug", "side-plank"], "shoulder": ["dead-bug"] }, "general": ["hanging-leg-raise"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs dragon flag straddle negative progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "Ang8Fpaab_w", "searchHint": "FitnessFAQs dragon flag straddle negative progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p03", "journal p08", "journal p09"]
   },
   {
@@ -432,7 +432,7 @@
     "regression": "dragon-flag-straddle-negative",
     "progression": "dragon-flag",
     "alternates": { "home": ["hollow-hold", "dead-bug"], "niggle": { "lower_back": ["dead-bug", "side-plank"], "shoulder": ["dead-bug"] }, "general": ["hanging-leg-raise"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement dragon flag negatives tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "myyWJ5oFqiU", "searchHint": "Calisthenicmovement dragon flag negatives tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "sources": ["journal p03", "journal p08", "journal p09"]
   },
   {
@@ -454,7 +454,7 @@
     },
     "regression": "dragon-flag-negative",
     "alternates": { "home": ["hollow-hold", "v-up"], "niggle": { "lower_back": ["dead-bug", "side-plank"], "shoulder": ["dead-bug"] }, "general": ["hanging-leg-raise"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs dragon flag full tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "yFiNw9EsJfI", "searchHint": "FitnessFAQs dragon flag full tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p03", "journal p08", "journal p09"]
   }
 ]

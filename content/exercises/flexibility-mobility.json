@@ -26,7 +26,7 @@
       "niggle": { "knee": ["standing-hamstring-stretch", "seated-pike"] },
       "general": ["couch-stretch", "standing-hamstring-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior front splits tutorial", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "DYoySkNc_ms", "searchHint": "Bodyweight Warrior front splits tutorial", "preferredChannels": ["Bodyweight Warrior"] },
     "sources": ["F45 groin + hamstring stretch"],
     "notes": "Measured as cm from the floor per side. Avoid deep splits within 24-48 h after a hard dance class."
   },
@@ -58,7 +58,7 @@
       "niggle": { "knee": ["standing-hamstring-stretch", "seated-pike"] },
       "general": ["front-split-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Stretch Therapy Kit Laughlin front splits contract relax", "preferredChannels": ["Stretch Therapy"] },
+    "media": { "kind": "youtube", "videoId": "ZColkKrMzSY", "searchHint": "Stretch Therapy Kit Laughlin front splits contract relax", "preferredChannels": ["Stretch Therapy"] },
     "notes": "Cool-down only, never before explosive work."
   },
   {
@@ -87,7 +87,7 @@
       "niggle": { "knee": ["standing-hamstring-stretch", "leg-swing"] },
       "general": ["leg-swing"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior active front splits end range strength", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "X2rI0D6poeg", "searchHint": "Bodyweight Warrior active front splits end range strength", "preferredChannels": ["Bodyweight Warrior"] },
     "notes": "Active end-range work per Tom Merrick / Kit Laughlin. An ankle weight can be added later; the schema has no ankle-weight equipment."
   },
   {
@@ -117,7 +117,7 @@
       "niggle": { "knee": ["pancake-passive"] },
       "general": ["frog-stretch", "pancake-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Stretch Therapy Kit Laughlin middle splits", "preferredChannels": ["Stretch Therapy", "Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "C8OxxaDs8Tg", "searchHint": "Stretch Therapy Kit Laughlin middle splits", "preferredChannels": ["Stretch Therapy", "Bodyweight Warrior"] },
     "sources": ["F45 groin + hamstring stretch"],
     "notes": "Measured as cm from the floor. Avoid deep splits within 24-48 h after a hard dance class."
   },
@@ -149,7 +149,7 @@
       "niggle": { "knee": ["pancake-passive"] },
       "general": ["middle-split-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Stretch Therapy Kit Laughlin side splits contract relax", "preferredChannels": ["Stretch Therapy"] },
+    "media": { "kind": "youtube", "videoId": "Fkm-SK46Yek", "searchHint": "Stretch Therapy Kit Laughlin side splits contract relax", "preferredChannels": ["Stretch Therapy"] },
     "notes": "Cool-down only, never before explosive work."
   },
   {
@@ -178,7 +178,7 @@
       "niggle": { "knee": ["pancake-passive"] },
       "general": ["frog-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior horse stance middle split strength", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "r2SOTNnAcZA", "searchHint": "Bodyweight Warrior horse stance middle split strength", "preferredChannels": ["Bodyweight Warrior"] },
     "notes": "Active end-range work for the middle split; widen the stance gradually over weeks."
   },
   {
@@ -207,7 +207,7 @@
       "niggle": {},
       "general": ["standing-hamstring-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Stretch Therapy Kit Laughlin pike stretch", "preferredChannels": ["Stretch Therapy"] }
+    "media": { "kind": "youtube", "videoId": "bK7YObWmVzM", "searchHint": "Stretch Therapy Kit Laughlin pike stretch", "preferredChannels": ["Stretch Therapy"] }
   },
   {
     "id": "loaded-pike",
@@ -236,7 +236,7 @@
       "niggle": { "lower_back": ["seated-pike", "standing-hamstring-stretch"] },
       "general": ["jefferson-curl"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior loaded pike stretch dumbbell", "preferredChannels": ["Bodyweight Warrior", "Stretch Therapy"] },
+    "media": { "kind": "youtube", "videoId": "TROCCITlBrE", "searchHint": "Bodyweight Warrior loaded pike stretch dumbbell", "preferredChannels": ["Bodyweight Warrior", "Stretch Therapy"] },
     "notes": "Add weight only when 3x10 feels easy and pain-free."
   },
   {
@@ -266,7 +266,7 @@
       "niggle": {},
       "general": ["frog-stretch", "middle-split-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Stretch Therapy Kit Laughlin pancake tutorial", "preferredChannels": ["Stretch Therapy"] },
+    "media": { "kind": "youtube", "videoId": "iLp36zBlXW8", "searchHint": "Stretch Therapy Kit Laughlin pancake tutorial", "preferredChannels": ["Stretch Therapy"] },
     "sources": ["F45 groin + hamstring stretch"],
     "notes": "Measured as chest-to-floor cm."
   },
@@ -296,7 +296,7 @@
       "niggle": {},
       "general": ["pancake-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior pancake active leg lifts", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "Ekv-AUVRm1k", "searchHint": "Bodyweight Warrior pancake active leg lifts", "preferredChannels": ["Bodyweight Warrior"] },
     "notes": "Active end-range work for the pancake; cramping at the hip flexors is common at first, so rest and shake it out."
   },
   {
@@ -331,7 +331,7 @@
       },
       "general": ["glute-bridge"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness reverse table top bridge tutorial", "preferredChannels": ["GMB Fitness", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "xkq_qm9LIWs", "searchHint": "GMB Fitness reverse table top bridge tutorial", "preferredChannels": ["GMB Fitness", "Antranik"] },
     "sources": ["journal p03", "journal p06", "journal p08"]
   },
   {
@@ -366,7 +366,7 @@
       },
       "general": ["table-top"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik wall walk down bridge tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "eZM7D_AEVyA", "searchHint": "Antranik wall walk down bridge tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] },
     "sources": ["journal p03", "journal p06", "journal p08"]
   },
   {
@@ -401,7 +401,7 @@
       },
       "general": ["table-top", "couch-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik bridge progression tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "H-iGvObdHCI", "searchHint": "Antranik bridge progression tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] },
     "sources": ["journal p03", "journal p06", "journal p08"],
     "notes": "Test is pass/fail with the variant reached."
   },
@@ -436,7 +436,7 @@
       },
       "general": ["bridge"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs handstand to bridge tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "FuYP4rQPwJA", "searchHint": "FitnessFAQs handstand to bridge tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
     "sources": ["journal p03", "journal p06", "journal p08"],
     "notes": "Late-stage and gated: only unlocks once the full bridge and a chest-to-wall handstand hold are solid (gate defined in the bridge skill tree)."
   },
@@ -465,7 +465,7 @@
       "niggle": { "knee": ["glute-bridge"] },
       "general": ["worlds-greatest-stretch", "front-split-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior couch stretch hip flexor tutorial", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "tEjsMaHKdMA", "searchHint": "Bodyweight Warrior couch stretch hip flexor tutorial", "preferredChannels": ["Bodyweight Warrior"] },
     "sources": ["F45 Samson stretch"]
   },
   {
@@ -523,7 +523,7 @@
       "niggle": { "knee": ["pancake-passive"] },
       "general": ["pancake-passive"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik frog stretch tutorial", "preferredChannels": ["Antranik"] },
+    "media": { "kind": "youtube", "videoId": "orMZYFWo9P0", "searchHint": "Antranik frog stretch tutorial", "preferredChannels": ["Antranik"] },
     "sources": ["F45 kneeling frog rotation"]
   },
   {
@@ -551,7 +551,7 @@
       "niggle": { "knee": ["hip-circle"] },
       "general": ["pigeon-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness 90 90 hip stretch", "preferredChannels": ["GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "YOwyHOXuNEw", "searchHint": "GMB Fitness 90 90 hip stretch", "preferredChannels": ["GMB Fitness"] },
     "notes": "Hip rotation stretch; tracked under 'other'."
   },
   {
@@ -579,7 +579,7 @@
       "niggle": { "knee": ["hip-circle"] },
       "general": ["ninety-ninety"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik pigeon stretch tutorial", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "pjmR5Kacu1w", "searchHint": "Antranik pigeon stretch tutorial", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "lat-stretch",
@@ -606,7 +606,7 @@
       "niggle": { "shoulder": ["cat-cow"] },
       "general": ["thoracic-extension"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik wall lat stretch", "preferredChannels": ["Antranik"] },
+    "media": { "kind": "youtube", "videoId": "KndXFCRPnCQ", "searchHint": "Antranik wall lat stretch", "preferredChannels": ["Antranik"] },
     "sources": ["F45 dynamic prayer stretch"]
   },
   {
@@ -633,7 +633,7 @@
       "niggle": {},
       "general": ["cat-cow", "lat-stretch"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs thoracic extension mobility", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "Jx6z6OWbD9Y", "searchHint": "FitnessFAQs thoracic extension mobility", "preferredChannels": ["FitnessFAQs", "Antranik"] },
     "sources": ["journal plate 180 rotation kneeling"]
   },
   {
@@ -768,7 +768,7 @@
       "niggle": { "lower_back": ["standing-hamstring-stretch", "dead-bug"] },
       "general": ["loaded-pike"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior jefferson curl tutorial", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "4RHGRbooSCY", "searchHint": "Bodyweight Warrior jefferson curl tutorial", "preferredChannels": ["Bodyweight Warrior"] },
     "notes": "Start with bodyweight for 2-4 weeks, then add 2 kg at a time. Skip entirely on lower-back niggle days."
   },
   {
@@ -792,7 +792,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Pinching at the front or top of the shoulder", "Clicking with pain or numbness down the arm"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["wall-slide"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "shoulder CARs controlled articular rotations tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] }
+    "media": { "kind": "youtube", "videoId": "QRmjqjGlIGI", "searchHint": "shoulder CARs controlled articular rotations tutorial", "preferredChannels": ["Antranik", "GMB Fitness"] }
   },
   {
     "id": "wall-slide",
@@ -814,7 +814,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Pinching at the front or top of the shoulder", "Tingling or numbness in the hands"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["shoulder-cars"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "wall slides shoulder mobility tutorial", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "GLty-L_JxXk", "searchHint": "wall slides shoulder mobility tutorial", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "band-external-rotation",
@@ -881,7 +881,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp or joint pain in the wrist", "Numbness or tingling in the fingers"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["wrist-circles", "wrist-prep"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness gentle wrist rocks quadruped wrist mobility", "preferredChannels": ["GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "3PqdoHsxpSI", "searchHint": "GMB Fitness gentle wrist rocks quadruped wrist mobility", "preferredChannels": ["GMB Fitness"] },
     "notes": "A lighter version of the rocks in wrist-prep, for niggle days."
   },
   {
@@ -905,7 +905,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp or joint pain in the elbow", "Tingling in the ring and little fingers"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["wrist-circles"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "elbow CARs controlled articular rotations forearm mobility", "preferredChannels": ["GMB Fitness", "Antranik"] }
+    "media": { "kind": "youtube", "videoId": "rSe4GbwkeV4", "searchHint": "elbow CARs controlled articular rotations forearm mobility", "preferredChannels": ["GMB Fitness", "Antranik"] }
   },
   {
     "id": "forearm-flexor-stretch",
@@ -928,7 +928,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp pain in the elbow or wrist", "Numbness or tingling in the fingers"]
     },
     "alternates": { "home": [], "niggle": { "wrist": ["elbow-cars"] }, "general": ["forearm-extensor-stretch"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "standing forearm flexor stretch palm up", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "R7dI2ZcbiMI", "searchHint": "standing forearm flexor stretch palm up", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "forearm-extensor-stretch",
@@ -951,7 +951,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp pain on the outside of the elbow", "Numbness or tingling in the fingers"]
     },
     "alternates": { "home": [], "niggle": { "wrist": ["elbow-cars"] }, "general": ["forearm-flexor-stretch"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "standing forearm extensor stretch palm down", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "_uINTR_7X-g", "searchHint": "standing forearm extensor stretch palm down", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "heel-slides",
@@ -973,7 +973,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp or joint pain in the knee", "Locking or giving way of the knee"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["band-terminal-knee-extension"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "heel slides knee mobility exercise", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "dPf8_MgS1aI", "searchHint": "heel slides knee mobility exercise", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "band-terminal-knee-extension",
@@ -996,7 +996,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp or joint pain in the knee", "Pain behind the knee"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["heel-slides"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "band terminal knee extension TKE tutorial", "preferredChannels": ["Antranik"] }
+    "media": { "kind": "youtube", "videoId": "lwOa51EzoTw", "searchHint": "band terminal knee extension TKE tutorial", "preferredChannels": ["Antranik"] }
   },
   {
     "id": "pelvic-tilt",
@@ -1018,7 +1018,7 @@
       "stopIf": ["Any pain: stop, this block must be pain-free", "Sharp pain in the back", "Tingling or numbness down the legs"]
     },
     "alternates": { "home": [], "niggle": {}, "general": ["cat-cow"] },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "lying pelvic tilt lower back mobility", "preferredChannels": ["Antranik", "Bodyweight Warrior"] }
+    "media": { "kind": "youtube", "videoId": "44D6Xc2Fkek", "searchHint": "lying pelvic tilt lower back mobility", "preferredChannels": ["Antranik", "Bodyweight Warrior"] }
   },
   {
     "id": "child-pose",

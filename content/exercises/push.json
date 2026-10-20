@@ -22,7 +22,7 @@
       "home": [],
       "niggle": { "wrist": ["band-chest-press", "fist-push-up"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement wall push up beginner tutorial", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "wIPJvBQs7RA", "searchHint": "Calisthenicmovement wall push up beginner tutorial", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "notes": "Starting point if knee or incline push-ups are not yet possible with good form."
   },
   {
@@ -88,7 +88,7 @@
       },
       "general": ["incline-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Hybrid Calisthenics knee push up proper form beginner", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] }
+    "media": { "kind": "youtube", "videoId": "rjumPBY3OF0", "searchHint": "Hybrid Calisthenics knee push up proper form beginner", "preferredChannels": ["Hybrid Calisthenics", "Calisthenicmovement"] }
   },
   {
     "id": "full-push-up",
@@ -184,7 +184,7 @@
       },
       "general": ["full-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs archer push up tutorial progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "mzr0RYNDzzI", "searchHint": "FitnessFAQs archer push up tutorial progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p06", "journal p11"],
     "notes": "Journal dose was 8x4 or 8-10 x3, with normal push-ups as the fallback."
   },
@@ -217,7 +217,7 @@
       },
       "general": ["planche-lean"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs pseudo planche push up tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "odcPqBOlJhI", "searchHint": "FitnessFAQs pseudo planche push up tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
     "sources": ["journal p02"],
     "notes": "Bent-arm, so not straight_arm, but it loads the wrists heavily. Journal dose was 6-8 x3."
   },
@@ -248,7 +248,7 @@
       },
       "general": ["dumbbell-handle-push-up", "full-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "knuckle push up wrist pain alternative Antranik", "preferredChannels": ["Antranik", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "-McYRB8GqCo", "searchHint": "knuckle push up wrist pain alternative Antranik", "preferredChannels": ["Antranik", "FitnessFAQs"] },
     "notes": "Wrist-niggle alternate for palm-loaded pushing: neutral wrist, no extension. Can be done from the knees."
   },
   {
@@ -278,7 +278,7 @@
       },
       "general": ["fist-push-up", "full-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "push up on dumbbells neutral grip wrist friendly form", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "VrSGEXrwZAc", "searchHint": "push up on dumbbells neutral grip wrist friendly form", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "notes": "Wrist-niggle alternate for palm-loaded pushing: neutral wrist, no extension. Stay within a normal push-up depth."
   },
   {
@@ -336,7 +336,7 @@
       "niggle": { "shoulder": ["band-triceps-pressdown"] },
       "general": ["knee-push-up", "incline-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "resistance band chest press door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "7q2395GvhZc", "searchHint": "resistance band chest press door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "notes": "Wrist-niggle option for pushing at home: wrists stay neutral. Use a heavier band when 3x15 is easy."
   },
   {
@@ -399,7 +399,7 @@
         "shoulder": ["band-triceps-pressdown"]
       }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement parallel bar support hold dip beginner", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] }
+    "media": { "kind": "youtube", "videoId": "_vPttkLHZMw", "searchHint": "Calisthenicmovement parallel bar support hold dip beginner", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] }
   },
   {
     "id": "band-assisted-dip",
@@ -430,7 +430,7 @@
       },
       "general": ["bench-dip"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "band assisted dip tutorial parallel bars", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "yd3bFBUFYZI", "searchHint": "band assisted dip tutorial parallel bars", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "sources": ["marchon"],
     "notes": "Marchon: banded dips 5-10 to hit the top of the range. Hitting 4x10 moves to the next lighter band."
   },
@@ -463,7 +463,7 @@
       },
       "general": ["band-assisted-dip"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "negative dip eccentric tutorial beginner", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] }
+    "media": { "kind": "youtube", "videoId": "y9yrMvmS-yU", "searchHint": "negative dip eccentric tutorial beginner", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] }
   },
   {
     "id": "dip",
@@ -608,7 +608,7 @@
       "niggle": { "elbow": ["lateral-raise", "hollow-hold"] },
       "general": ["bench-dip"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "resistance band tricep pushdown door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "vV1ukiLSZZc", "searchHint": "resistance band tricep pushdown door anchor form", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "notes": "Shoulder-friendly triceps work; the default shoulder-niggle swap for dips and push-ups."
   }
 ]

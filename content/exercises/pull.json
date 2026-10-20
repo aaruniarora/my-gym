@@ -23,7 +23,7 @@
       "home": ["band-straight-arm-pulldown", "band-row"],
       "niggle": { "shoulder": ["band-row"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Hybrid Calisthenics dead hang how to and benefits", "preferredChannels": ["Hybrid Calisthenics", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "dOCQjaasbGs", "searchHint": "Hybrid Calisthenics dead hang how to and benefits", "preferredChannels": ["Hybrid Calisthenics", "FitnessFAQs"] },
     "sources": ["journal p01", "journal p02"],
     "notes": "Journal dose: 60 s or max time x3. Start where the hold feels controlled and build towards 60 s."
   },
@@ -51,7 +51,7 @@
       "home": ["band-straight-arm-pulldown", "band-pull-apart"],
       "niggle": { "shoulder": ["band-row"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs active hang scapula depression tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "aGpThXQhHuA", "searchHint": "FitnessFAQs active hang scapula depression tutorial", "preferredChannels": ["FitnessFAQs", "Antranik"] },
     "sources": ["marchon"],
     "notes": "Marchon uses 20 s active hangs in supersets."
   },
@@ -138,7 +138,7 @@
       "niggle": { "elbow": ["band-pull-apart"] },
       "general": ["trx-row", "dumbbell-row"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement resistance band row door anchor at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "0qUC7wc6E2s", "searchHint": "Calisthenicmovement resistance band row door anchor at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "notes": "Close the door towards you so the anchor pulls the door shut, not open. Hitting 3x15 moves to the next heavier band."
   },
   {
@@ -197,7 +197,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["inverted-row"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs negative pull ups eccentric tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "IMvvF2PsIzM", "searchHint": "FitnessFAQs negative pull ups eccentric tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p02"],
     "notes": "Works with either grip (chin-up grip is often easier). Stop the set when a rep drops faster than 3 s."
   },
@@ -313,7 +313,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["pull-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs chest to bar pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "HdYb6S26gKM", "searchHint": "FitnessFAQs chest to bar pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "notes": "Part of the muscle-up gate."
   },
   {
@@ -343,7 +343,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["chest-to-bar-pull-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement explosive pull ups tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "okzIrysCngo", "searchHint": "Calisthenicmovement explosive pull ups tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "notes": "Quality over quantity: end the set as soon as a rep is slower than the first."
   },
   {
@@ -373,7 +373,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["chest-to-bar-pull-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement high pull ups muscle up progression", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "MKwKvjm6m3M", "searchHint": "Calisthenicmovement high pull ups muscle up progression", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "notes": "First step of the muscle-up tree; only after the muscle-up gate (8-10 strict pull-ups, 10 dips, chest-to-bar)."
   },
   {
@@ -400,7 +400,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["chest-to-bar-pull-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs archer pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "6qtY8j92gA8", "searchHint": "FitnessFAQs archer pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p07"],
     "notes": "Journal dose was 8x4 (alternating); start lower. Part of the one-arm pull-up gate."
   },
@@ -455,7 +455,7 @@
       "niggle": { "shoulder": ["band-row"], "elbow": ["band-pull-apart"] },
       "general": ["pull-up", "l-sit"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs L-sit pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] }
+    "media": { "kind": "youtube", "videoId": "F0SEnDl5HN8", "searchHint": "FitnessFAQs L-sit pull up tutorial", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] }
   },
   {
     "id": "band-straight-arm-pulldown",
@@ -480,7 +480,7 @@
       "niggle": { "shoulder": ["band-row"] },
       "general": ["scapular-pull"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement resistance band straight arm pulldown lats", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "N-847q3CbK4", "searchHint": "Calisthenicmovement resistance band straight arm pulldown lats", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "sources": ["marchon"],
     "notes": "Home stand-in for hangs and pull-up work: trains the lats and shoulder pull-down without a bar."
   },
@@ -536,7 +536,7 @@
       "niggle": {},
       "general": ["band-pull-apart"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs resistance band face pull shoulder health", "preferredChannels": ["FitnessFAQs", "Antranik"] },
+    "media": { "kind": "youtube", "videoId": "1s-0WtJMsu8", "searchHint": "FitnessFAQs resistance band face pull shoulder health", "preferredChannels": ["FitnessFAQs", "Antranik"] },
     "sources": ["journal p08", "journal p11"],
     "notes": "Light shoulder-health work; the journal pairs it with dips (15x3)."
   },
@@ -591,7 +591,7 @@
       "niggle": { "shoulder": ["band-pull-apart"] },
       "general": ["band-face-pull"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Antranik prone Y T I raises scapular strength", "preferredChannels": ["Antranik", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "aFtzZl4ySMo", "searchHint": "Antranik prone Y T I raises scapular strength", "preferredChannels": ["Antranik", "FitnessFAQs"] },
     "sources": ["journal p01", "journal p08", "journal p11"],
     "notes": "Reps count per letter: journal used 15 each x3. Can also be done bent over with a band or prone on a bench."
   },
@@ -646,7 +646,7 @@
       "niggle": { "elbow": ["band-pull-apart"] },
       "general": ["dumbbell-curl"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement resistance band biceps curl at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "3g-1J2KkX_8", "searchHint": "Calisthenicmovement resistance band biceps curl at home", "preferredChannels": ["Calisthenicmovement", "Hybrid Calisthenics"] },
     "notes": "Hitting 3x15 moves to the next heavier band."
   }
 ]

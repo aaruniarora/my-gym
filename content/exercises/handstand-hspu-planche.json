@@ -20,7 +20,7 @@
       "stopIf": ["Sharp or joint pain in the wrist", "Numbness or tingling in the fingers"]
     },
     "alternates": { "home": [], "niggle": {} },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness wrist warm up routine for handstands", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "w3krkewLCmY", "searchHint": "GMB Fitness wrist warm up routine for handstands", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
     "notes": "The warm-up for every hand-balancing and straight-arm exercise. About 3-5 minutes; do it every session before handstand, HSPU or planche work. With a sore wrist, do only the circles and gentle unloaded stretches."
   },
   {
@@ -48,7 +48,7 @@
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] },
       "general": ["plank"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness L handstand wall plank tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "YXEN4bravrw", "searchHint": "GMB Fitness L handstand wall plank tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
     "sources": ["journal p05"],
     "notes": "Do wrist-prep first. Walk the feet down to come out."
   },
@@ -78,7 +78,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement wall walk handstand tutorial", "preferredChannels": ["Calisthenicmovement", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "kAZkLII49fk", "searchHint": "Calisthenicmovement wall walk handstand tutorial", "preferredChannels": ["Calisthenicmovement", "GMB Fitness"] },
     "sources": ["journal p05"],
     "notes": "Do wrist-prep first. Only walk as close to the wall as you can control on the way down."
   },
@@ -108,7 +108,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs chest to wall handstand tutorial", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "sfPsRW0eypU", "searchHint": "FitnessFAQs chest to wall handstand tutorial", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
     "sources": ["journal p05"],
     "notes": "Do wrist-prep first. A 60 s hold is the gate for freestanding handstand drills."
   },
@@ -138,7 +138,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs chest to wall handstand shoulder taps", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "1bNOGG3Dpow", "searchHint": "FitnessFAQs chest to wall handstand shoulder taps", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p03"],
     "notes": "Do wrist-prep first. Start with a light fingertip lift before full taps."
   },
@@ -168,7 +168,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness handstand kick up to wall and cartwheel bail", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "x5A0pLArpkI", "searchHint": "GMB Fitness handstand kick up to wall and cartwheel bail", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
     "sources": ["journal p05"],
     "notes": "Do wrist-prep first. Each rep is one kick-up with a 3-5 s hold. Clear space around you and practise the cartwheel bail before every session."
   },
@@ -196,7 +196,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs freestanding handstand beginner tutorial bail out", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "d6_lcWtQDxw", "searchHint": "FitnessFAQs freestanding handstand beginner tutorial bail out", "preferredChannels": ["FitnessFAQs", "GMB Fitness"] },
     "notes": "Do wrist-prep first. Gate: 60 s chest-to-wall hold. Many short attempts beat a few long ones; stop the session when attempts get sloppy."
   },
   {
@@ -224,7 +224,7 @@
       "niggle": { "wrist": ["dumbbell-handle-push-up", "fist-push-up"], "shoulder": ["band-row", "glute-bridge"], "elbow": ["hollow-hold"] },
       "general": ["dumbbell-overhead-press"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Calisthenicmovement pike push up tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "eG20L9cl81w", "searchHint": "Calisthenicmovement pike push up tutorial", "preferredChannels": ["Calisthenicmovement", "FitnessFAQs"] },
     "sources": ["journal p02", "journal p07", "journal p08", "journal p09", "journal p11"],
     "notes": "Do wrist-prep first. Journal dose was 6-10 x3-4."
   },
@@ -254,7 +254,7 @@
       "niggle": { "wrist": ["dumbbell-handle-push-up", "fist-push-up"], "shoulder": ["band-row", "glute-bridge"], "elbow": ["hollow-hold"] },
       "general": ["dumbbell-overhead-press"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs elevated pike push up progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "EgY9WFxPFNU", "searchHint": "FitnessFAQs elevated pike push up progression", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "sources": ["journal p02"],
     "notes": "Do wrist-prep first. Log the box height. 10 clean reps is the gate for wall HSPU work."
   },
@@ -285,7 +285,7 @@
       "niggle": { "wrist": ["dumbbell-handle-push-up", "fist-push-up"], "shoulder": ["band-row", "glute-bridge"], "elbow": ["hollow-hold"] },
       "general": ["dumbbell-overhead-press"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs wall handstand push up negative eccentric", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "media": { "kind": "youtube", "videoId": "3sPxL5NbJis", "searchHint": "FitnessFAQs wall handstand push up negative eccentric", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
     "notes": "Do wrist-prep first. Gate: 10 elevated pike push-ups. Needs a cushion or ab mat under the head (not in the equipment list)."
   },
   {
@@ -341,7 +341,7 @@
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"], "elbow": ["hollow-hold"] },
       "general": ["pseudo-planche-push-up"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs planche lean tutorial beginner", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "--W7pVSWIpM", "searchHint": "FitnessFAQs planche lean tutorial beginner", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
     "notes": "Do wrist-prep first. Straight-arm work: at most one step per block. A 30 s lean plus 20 push-ups is the gate for planche work beyond leans."
   },
   {
@@ -368,7 +368,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"], "elbow": ["hollow-hold"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness frog stand tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
+    "media": { "kind": "youtube", "videoId": "G-Sg-WGQO9c", "searchHint": "GMB Fitness frog stand tutorial", "preferredChannels": ["GMB Fitness", "FitnessFAQs"] },
     "notes": "Do wrist-prep first. Gate: 20 push-ups, 30 s planche lean and wrist prep in place. Straight-arm work: at most one step per block."
   },
   {
@@ -396,7 +396,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"], "elbow": ["hollow-hold"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs tuck planche tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "2orygMFMZ1o", "searchHint": "FitnessFAQs tuck planche tutorial", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
     "sources": ["journal p07", "journal p09", "journal p11"],
     "notes": "Do wrist-prep first. Gate: 20 push-ups, 30 s planche lean and wrist prep in place. Straight-arm work: at most one step per block; parallettes or dip bars ease the wrists if available."
   },
@@ -425,7 +425,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"], "elbow": ["hollow-hold"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs advanced tuck planche progression", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "MY0-XIpZ754", "searchHint": "FitnessFAQs advanced tuck planche progression", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
     "notes": "Do wrist-prep first. Gate: 20 push-ups, 30 s planche lean and wrist prep in place. Straight-arm work: at most one step per block; expect months at each step."
   },
   {
@@ -452,7 +452,7 @@
       "home": [],
       "niggle": { "wrist": ["hollow-hold", "band-row"], "shoulder": ["dead-bug", "glute-bridge"], "elbow": ["hollow-hold"] }
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "FitnessFAQs straddle planche progression", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
+    "media": { "kind": "youtube", "videoId": "Y8r-tAwT2uY", "searchHint": "FitnessFAQs straddle planche progression", "preferredChannels": ["FitnessFAQs", "Hybrid Calisthenics"] },
     "notes": "Do wrist-prep first. Gate: 20 push-ups, 30 s planche lean and wrist prep in place. Straight-arm work: at most one step per block; worth a coach session before starting."
   }
 ]

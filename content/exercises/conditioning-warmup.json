@@ -23,7 +23,7 @@
       "niggle": { "wrist": ["jumping-jack", "high-knees"], "knee": ["mountain-climber", "kettlebell-swing"] },
       "general": ["mountain-climber", "slam-ball"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "Bodyweight Warrior how to do a burpee beginner modification", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "NCqbpkoiyXE", "searchHint": "Bodyweight Warrior how to do a burpee beginner modification", "preferredChannels": ["Bodyweight Warrior"] },
     "sources": ["journal p01", "journal p05", "journal p07", "journal p10", "f45"],
     "notes": "Scaled version: step the feet back and forward one at a time, skip the push-up and replace the jump with a rise onto the toes; add the jump back first, then the step-free kick-back."
   },
@@ -78,7 +78,7 @@
       "niggle": { "lower_back": ["jumping-jack", "high-knees", "mountain-climber"] },
       "general": ["slam-ball"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "two hand kettlebell swing hip hinge tutorial beginner", "preferredChannels": ["GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "MD0elv2Paew", "searchHint": "two hand kettlebell swing hip hinge tutorial beginner", "preferredChannels": ["GMB Fitness"] },
     "sources": ["journal p11"],
     "notes": "Learn the hinge with kettlebell-rdl first. Start light (8-12 kg); to stop, let the bell swing back and park it on the floor in front of you."
   },
@@ -160,7 +160,7 @@
       "niggle": { "wrist": ["jumping-jack", "high-knees"] },
       "general": ["mountain-climber"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "GMB Fitness bear crawl tutorial", "preferredChannels": ["GMB Fitness"] },
+    "media": { "kind": "youtube", "videoId": "Ee1BQNI6zN4", "searchHint": "GMB Fitness bear crawl tutorial", "preferredChannels": ["GMB Fitness"] },
     "sources": ["journal p01", "journal p05"],
     "notes": "Crawl forward and backward over a few metres, or hold the hover in place if space is short."
   },
@@ -187,7 +187,7 @@
       "niggle": {},
       "general": ["high-knees", "skipping"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "how to do jumping jacks correctly low impact step jack", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "yg3KQQn3QWg", "searchHint": "how to do jumping jacks correctly low impact step jack", "preferredChannels": ["Bodyweight Warrior"] },
     "notes": "Low-impact version: step one foot out at a time instead of jumping."
   },
   {
@@ -212,7 +212,7 @@
       "niggle": {},
       "general": ["jumping-jack", "skipping"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "high knees exercise proper form tutorial", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "-rcDSnwHJ7s", "searchHint": "high knees exercise proper form tutorial", "preferredChannels": ["Bodyweight Warrior"] },
     "sources": ["journal p08", "journal p10"],
     "notes": "Marching high knees (no hop) is the low-impact version."
   },
@@ -240,7 +240,7 @@
       "niggle": { "knee": ["mountain-climber", "bear-crawl"] },
       "general": ["high-knees", "burpee"]
     },
-    "media": { "kind": "youtube", "videoId": null, "searchHint": "shuttle run turn technique conditioning drill", "preferredChannels": ["Bodyweight Warrior"] },
+    "media": { "kind": "youtube", "videoId": "ycsTDajmjWg", "searchHint": "shuttle run turn technique conditioning drill", "preferredChannels": ["Bodyweight Warrior"] },
     "sources": ["f45"],
     "notes": "Needs 5-10 m of clear space; the equipment list has no value for space, so it is logged as none."
   },
