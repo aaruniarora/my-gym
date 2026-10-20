@@ -1,5 +1,122 @@
 [
   {
+    "id": "low-lunge",
+    "name": "Low lunge hip flexor stretch",
+    "aliases": ["kneeling lunge stretch", "kneeling hip flexor stretch"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "stretchAreas": ["hip_flexors"],
+    "phases": ["warmup", "cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Kneel on a mat with a folded towel under the back knee and step the other foot forward so the front knee is over the ankle. Hands on the front thigh or on books either side of the front foot.",
+      "cues": ["Tuck the tailbone and squeeze the back-leg glute", "Shift the hips forward slowly, torso upright", "Keep the ribs down, do not arch the lower back", "No pain, only a stretch sensation"],
+      "mistakes": ["Arching the lower back instead of tucking the pelvis", "Front knee collapsing inwards", "Kneeling on the kneecap without padding"],
+      "stopIf": ["Sharp or joint pain in the knee or hip", "Pinching at the front of the hip", "Lower-back pinching"]
+    },
+    "progression": "half-split",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["glute-bridge"] },
+      "general": ["couch-stretch"]
+    },
+    "media": { "kind": "exdb", "exdbId": "Kneeling_Hip_Flexor" },
+    "notes": "Front split step 1. Left and right are logged separately."
+  },
+  {
+    "id": "half-split",
+    "name": "Half split (kneeling hamstring stretch)",
+    "aliases": ["runners stretch", "ardha hanumanasana"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "stretchAreas": ["hamstrings"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "From a low lunge with a towel under the back knee, shift the hips back over the back knee and straighten the front leg, heel on the floor and toes up. Hands on books or blocks either side of the front leg.",
+      "cues": ["Hips stay stacked over the back knee", "Hinge forward from the hips with a long back", "Pull the front toes towards you", "No pain, only a stretch sensation"],
+      "mistakes": ["Rounding the back to bring the head down", "Locking the front knee hard", "Bouncing to reach lower"],
+      "stopIf": ["Sharp or joint pain behind the knee or in the hip", "Tingling or numbness down the back of the leg"]
+    },
+    "regression": "low-lunge",
+    "progression": "lizard-stretch",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["standing-hamstring-stretch", "seated-pike"] },
+      "general": ["standing-hamstring-stretch"]
+    },
+    "media": { "kind": "youtube", "videoId": "1wXNELxZI4I", "searchHint": "Antranik half split kneeling hamstring stretch", "preferredChannels": ["Antranik", "Bodyweight Warrior"] }
+  },
+  {
+    "id": "lizard-stretch",
+    "name": "Lizard stretch",
+    "aliases": ["lizard lunge"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "stretchAreas": ["hip_flexors", "adductors"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "From a low lunge with a towel under the back knee, place both hands inside the front foot and turn the front toes out slightly. Stay on the hands or lower onto forearms on books if that is comfortable.",
+      "cues": ["Let the hips sink forward and down slowly", "Front knee tracks over the toes", "Keep the chest long, breathe out to relax", "No pain, only a stretch sensation"],
+      "mistakes": ["Front knee falling in or rolling far out", "Dropping onto the forearms before the hips are ready", "Holding the breath"],
+      "stopIf": ["Sharp or joint pain in the knee, hip or groin", "Pinching at the front of the hip"]
+    },
+    "regression": "half-split",
+    "progression": "supported-front-split",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["standing-hamstring-stretch"] },
+      "general": ["couch-stretch"]
+    },
+    "media": { "kind": "youtube", "videoId": "W_oWXtvTUB0", "searchHint": "GMB Fitness lizard stretch hip mobility", "preferredChannels": ["GMB Fitness", "Bodyweight Warrior"] }
+  },
+  {
+    "id": "supported-front-split",
+    "name": "Supported front split (blocks or chair)",
+    "aliases": ["front split on blocks"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "stretchAreas": ["hamstrings", "hip_flexors"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
+    "technique": {
+      "setup": "Kneel in a low lunge with a towel under the back knee and a chair seat or tall stack of blocks either side of the front leg. Slide the front heel forward and the back knee back, taking most of your weight through the hands. Measure the gap in cm from the floor to the front of your pelvis, left and right side forward separately.",
+      "cues": ["Keep the hips square to the front", "Hands carry the weight so you can relax", "Breathe out and sink only as far as is comfortable", "No pain, only a stretch sensation"],
+      "mistakes": ["Twisting the back hip open to get lower", "Letting go of the support and dropping", "Bouncing to force depth"],
+      "stopIf": ["Sharp or joint pain in the hip, groin or knee", "Tingling or numbness down the back of the front leg", "Pinching at the front of the hip"]
+    },
+    "regression": "lizard-stretch",
+    "progression": "front-split-passive",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["standing-hamstring-stretch", "seated-pike"] },
+      "general": ["front-split-passive"]
+    },
+    "media": { "kind": "youtube", "videoId": "F6UT_V6wKhU", "searchHint": "Bodyweight Warrior front splits with yoga blocks beginner", "preferredChannels": ["Bodyweight Warrior"] },
+    "notes": "Measured as cm from the floor per side. Lower the supports as depth improves."
+  },
+  {
     "id": "front-split-passive",
     "name": "Front split (passive hold)",
     "aliases": ["front splits", "half split to front split"],
@@ -12,14 +129,14 @@
     "stretchAreas": ["hamstrings", "hip_flexors"],
     "phases": ["cooldown"],
     "dose": { "sets": [2, 3], "seconds": [30, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Kneel in a low lunge on a mat with a folded towel under the back knee and a stack of books or yoga blocks either side of the front foot. Slide the front heel forward and the back knee back only as far as is comfortable, hands on the books. To measure progress, sit at your lowest comfortable point and measure the gap in cm from the floor to the front of your pelvis, left and right side forward separately.",
       "cues": ["Keep the hips square to the front", "Point the back knee straight down into the floor", "Breathe out and let the hips sink slowly", "No pain, only a stretch sensation: back off if it bites"],
       "mistakes": ["Twisting the back hip open to get lower", "Bouncing to force depth", "Dropping all your weight onto the floor instead of the hands"],
       "stopIf": ["Sharp or joint pain in the hip, groin or knee", "Tingling or numbness down the back of the front leg", "Pinching at the front of the hip"]
     },
-    "regression": "standing-hamstring-stretch",
+    "regression": "supported-front-split",
     "progression": "front-split-pnf",
     "alternates": {
       "home": [],
@@ -44,7 +161,7 @@
     "phases": ["cooldown"],
     "flags": ["pnf"],
     "dose": { "sets": [1, 2], "seconds": [45, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Set up exactly as for the passive front split, on books or blocks, and settle at a comfortable depth for 20 s. Then press the front heel down into the floor at about 30% effort for 5 s, relax for 3 s and sink a little lower; repeat 2-3 times. Measure floor distance the same way as the passive hold.",
       "cues": ["Press the front heel down gently, about 30% effort", "Breathe out as you relax and sink", "Keep the hips square and the hands on the books", "No pain, only a stretch sensation"],
@@ -74,7 +191,7 @@
     "stretchAreas": ["hamstrings", "hip_flexors"],
     "phases": ["main", "cooldown"],
     "dose": { "sets": [2, 3], "reps": [5, 8], "restSeconds": 45 },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Kneel in a half split with the front leg straight, a towel under the back knee and hands on books either side. Lift the front heel 2-3 cm off the floor with the leg straight, hold 2 s, lower slowly.",
       "cues": ["Pull the front toes towards you and lock the knee", "Lift from the hip, not by leaning back", "Hold 2 s at the top, lower in 2 s", "Work near the end of your range, never into pain"],
@@ -91,6 +208,94 @@
     "notes": "Active end-range work per Tom Merrick / Kit Laughlin. An ankle weight can be added later; the schema has no ankle-weight equipment."
   },
   {
+    "id": "butterfly-stretch",
+    "name": "Butterfly stretch",
+    "aliases": ["seated groin stretch", "bound angle"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["adductors"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit tall on the floor, bend the knees and put the soles of the feet together, heels a comfortable distance from the groin. Hold the ankles and let the knees drop towards the floor.",
+      "cues": ["Sit tall first, then hinge forward from the hips", "Let the knees fall, do not push them down hard", "Breathe out and relax the inner thighs", "No pain, only a stretch sensation"],
+      "mistakes": ["Pressing the knees down with the elbows", "Rounding the back to bring the head down", "Bouncing the knees"],
+      "stopIf": ["Sharp or joint pain in the knee or groin", "Pinching at the front of the hip"]
+    },
+    "progression": "frog-stretch",
+    "alternates": {
+      "home": [],
+      "niggle": {  },
+      "general": ["pancake-passive"]
+    },
+    "media": { "kind": "youtube", "videoId": "1ZbyKG0LoSc", "searchHint": "Antranik butterfly stretch groin adductors", "preferredChannels": ["Antranik"] },
+    "notes": "Middle split step 1."
+  },
+  {
+    "id": "seated-straddle-stretch",
+    "name": "Seated straddle stretch",
+    "aliases": ["wide-leg seated stretch"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["adductors", "hamstrings"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Sit on the floor, on a folded towel if the lower back rounds, and open the legs wide with knees and toes pointing up. Hands on the floor in front.",
+      "cues": ["Sit tall, then walk the hands forward from the hips", "Kneecaps and toes point to the ceiling", "Breathe out and let the inner thighs lengthen", "No pain, only a stretch sensation"],
+      "mistakes": ["Rounding the back to reach further", "Letting the knees roll in", "Going wider than you can hold comfortably"],
+      "stopIf": ["Sharp or joint pain in the hip, groin or inner knee", "Tingling or numbness in the legs"]
+    },
+    "regression": "frog-stretch",
+    "progression": "supported-middle-split",
+    "alternates": {
+      "home": [],
+      "niggle": {  },
+      "general": ["pancake-passive", "butterfly-stretch"]
+    },
+    "media": { "kind": "exdb", "exdbId": "The_Straddle" }
+  },
+  {
+    "id": "supported-middle-split",
+    "name": "Supported middle split (sliders or blocks)",
+    "aliases": ["slider side split"],
+    "type": "stretch",
+    "pattern": "flexibility",
+    "mode": "time",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "stretchAreas": ["adductors"],
+    "phases": ["cooldown"],
+    "dose": { "sets": [1, 2], "seconds": [30, 60], "progressionTarget": { "sets": 2, "seconds": 60 } },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
+    "technique": {
+      "setup": "Stand with socks or sliders on a smooth floor, facing a chair or tall stack of blocks with both hands on it. Slide the feet apart slowly with toes forward, taking most of your weight through the hands. Measure the gap in cm from the floor to the crotch at your lowest comfortable point.",
+      "cues": ["Kneecaps point the same way as the toes", "Hands carry the weight, slide in small steps", "Breathe out and let the inner thighs lengthen", "No pain, only a stretch sensation"],
+      "mistakes": ["Sliding further than you can control back out", "Rolling the knees in so the inner knee takes the strain", "Letting go of the support"],
+      "stopIf": ["Sharp or joint pain in the hip, groin or inner knee", "Tingling or numbness in the legs", "Feet slipping out of control"]
+    },
+    "regression": "seated-straddle-stretch",
+    "progression": "middle-split-passive",
+    "alternates": {
+      "home": [],
+      "niggle": { "knee": ["pancake-passive", "butterfly-stretch"] },
+      "general": ["middle-split-passive"]
+    },
+    "media": { "kind": "youtube", "videoId": "5N0Q_nWvIKg", "searchHint": "Bodyweight Warrior middle splits sliders beginner", "preferredChannels": ["Bodyweight Warrior", "Stretch Therapy"] },
+    "notes": "Measured as cm from the floor. Raise the hands on higher supports if the slide is hard to control."
+  },
+  {
     "id": "middle-split-passive",
     "name": "Middle split (passive hold)",
     "aliases": ["side split", "straddle split"],
@@ -103,14 +308,14 @@
     "stretchAreas": ["adductors"],
     "phases": ["cooldown"],
     "dose": { "sets": [2, 3], "seconds": [30, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Stand facing a stack of books or blocks, hands on them, and slide the feet apart with toes pointing forward and kneecaps facing the same way as the toes. Lower only as far as is comfortable. To measure progress, at your lowest comfortable point measure the gap in cm from the floor to the crotch.",
       "cues": ["Kneecaps point the same way as the toes", "Hips stay in line with the feet, not behind them", "Breathe out and let the inner thighs lengthen", "No pain, only a stretch sensation"],
       "mistakes": ["Rolling the knees in so the inner knee takes the strain", "Bouncing to get lower", "Letting the hands take no weight and dropping"],
       "stopIf": ["Sharp or joint pain in the hip, groin or inner knee", "Tingling or numbness in the legs", "Pinching at the front or side of the hip"]
     },
-    "regression": "frog-stretch",
+    "regression": "supported-middle-split",
     "progression": "middle-split-pnf",
     "alternates": {
       "home": [],
@@ -135,7 +340,7 @@
     "phases": ["cooldown"],
     "flags": ["pnf"],
     "dose": { "sets": [1, 2], "seconds": [45, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Set up as for the passive middle split with hands on books and settle at a comfortable depth for 20 s. Squeeze the feet towards each other into the floor at about 30% effort for 5 s, relax for 3 s and sink a little; repeat 2-3 times. Measure floor distance the same way as the passive hold.",
       "cues": ["Squeeze the floor together gently, about 30% effort", "Breathe out as you relax and sink", "Kneecaps stay in line with the toes", "No pain, only a stretch sensation"],
@@ -165,7 +370,7 @@
     "stretchAreas": ["adductors"],
     "phases": ["main", "cooldown"],
     "dose": { "sets": [2, 3], "seconds": [20, 45], "restSeconds": 60 },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Stand with feet wide, toes turned out slightly, and sit down until you feel the inner thighs working, thighs heading towards parallel. Hands on the hips or held in front.",
       "cues": ["Push the knees out over the toes", "Tall chest, tailbone pointing down", "Sit only as low as you can hold with good form", "Effort in the legs is fine, joint pain is not"],
@@ -194,7 +399,7 @@
     "stretchAreas": ["hamstrings"],
     "phases": ["cooldown"],
     "dose": { "sets": [1, 2], "seconds": [30, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Sit on the floor (or on a folded towel to tip the pelvis forward) with legs straight together in front. Hinge forward from the hips with a long back, hands resting on the shins or floor.",
       "cues": ["Fold from the hips, chest towards the thighs", "Knees soft if the back rounds a lot", "Breathe out and relax the legs into the floor", "No pain, only a stretch sensation"],
@@ -222,7 +427,7 @@
     "stretchAreas": ["hamstrings"],
     "phases": ["main", "cooldown"],
     "dose": { "sets": [2, 3], "reps": [6, 10], "restSeconds": 60 },
-    "loggable": { "weight": true, "band": false, "setup": null },
+    "loggable": { "weight": true, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Sit in a pike with legs straight and a light dumbbell (start at 2-4 kg) held in both hands over the shins. Slowly hinge forward, let the weight draw you 2-3 cm deeper, pause 2 s, then sit back up tall.",
       "cues": ["Hinge from the hips with a long back", "Pull the toes back and press the knees down", "Move slowly: 2 s down, 2 s pause, 2 s up", "No pain, only a stretch sensation"],
@@ -252,7 +457,7 @@
     "stretchAreas": ["hamstrings", "adductors"],
     "phases": ["cooldown"],
     "dose": { "sets": [1, 2], "seconds": [30, 60] },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Sit on a folded towel with legs wide in a straddle, kneecaps and toes pointing up. Walk the hands forward and fold from the hips. To measure progress, measure the gap in cm from the floor to the breastbone at your lowest comfortable point.",
       "cues": ["Tip the pelvis forward, chest leads the fold", "Kneecaps point to the ceiling", "Breathe out and walk the hands a little further", "No pain, only a stretch sensation"],
@@ -282,8 +487,9 @@
     "loads": [],
     "stretchAreas": ["hamstrings", "adductors"],
     "phases": ["main", "cooldown"],
+    "flags": ["active_flex"],
     "dose": { "sets": [2, 3], "reps": [5, 8], "restSeconds": 45 },
-    "loggable": { "weight": false, "band": false, "setup": null },
+    "loggable": { "weight": false, "band": false, "setup": null, "cm": true },
     "technique": {
       "setup": "Sit tall in a comfortable straddle with hands on the floor in front of the hips. Lift one straight leg a few cm off the floor, hold 2 s, lower slowly, then switch sides.",
       "cues": ["Sit tall and lean slightly forward", "Lift from the hip with the knee locked and toes up", "Hold 2 s, lower in 2 s", "Work near end range, never into pain"],
@@ -517,7 +723,8 @@
       "mistakes": ["Going too wide too soon", "Kneeling on a hard floor without padding", "Sagging the lower back"],
       "stopIf": ["Sharp or joint pain in the knee or groin", "Pinching at the front of the hip", "Tingling or numbness in the legs"]
     },
-    "progression": "middle-split-passive",
+    "regression": "butterfly-stretch",
+    "progression": "seated-straddle-stretch",
     "alternates": {
       "home": [],
       "niggle": { "knee": ["pancake-passive"] },
@@ -1042,5 +1249,252 @@
     },
     "alternates": { "home": [], "niggle": { "knee": ["pelvic-tilt"] }, "general": ["cat-cow"] },
     "media": { "kind": "exdb", "exdbId": "Childs_Pose" }
+  },
+  {
+    "id": "standing-front-leg-raise-hold",
+    "name": "Standing front leg raise hold",
+    "aliases": ["active front kick hold", "front leg lift hold"],
+    "type": "mobility",
+    "pattern": "flexibility",
+    "mode": "reps_per_side",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["hamstrings"],
+    "phases": ["cooldown", "main"],
+    "flags": ["active_flex"],
+    "dose": { "sets": [2, 3], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall side-on to a wall with one hand on it. Lift the outside leg straight in front as high as it will go without help from the hands.",
+      "cues": ["Stand tall, standing knee straight but not locked", "Lift with the front of the hip, knee locked, toes up", "Hold 2-3 s at the top, then lower in 2 s", "Height comes from strength, never from a swing"],
+      "mistakes": ["Leaning back or tucking the pelvis to fake height", "Swinging the leg up instead of lifting it", "Bending the lifted knee"],
+      "stopIf": ["Sharp pain in the hip or hamstring", "Pinching at the front of the hip", "A hip-flexor cramp that does not settle"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["leg-swing", "controlled-slow-kick"] },
+    "media": { "kind": "youtube", "videoId": "XDWwKiXCBW0", "searchHint": "GMB Fitness standing active front leg raise hold flexibility", "preferredChannels": ["GMB Fitness", "Antranik"] },
+    "notes": "Active flexibility: keeps kick height under control. Cramping at the hip flexor is common at first."
+  },
+  {
+    "id": "standing-side-leg-raise-hold",
+    "name": "Standing side leg raise hold",
+    "aliases": ["active side kick hold", "side leg lift hold"],
+    "type": "mobility",
+    "pattern": "flexibility",
+    "mode": "reps_per_side",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["adductors"],
+    "phases": ["cooldown", "main"],
+    "flags": ["active_flex"],
+    "dose": { "sets": [2, 3], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand facing a wall with both hands on it. Lift one straight leg out to the side as high as it will go, kneecap facing forward.",
+      "cues": ["Stand tall over the standing leg", "Lift from the outer hip, knee locked", "Hold 2-3 s at the top, then lower in 2 s", "Keep the kneecap and toes pointing forward"],
+      "mistakes": ["Leaning the trunk far over to fake height", "Turning the knee up so the front of the hip lifts the leg", "Swinging the leg up"],
+      "stopIf": ["Sharp pain in the hip or groin", "Pinching at the side or front of the hip"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["leg-swing", "side-lying-leg-lift"] },
+    "media": { "kind": "youtube", "videoId": "tl_6nnbFFWQ", "searchHint": "Antranik standing side leg raise active flexibility hold", "preferredChannels": ["Antranik", "GMB Fitness"] },
+    "notes": "Active flexibility for side kicks."
+  },
+  {
+    "id": "standing-back-leg-raise-hold",
+    "name": "Standing back leg raise hold",
+    "aliases": ["active back kick hold", "rear leg lift hold"],
+    "type": "mobility",
+    "pattern": "flexibility",
+    "mode": "reps_per_side",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["hip_flexors"],
+    "phases": ["cooldown", "main"],
+    "flags": ["active_flex"],
+    "dose": { "sets": [2, 3], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand facing a wall with both hands on it. Lift one straight leg behind you as high as it will go with the hips square.",
+      "cues": ["Squeeze the glute to lift the leg", "Keep the hips square to the wall", "Hold 2-3 s at the top, then lower in 2 s", "Let the chest tip forward only a little"],
+      "mistakes": ["Arching the lower back to get the leg higher", "Opening the hip so the leg turns out", "Swinging the leg up"],
+      "stopIf": ["Lower back pain or pinching", "Sharp pain in the hip or hamstring"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["leg-swing", "controlled-slow-kick"] },
+    "media": { "kind": "youtube", "videoId": "qk0OmJ63GSY", "searchHint": "Antranik standing back leg raise hold active flexibility", "preferredChannels": ["Antranik", "GMB Fitness"] },
+    "notes": "Active flexibility for back kicks."
+  },
+  {
+    "id": "controlled-slow-kick",
+    "name": "Controlled slow kick",
+    "aliases": ["slow kick", "slow-motion kick"],
+    "type": "mobility",
+    "pattern": "flexibility",
+    "mode": "reps_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["hamstrings", "adductors", "hip_flexors"],
+    "phases": ["cooldown", "main"],
+    "flags": ["active_flex"],
+    "dose": { "sets": [2, 3], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand in a fighting stance or with a hand on a wall. Chamber the knee, extend the kick slowly to full height, then re-chamber and lower under control.",
+      "cues": ["Chamber, extend, re-chamber, lower", "Take 3-4 s for the whole kick", "Pause 1-2 s at full extension", "Stay tall over the standing leg"],
+      "mistakes": ["Snapping the kick and losing control", "Dropping the leg straight down instead of re-chambering", "Leaning back to get height"],
+      "stopIf": ["Sharp or joint pain in the hip or knee", "Pinching at the front of the hip"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["standing-front-leg-raise-hold", "standing-side-leg-raise-hold"] },
+    "media": { "kind": "youtube", "videoId": "JGx0jN1OwFc", "searchHint": "GMB Fitness slow controlled kick active flexibility", "preferredChannels": ["GMB Fitness"] },
+    "notes": "Rotate front, side and back kicks between sets."
+  },
+  {
+    "id": "side-lying-leg-lift",
+    "name": "Side-lying leg lift",
+    "aliases": ["side-lying high leg raise"],
+    "type": "accessory",
+    "pattern": "flexibility",
+    "mode": "reps_per_side",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": [],
+    "stretchAreas": ["adductors"],
+    "phases": ["cooldown", "main"],
+    "flags": ["active_flex"],
+    "dose": { "sets": [2, 3] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Lie on one side with the head on the lower arm and the bottom knee bent for stability. Lift the top leg straight up as high as it goes.",
+      "cues": ["Keep the top leg straight and the kneecap forward", "Lift to your highest point and pause 1 s", "Lower slowly, do not drop", "Keep the hips stacked"],
+      "mistakes": ["Rolling back so the front of the hip does the lift", "Swinging the leg", "Bending the top knee"],
+      "stopIf": ["Sharp pain in the hip or groin", "Pinching at the side of the hip"]
+    },
+    "regression": "side-lying-hip-abduction",
+    "alternates": { "home": [], "niggle": {}, "general": ["standing-side-leg-raise-hold"] },
+    "media": { "kind": "youtube", "videoId": "bBH0NetEo4E", "searchHint": "Antranik side lying leg raise active flexibility", "preferredChannels": ["Antranik"] },
+    "notes": "End-range lift for side-kick height; the low-range glute medius version is side-lying-hip-abduction."
+  },
+  {
+    "id": "single-leg-stance",
+    "name": "Single-leg stance",
+    "aliases": ["single-leg balance", "stand on one leg"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "time_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["balance"],
+    "dose": { "sets": [2, 3], "seconds": [20, 30], "restSeconds": 8, "progressionTarget": { "sets": 3, "seconds": 30 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand barefoot near a wall and lift one foot just off the floor. Arms relaxed by the sides or on the hips.",
+      "cues": ["Spread the toes and grip the floor lightly", "Stand tall with the standing knee soft", "Keep the hips level", "Fix the eyes on one point"],
+      "mistakes": ["Locking the standing knee", "Letting the hip of the lifted leg drop", "Grabbing the wall at the first wobble"],
+      "stopIf": ["Dizziness", "Sharp pain in the ankle or knee"]
+    },
+    "progression": "single-leg-stance-eyes-closed",
+    "alternates": { "home": [], "niggle": {}, "general": ["knee-chamber-hold"] },
+    "media": { "kind": "youtube", "videoId": "7SF7AYh2_Yw", "searchHint": "GMB Fitness single leg balance progression", "preferredChannels": ["GMB Fitness"] }
+  },
+  {
+    "id": "single-leg-stance-eyes-closed",
+    "name": "Single-leg stance, eyes closed",
+    "aliases": ["eyes-closed balance"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "time_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["balance"],
+    "dose": { "sets": [2, 3], "seconds": [20, 30], "restSeconds": 8, "progressionTarget": { "sets": 3, "seconds": 30 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand barefoot within arm reach of a wall and lift one foot off the floor. Find your balance, then close the eyes.",
+      "cues": ["Feel the weight over the middle of the foot", "Small corrections at the ankle, not the arms", "Stand tall with the hips level", "Open the eyes and reset when you wobble"],
+      "mistakes": ["Standing too far from the wall to catch yourself", "Locking the standing knee", "Big arm waving instead of ankle corrections"],
+      "stopIf": ["Dizziness or nausea", "Sharp pain in the ankle or knee"]
+    },
+    "regression": "single-leg-stance",
+    "progression": "single-leg-stance-toes",
+    "alternates": { "home": [], "niggle": {}, "general": ["single-leg-stance"] },
+    "media": { "kind": "youtube", "videoId": "zApChixB2MQ", "searchHint": "single leg balance eyes closed progression drill", "preferredChannels": ["GMB Fitness"] }
+  },
+  {
+    "id": "single-leg-stance-toes",
+    "name": "Single-leg stance on the toes",
+    "aliases": ["single-leg relevé hold", "tiptoe balance"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "time_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["balance"],
+    "dose": { "sets": [2, 3], "seconds": [20, 30], "restSeconds": 8, "progressionTarget": { "sets": 3, "seconds": 30 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on one leg near a wall and rise onto the ball of the foot. Hold the high heel position with the eyes open.",
+      "cues": ["Rise over the big and second toe", "Keep the heel high, not sinking", "Stand tall with the hips level", "Breathe and keep the face relaxed"],
+      "mistakes": ["Rolling out onto the little toes", "Letting the heel sink as the calf tires", "Locking the standing knee"],
+      "stopIf": ["Sharp pain in the Achilles, calf or foot", "Calf cramp"]
+    },
+    "regression": "single-leg-stance-eyes-closed",
+    "alternates": { "home": [], "niggle": {}, "general": ["calf-raise"] },
+    "media": { "kind": "youtube", "videoId": "V2wkej5R668", "searchHint": "single leg balance on toes releve hold", "preferredChannels": ["GMB Fitness"] },
+    "notes": "Next step after this: single-leg stance on a soft surface (cushion or folded mat)."
+  },
+  {
+    "id": "hip-airplane",
+    "name": "Hip airplane",
+    "aliases": ["airplane", "single-leg hip rotation"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "reps_per_side",
+    "equipment": ["wall"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["balance"],
+    "dose": { "sets": [2, 2], "reps": [5, 8] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on one leg next to a wall and hinge forward until the trunk is near horizontal, back leg reaching back. Use a fingertip on the wall until steady.",
+      "cues": ["Rotate the pelvis open towards the ceiling, then close it towards the floor", "Turn from the standing hip, not the back", "Keep the standing knee soft and still", "Move slowly, 2 s each way"],
+      "mistakes": ["Twisting the upper back instead of the hip", "Letting the standing knee cave in", "Rushing the rotation"],
+      "stopIf": ["Pinching in the front of the standing hip", "Lower back pain", "Sharp pain in the knee"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["single-leg-rdl"] },
+    "media": { "kind": "youtube", "videoId": "9svtEV4vkp0", "searchHint": "hip airplane exercise tutorial single leg", "preferredChannels": ["GMB Fitness", "Antranik"] }
+  },
+  {
+    "id": "knee-chamber-hold",
+    "name": "Knee chamber hold",
+    "aliases": ["raised knee hold", "kick chamber hold"],
+    "type": "mobility",
+    "pattern": "legs",
+    "mode": "time_per_side",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": [],
+    "phases": ["warmup", "main"],
+    "flags": ["balance"],
+    "dose": { "sets": [2, 3], "seconds": [15, 30], "restSeconds": 8, "progressionTarget": { "sets": 3, "seconds": 30 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand on one leg and lift the other knee to hip height or above in a kick chamber. Hands up in a guard or on the hips.",
+      "cues": ["Knee at hip height or higher", "Stand tall, no leaning back", "Standing knee soft, foot gripping the floor", "Keep the chambered foot active"],
+      "mistakes": ["Letting the knee drift down as the hip tires", "Leaning back to hold the knee up", "Locking the standing knee"],
+      "stopIf": ["Sharp pain in the hip or knee", "A hip-flexor cramp that does not settle"]
+    },
+    "alternates": { "home": [], "niggle": {}, "general": ["single-leg-stance"] },
+    "media": { "kind": "youtube", "videoId": "tTrSwQ6qZYM", "searchHint": "taekwondo knee chamber hold balance drill", "preferredChannels": ["GMB Fitness"] },
+    "notes": "Progress by holding a front, side or back kick chamber."
   }
 ]

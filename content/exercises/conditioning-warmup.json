@@ -247,14 +247,15 @@
   {
     "id": "skipping",
     "name": "Skipping",
-    "aliases": ["jump rope", "skipping rope"],
+    "aliases": ["skipping rope"],
     "type": "conditioning",
     "pattern": "conditioning",
     "mode": "time",
     "equipment": ["none"],
     "homeOk": true,
-    "loads": [],
+    "loads": ["knee"],
     "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
     "loggable": { "weight": false, "band": false, "setup": null },
     "technique": {
       "setup": "Hold the rope handles at hip height with elbows close to the sides. Without a rope, mimic the same movement.",
@@ -264,10 +265,84 @@
     },
     "alternates": {
       "home": [],
-      "niggle": {},
+      "niggle": { "knee": ["calf-raise"] },
       "general": ["jumping-jack", "high-knees"]
     },
     "media": { "kind": "exdb", "exdbId": "Rope_Jumping" },
     "notes": "Needs a skipping rope, which the equipment list cannot express (logged as none; rope-less skipping works too)."
+  },
+  {
+    "id": "jump-rope",
+    "name": "Jump rope",
+    "aliases": ["rope skipping", "skipping rope"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "time",
+    "equipment": ["jump_rope"],
+    "homeOk": false,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [1, 3], "seconds": [30, 60] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Hold the handles at hip height with the elbows close to the sides. Rope length about to the armpits when you stand on its middle.",
+      "cues": ["Easy bounce on the balls of the feet, heels just off the floor", "Turn the rope with the wrists", "Jump only high enough to clear the rope", "Land quietly with soft knees"],
+      "mistakes": ["Jumping too high and landing hard", "Turning the rope with the whole arm", "Double bouncing between turns when tired"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain", "Shin pain"]
+    },
+    "regression": "pogo-hop",
+    "alternates": { "home": ["pogo-hop"], "niggle": { "knee": ["calf-raise"] }, "general": ["skipping"] },
+    "media": { "kind": "exdb", "exdbId": "Rope_Jumping" },
+    "notes": "The gym has a rope. Contacts count as seconds x 2."
+  },
+  {
+    "id": "pogo-hop",
+    "name": "Pogo hops",
+    "aliases": ["ankle hops", "pogo jumps"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [2, 3], "reps": [15, 25] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with the feet hip-width apart and the arms relaxed. Hop in place using mostly the ankles.",
+      "cues": ["Stiff, springy ankles with the knees nearly straight", "Short ground contact, bounce straight back up", "Stay on the balls of the feet", "Land quietly"],
+      "mistakes": ["Bending the knees deeply on each landing", "Landing on the heels", "Hopping too high and losing rhythm"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain", "Shin pain"]
+    },
+    "regression": "low-hop-soft-landing",
+    "progression": "jump-rope",
+    "alternates": { "home": [], "niggle": { "knee": ["calf-raise"] }, "general": ["skipping"] },
+    "media": { "kind": "youtube", "videoId": "Odp7J26_47s", "searchHint": "pogo hops tutorial ankle stiffness plyometric", "preferredChannels": ["Bodyweight Warrior", "Hybrid Calisthenics"] }
+  },
+  {
+    "id": "low-hop-soft-landing",
+    "name": "Low hops with soft landing",
+    "aliases": ["soft landing hops", "quiet hops"],
+    "type": "conditioning",
+    "pattern": "conditioning",
+    "mode": "reps",
+    "equipment": ["none"],
+    "homeOk": true,
+    "loads": ["knee"],
+    "phases": ["warmup", "main"],
+    "flags": ["spring", "explosive"],
+    "dose": { "sets": [2, 3], "reps": [8, 12] },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Stand tall with the feet hip-width apart. Hop a few cm off the floor and stick each landing before the next hop.",
+      "cues": ["Land as quietly as possible", "Toes first, then let the heels kiss the floor", "Knees bend softly over the toes", "Pause and reset between hops"],
+      "mistakes": ["Loud, flat-footed landings", "Knees caving in on landing", "Hopping higher than a few cm"],
+      "stopIf": ["Sharp or joint pain in the ankle or knee", "Calf or Achilles pain"]
+    },
+    "progression": "pogo-hop",
+    "alternates": { "home": [], "niggle": { "knee": ["calf-raise"] }, "general": ["pogo-hop"] },
+    "media": { "kind": "youtube", "videoId": "6vFPDrpSiis", "searchHint": "soft landing low hops technique quiet landing drill", "preferredChannels": ["Bodyweight Warrior"] }
   }
 ]

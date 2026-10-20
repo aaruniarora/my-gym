@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { exerciseById, niggleMobility, skillTrees } from '../content'
-import { dayTemplates } from './dayTemplates'
-import { buildSession, pickDayType, REST } from './builder'
-import type { DayMode, DayType, Location, SessionPlan, SessionRecord, Settings, SkillProgress } from './types'
+import { dayTemplates, FOOT_POOL } from './dayTemplates'
+import { buildSession, contacts, estimateSeconds, pickDayType, REST } from './builder'
+import type { DayMode, DayType, Location, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 const now = new Date('2026-10-20T08:00:00Z')
 const settings: Settings = { weeklyTarget: 4, countdownSeconds: 10, voice: true, beeps: true, voiceRate: 1, sidePause: true, bands: [], neverShow: [], favourites: [], niggles: [], bests: {}, headphoneControls: false, lastDraft: { minutes: 30, location: 'gym', mode: 'normal' }, placed: true }
 const hoursAgo = (h: number) => new Date(now.getTime() - h * 3600 * 1000).toISOString()
 
-const build = (minutes: number, over: { mode?: DayMode; location?: Location; settings?: Settings; recent?: SessionRecord[]; progress?: SkillProgress[] } = {}) =>
+const build = (minutes: number, over: { mode?: DayMode; location?: Location; settings?: Settings; recent?: SessionRecord[]; progress?: SkillProgress[]; recentLogs?: SetLog[] } = {}) =>
   buildSession({ minutes, location: 'gym', mode: 'normal', now, recent: [], recentLogs: [], progress: [], ...over, settings: over.settings ?? settings })
 const exercisesOf = (plan: SessionPlan, kind: string) => plan.blocks.filter((b) => b.kind === kind).flatMap((b) => b.exercises)
 const all = (plan: SessionPlan) => plan.blocks.flatMap((b) => b.exercises)
@@ -236,5 +236,173 @@ describe('placement at pull-up step 4', () => {
     } finally {
       dayTemplates.pull.skills = original
     }
+  })
+})
+
+describe('per-side weakSide', () => {
+  const legs = [done('pull', 72), done('push', 24)]
+  const sided = (left: number, right: number): SkillProgress[] => [
+    { treeId: 'front-split', side: 'left', stepIndex: left, hits: 0, misses: 0 },
+    { treeId: 'front-split', side: 'right', stepIndex: right, hits: 0, misses: 0 },
+  ]
+  const split = (progress: SkillProgress[]) => {
+    const plan = build(90, { recent: legs, progress })
+    expect(plan.dayType).toBe('legs')
+    return all(plan).find((pe) => pe.treeId === 'front-split')!
+  }
+
+  it.each([['left', 3, 4], ['right', 4, 3]] as const)('plans the weaker %s side step', (side, left, right) => {
+    expect(split(sided(left, right))).toMatchObject({ exerciseId: skillTrees.find((t) => t.id === 'front-split')!.steps[3].exerciseId, stepIndex: 3, weakSide: side })
+  })
+
+  it('has no weakSide when both sides are on the same step with no logs', () => {
+    expect(split(sided(3, 3)).weakSide).toBeUndefined()
+  })
+})
+
+describe('cool-down', () => {
+  const secondsOf = (b: SessionPlan['blocks'][number]) => b.exercises.reduce((n, pe) => n + estimateSeconds(pe, exerciseById[pe.exerciseId]), 0)
+  const days: [DayType, SessionRecord[]][] = [
+    ['pull', []],
+    ['push', [done('pull', 72)]],
+    ['skill_core', [done('pull', 96), done('push', 72), done('legs', 36)]],
+  ]
+
+  it.each(days)('ends a 60 min %s day with a 6+ min cool-down that includes a splits or bridge tree', (dayType, recent) => {
+    const plan = build(60, { recent })
+    expect(plan.dayType).toBe(dayType)
+    const last = plan.blocks.at(-1)!
+    expect(last.kind).toBe('cooldown')
+    expect(secondsOf(last)).toBeGreaterThanOrEqual(360)
+    expect(last.exercises.some((pe) => ['front-split', 'middle-split', 'bridge'].includes(pe.treeId ?? ''))).toBe(true)
+    expect(plan.blocks.map((b) => b.kind)).not.toContain('flexibility')
+  })
+
+  it('ends a 10 min session with a 90-180 s cool-down', () => {
+    const last = build(10).blocks.at(-1)!
+    expect(last.kind).toBe('cooldown')
+    expect(secondsOf(last)).toBeGreaterThanOrEqual(90)
+    expect(secondsOf(last)).toBeLessThanOrEqual(180)
+  })
+
+  it('starts with a non-hamstring stretch once hamstrings have 10 min logged this week', () => {
+    const recentLogs: SetLog[] = Array.from({ length: 10 }, (_, i) => ({ id: `h${i}`, sessionId: 's', exerciseId: 'standing-hamstring-stretch', setIndex: i, seconds: 60, repsLeft: 1, mode: 'normal', at: hoursAgo(48) }))
+    expect(exerciseById['standing-hamstring-stretch'].stretchAreas).toContain('hamstrings')
+    const first = build(60, { recentLogs }).blocks.at(-1)!.exercises[0]
+    expect(exerciseById[first.exerciseId].stretchAreas).not.toContain('hamstrings')
+  })
+})
+
+describe('warm-up segment, cool-down active flex, stabilisers, contacts and movement day', () => {
+  const flagOf = (id: string, f: string) => !!(exerciseById[id].flags as string[] | undefined)?.includes(f)
+  const inBlock = (plan: SessionPlan, kind: string, f: string) => exercisesOf(plan, kind).filter((pe) => flagOf(pe.exerciseId, f))
+  const warm = (plan: SessionPlan) => exercisesOf(plan, 'warmup')
+  const legsHistory = [done('pull', 72), done('push', 24)]
+  const skillCore = [done('pull', 96), done('push', 72), done('legs', 36)]
+  const movement = [done('pull', 46), done('pull', 40), done('push', 30), done('legs', 20), done('skill_core', 10)]
+  const total = (plan: SessionPlan) => all(plan).reduce((n, pe) => n + contacts(pe, exerciseById[pe.exerciseId]), 0)
+
+  it('30 min gym pull warm-up has a balance item and jump rope for 30 s', () => {
+    const plan = build(30)
+    expect(plan.dayType).toBe('pull')
+    const bal = warm(plan).filter((pe) => flagOf(pe.exerciseId, 'balance'))
+    expect(bal).toHaveLength(1)
+    expect(bal[0].exerciseId).toBe('single-leg-stance')
+    expect(exerciseById['single-leg-stance'].mode).toBe('time_per_side')
+    expect(warm(plan).find((pe) => pe.exerciseId === 'jump-rope')?.seconds).toBe(30)
+  })
+
+  it('60 min gym pull warm-up has balance for 30 s, one foot item and jump rope for 45 s', () => {
+    const plan = build(60)
+    expect(plan.dayType).toBe('pull')
+    expect(inBlock(plan, 'warmup', 'balance')[0].seconds).toBe(30)
+    expect(warm(plan).filter((pe) => FOOT_POOL.includes(pe.exerciseId))).toHaveLength(1)
+    expect(warm(plan).find((pe) => pe.exerciseId === 'jump-rope')?.seconds).toBe(45)
+  })
+
+  it('30 min home pull warm-up has balance and no jump rope', () => {
+    const plan = build(30, { location: 'home' })
+    expect(inBlock(plan, 'warmup', 'balance').length).toBeGreaterThan(0)
+    expect(warm(plan).map((pe) => pe.exerciseId)).not.toContain('jump-rope')
+  })
+
+  it('60 min gym legs day has balance and a foot item, no jump rope and no plyo anywhere', () => {
+    const plan = build(60, { recent: legsHistory })
+    expect(plan.dayType).toBe('legs')
+    expect(inBlock(plan, 'warmup', 'balance').length).toBeGreaterThan(0)
+    expect(warm(plan).filter((pe) => FOOT_POOL.includes(pe.exerciseId))).toHaveLength(1)
+    expect(warm(plan).map((pe) => pe.exerciseId)).not.toContain('jump-rope')
+    expect(all(plan).filter((pe) => flagOf(pe.exerciseId, 'spring') && flagOf(pe.exerciseId, 'explosive'))).toEqual([])
+  })
+
+  it('10 min gym pull warm-up has the balance item only', () => {
+    const plan = build(10)
+    expect(inBlock(plan, 'warmup', 'balance')).toHaveLength(1)
+    expect(warm(plan).filter((pe) => FOOT_POOL.includes(pe.exerciseId))).toEqual([])
+    expect(warm(plan).map((pe) => pe.exerciseId)).not.toContain('jump-rope')
+  })
+
+  it('60 min gym pull cool-down has one active_flex drill after passive stretches and before pnf', () => {
+    const plan = build(60)
+    const last = plan.blocks.at(-1)!
+    expect(last.kind).toBe('cooldown')
+    const idx = (f: (id: string) => boolean) => last.exercises.flatMap((pe, i) => (f(pe.exerciseId) ? [i] : []))
+    const active = idx((id) => flagOf(id, 'active_flex'))
+    expect(active).toHaveLength(1)
+    const passive = idx((id) => !flagOf(id, 'active_flex') && !flagOf(id, 'pnf'))
+    expect(Math.max(...passive)).toBeLessThan(active[0])
+    for (const i of idx((id) => flagOf(id, 'pnf'))) expect(i).toBeGreaterThan(active[0])
+  })
+
+  it('10 min pull cool-down has no active_flex drill', () => {
+    expect(inBlock(build(10), 'cooldown', 'active_flex')).toEqual([])
+  })
+
+  it('60 min gym pull secondary has a stabiliser', () => {
+    expect(inBlock(build(60), 'secondary', 'stabiliser').length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('30 min gym pull has at most one stabiliser with 1 set', () => {
+    const stabs = inBlock(build(30), 'secondary', 'stabiliser')
+    expect(stabs.length).toBeLessThanOrEqual(1)
+    for (const pe of stabs) expect(pe.sets).toBe(1)
+  })
+
+  it('movement day secondary has 3 stabilisers', () => {
+    const plan = build(60, { recent: movement })
+    expect(plan.dayType).toBe('movement')
+    expect(inBlock(plan, 'secondary', 'stabiliser')).toHaveLength(3)
+  })
+
+  it('caps contacts at 100 on 60 min pull and skill_core days', () => {
+    const pull = build(60)
+    expect(pull.dayType).toBe('pull')
+    expect(total(pull)).toBeLessThanOrEqual(100)
+    const core = build(60, { recent: skillCore })
+    expect(core.dayType).toBe('skill_core')
+    expect(total(core)).toBeLessThanOrEqual(100)
+  })
+
+  it('caps contacts at 200 on a movement day and has none on a legs day', () => {
+    expect(total(build(60, { recent: movement }))).toBeLessThanOrEqual(200)
+    const legs = build(60, { recent: legsHistory })
+    expect(legs.dayType).toBe('legs')
+    expect(total(legs)).toBe(0)
+  })
+
+  it('picks movement after 5 sessions in 7 days covering every pattern within 48 h, else light', () => {
+    expect(pickDayType(movement, settings, now)).toBe('movement')
+    expect(pickDayType(movement.slice(1), settings, now)).toBe('light')
+  })
+
+  it('plans a movement day with balance then spring before secondary, ending in cooldown, no strength', () => {
+    const plan = build(60, { recent: movement })
+    const kinds = plan.blocks.map((b) => b.kind)
+    expect(kinds).not.toContain('strength')
+    expect(kinds.indexOf('balance')).toBeGreaterThanOrEqual(0)
+    expect(kinds.indexOf('spring')).toBeGreaterThan(kinds.indexOf('balance'))
+    expect(kinds.indexOf('secondary')).toBeGreaterThan(kinds.indexOf('spring'))
+    expect(kinds.at(-1)).toBe('cooldown')
+    expect(plan.blocks.find((b) => b.kind === 'balance')!.exercises[0]).toMatchObject({ treeId: 'balance', sets: 3 })
   })
 })

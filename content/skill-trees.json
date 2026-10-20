@@ -50,6 +50,7 @@
   {
     "id": "push-up", "name": "Push-up", "kind": "strength", "straightArm": false,
     "steps": [
+      { "exerciseId": "wall-push-up", "target": { "sets": 3, "reps": 15 }, "checkSet": { "sets": 3, "reps": 10 } },
       { "exerciseId": "incline-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "knee-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "full-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
@@ -86,6 +87,7 @@
   {
     "id": "hspu", "name": "Handstand push-up", "kind": "strength", "straightArm": false,
     "steps": [
+      { "exerciseId": "pike-push-up-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
       { "exerciseId": "pike-push-up", "target": { "sets": 4, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "elevated-pike-push-up", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "wall-hspu-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks wall handstand push-up work once you have 10 elevated pike push-ups.", "requirements": [{ "testId": "elevated-pike-push-up-max", "metric": "reps", "min": 10 }] } },
@@ -128,6 +130,8 @@
   {
     "id": "dragon-flag", "name": "Dragon flag", "kind": "core", "straightArm": false,
     "steps": [
+      { "exerciseId": "hanging-knee-raise", "target": { "sets": 3, "reps": 15 }, "checkSet": { "sets": 3, "reps": 8 } },
+      { "exerciseId": "hanging-leg-raise", "target": { "sets": 3, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "dragon-flag-tuck-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 }, "gate": { "description": "Unlocks dragon flag negatives once you have 10 hanging leg raises.", "requirements": [{ "testId": "hanging-leg-raise-max", "metric": "reps", "min": 10 }] } },
       { "exerciseId": "dragon-flag-straddle-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "dragon-flag-negative", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } },
@@ -136,8 +140,12 @@
     "maintenance": { "setsPerWeek": 1 }
   },
   {
-    "id": "front-split", "name": "Front split", "kind": "flexibility", "straightArm": false,
+    "id": "front-split", "name": "Front split", "kind": "flexibility", "straightArm": false, "perSide": true,
     "steps": [
+      { "exerciseId": "low-lunge", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "half-split", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "lizard-stretch", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "supported-front-split", "target": { "sets": 2, "seconds": 60 } },
       { "exerciseId": "front-split-passive", "target": { "sets": 3, "cmFromFloor": 20 } },
       { "exerciseId": "front-split-pnf", "target": { "sets": 2, "cmFromFloor": 10 } },
       { "exerciseId": "front-split-active", "target": { "sets": 3, "cmFromFloor": 5 } }
@@ -147,6 +155,10 @@
   {
     "id": "middle-split", "name": "Middle split", "kind": "flexibility", "straightArm": false,
     "steps": [
+      { "exerciseId": "butterfly-stretch", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "frog-stretch", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "seated-straddle-stretch", "target": { "sets": 2, "seconds": 60 } },
+      { "exerciseId": "supported-middle-split", "target": { "sets": 2, "seconds": 60 } },
       { "exerciseId": "middle-split-passive", "target": { "sets": 3, "cmFromFloor": 20 } },
       { "exerciseId": "middle-split-pnf", "target": { "sets": 2, "cmFromFloor": 10 } },
       { "exerciseId": "horse-stance", "target": { "sets": 3, "cmFromFloor": 5 } }
@@ -170,6 +182,15 @@
       { "exerciseId": "seated-pike", "target": { "sets": 2, "seconds": 60 }, "checkSet": { "sets": 2, "seconds": 20 } },
       { "exerciseId": "loaded-pike", "target": { "sets": 3, "reps": 10 }, "checkSet": { "sets": 3, "reps": 5 } },
       { "exerciseId": "pancake-active-lift", "target": { "sets": 3, "reps": 8 }, "checkSet": { "sets": 3, "reps": 5 } }
+    ],
+    "maintenance": { "setsPerWeek": 1 }
+  },
+  {
+    "id": "balance", "name": "Single-leg balance", "kind": "balance", "straightArm": false,
+    "steps": [
+      { "exerciseId": "single-leg-stance", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "single-leg-stance-eyes-closed", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "single-leg-stance-toes", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } }
     ],
     "maintenance": { "setsPerWeek": 1 }
   }

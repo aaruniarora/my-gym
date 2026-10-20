@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { exerciseById } from '../content'
-import type { SessionPlan, Settings } from '../lib/types'
+import type { BlockKind, SessionPlan, Settings } from '../lib/types'
 import TechniqueCard from './TechniqueCard'
+
+const LABELS: Partial<Record<BlockKind, string>> = { warmup: 'Warm-up', cooldown: 'Flexibility cool-down', balance: 'Balance', spring: 'Spring' }
 
 type Props = { plan: SessionPlan; settings: Settings; onSettings: (s: Settings) => void }
 
@@ -10,10 +12,10 @@ export default function Preview({ plan, settings, onSettings }: Props) {
 
   return (
     <div>
-      <p className="muted">{plan.dayType.replace('_', ' ')} · {plan.mode} · {plan.location} · about {Math.round(plan.estSeconds / 60)} min (target {plan.minutesTarget})</p>
+      <p className="muted">{plan.dayType === 'movement' ? 'Movement day' : plan.dayType.replace('_', ' ')} · {plan.mode} · {plan.location} · about {Math.round(plan.estSeconds / 60)} min (target {plan.minutesTarget})</p>
       {plan.blocks.map((b, i) => (
         <section key={i}>
-          <h3>{b.kind.replace('_', ' ')}</h3>
+          <h3>{LABELS[b.kind] ?? b.kind.replace('_', ' ')}</h3>
           <ul className="plan">
             {b.exercises.map((pe, j) => {
               const ex = exerciseById[pe.exerciseId]

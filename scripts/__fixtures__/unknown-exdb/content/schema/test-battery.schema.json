@@ -24,7 +24,8 @@
               "reps",
               "seconds",
               "cm_from_floor",
-              "pass_fail"
+              "pass_fail",
+              "cm_height"
             ]
           },
           "protocol": {

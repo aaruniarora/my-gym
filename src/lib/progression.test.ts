@@ -22,16 +22,21 @@ describe('currentStep', () => {
     expect(cs.locked).toBe(false)
   })
 
-  it('locks the dragon-flag tree at step 0 and names the missing gate', () => {
+  it('starts the dragon-flag tree unlocked at step 0 and gates the tuck negative on hanging-leg-raise-max', () => {
     const cs = currentStep([], tree('dragon-flag'), now)
-    expect(cs.locked).toBe(true)
-    expect(cs.gateMissing.length).toBeGreaterThan(0)
+    expect(cs.stepIndex).toBe(0)
+    expect(cs.locked).toBe(false)
+    const gated = tree('dragon-flag').steps[2]
+    expect(gated.exerciseId).toBe('dragon-flag-tuck-negative')
+    expect(gated.gate?.requirements).toMatchObject([{ testId: 'hanging-leg-raise-max', min: 10 }])
   })
 })
 
 describe('gates from bests', () => {
-  it('unlocks the dragon-flag tree when hanging-leg-raise best reaches 10', () => {
-    expect(currentStep([], tree('dragon-flag'), now, { 'hanging-leg-raise': 10 }).locked).toBe(false)
+  it('unlocks the dragon-flag tuck negative when hanging-leg-raise best reaches 10', () => {
+    const progress: SkillProgress[] = [{ treeId: 'dragon-flag', stepIndex: 2, hits: 0, misses: 0 }]
+    expect(currentStep(progress, tree('dragon-flag'), now, { 'hanging-leg-raise': 9 }).locked).toBe(true)
+    expect(currentStep(progress, tree('dragon-flag'), now, { 'hanging-leg-raise': 10 }).locked).toBe(false)
   })
 
   const kickUps = (): SetLog[] => [0, 1, 2].map((i) => ({ id: `k${i}`, sessionId: 'p', exerciseId: 'handstand-kick-up', setIndex: i, seconds: 60, reps: 60, repsLeft: 1, mode: 'normal', at: now.toISOString() }))
@@ -166,5 +171,48 @@ describe('applyPain', () => {
     const res = applyPain(progress, 'pull-up', now)
     expect(res[0].droppedUntil).toBe(new Date(now.getTime() + WEEK).toISOString())
     expect(res[1].droppedUntil).toBeUndefined()
+  })
+})
+
+describe('per-side progression', () => {
+  const sided: SkillProgress[] = [{ treeId: 'front-split', side: 'left', stepIndex: 3, hits: 0, misses: 0 }, { treeId: 'front-split', side: 'right', stepIndex: 4, hits: 0, misses: 0 }]
+  const sidedPlan = (stepIndex: number): SessionPlan => {
+    const exerciseId = tree('front-split').steps[stepIndex].exerciseId
+    return { ...plan(stepIndex, exerciseId), blocks: [{ kind: 'cooldown', exercises: [{ exerciseId, sets: 3, seconds: 60, restSeconds: 8, treeId: 'front-split', stepIndex }] }] }
+  }
+  const sideLogs = (exerciseId: string, side: 'left' | 'right', n: number, extra: Partial<SetLog>): SetLog[] =>
+    Array.from({ length: n }, (_, i) => ({ id: `${side}${i}`, sessionId: 'p', exerciseId, setIndex: i, side, repsLeft: 1, mode: 'normal', at: now.toISOString(), ...extra }))
+  const entry = (p: SkillProgress[], side: 'left' | 'right') => p.find((x) => x.treeId === 'front-split' && x.side === side)!
+
+  it('reads each side from its own entry', () => {
+    expect(currentStep(sided, tree('front-split'), now, {}, 'left').stepIndex).toBe(3)
+    expect(currentStep(sided, tree('front-split'), now, {}, 'right').stepIndex).toBe(4)
+  })
+
+  it('moves only the logged side up after two hitting sessions', () => {
+    const step = tree('front-split').steps[3]
+    const logs = sideLogs(step.exerciseId, 'left', step.target.sets, { seconds: step.target.seconds })
+    const first = applySession(sided, sidedPlan(3), logs, now)
+    const second = applySession(first.progress, sidedPlan(3), logs, now)
+    expect(entry(second.progress, 'left')).toMatchObject({ stepIndex: 4, hits: 0 })
+    expect(entry(second.progress, 'right')).toEqual(entry(sided, 'right'))
+  })
+
+  describe('cm target', () => {
+    const atCm: SkillProgress[] = [{ treeId: 'front-split', side: 'left', stepIndex: 4, hits: 0, misses: 0 }, { treeId: 'front-split', side: 'right', stepIndex: 4, hits: 0, misses: 0 }]
+
+    it('hits when cm is at or under the target and misses when over, per side', () => {
+      const logs = [...sideLogs('front-split-passive', 'left', 3, { cmFromFloor: 18 }), ...sideLogs('front-split-passive', 'right', 3, { cmFromFloor: 25 })]
+      const res = applySession(atCm, sidedPlan(4), logs, now)
+      expect(entry(res.progress, 'left')).toMatchObject({ hits: 1, misses: 0 })
+      expect(entry(res.progress, 'right')).toMatchObject({ hits: 0, misses: 1 })
+    })
+
+    it('changes nothing when no set has a cm entry', () => {
+      const logs = [...sideLogs('front-split-passive', 'left', 3, { seconds: 60 }), ...sideLogs('front-split-passive', 'right', 3, { seconds: 60 })]
+      const res = applySession(atCm, sidedPlan(4), logs, now)
+      expect(res.progress).toEqual(atCm)
+      expect(res.events).toEqual([])
+    })
   })
 })

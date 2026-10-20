@@ -27,6 +27,9 @@
           "straightArm": {
             "type": "boolean"
           },
+          "perSide": {
+            "type": "boolean"
+          },
           "steps": {
             "type": "array",
             "items": {
@@ -106,7 +109,8 @@
                               "reps",
                               "seconds",
                               "cm_from_floor",
-                              "pass_fail"
+                              "pass_fail",
+                              "cm_height"
                             ]
                           },
                           "min": {

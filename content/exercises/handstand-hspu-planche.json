@@ -200,6 +200,35 @@
     "notes": "Do wrist-prep first. Gate: 60 s chest-to-wall hold. Many short attempts beat a few long ones; stop the session when attempts get sloppy."
   },
   {
+    "id": "pike-push-up-negative",
+    "name": "Pike push-up negative",
+    "aliases": ["eccentric pike push-up"],
+    "type": "main_strength",
+    "pattern": "push",
+    "mode": "reps",
+    "equipment": ["floor"],
+    "homeOk": true,
+    "loads": ["wrist", "shoulder", "elbow"],
+    "phases": ["main"],
+    "flags": ["needs_wrist_prep"],
+    "dose": { "sets": [3, 3], "reps": [3, 5], "restSeconds": 120, "progressionTarget": { "sets": 3, "reps": 5 } },
+    "loggable": { "weight": false, "band": false, "setup": null },
+    "technique": {
+      "setup": "Set up in a pike with hips high and a folded cushion on the floor in front of the hands. Lower slowly for 3-5 s until the head touches the cushion, then press back up with help from the knees or reset to the top.",
+      "cues": ["Count 3-5 s on the way down", "Lower the head to a point in front of the hands", "Elbows back at about 45 degrees, not flared", "Keep the hips high over the shoulders"],
+      "mistakes": ["Dropping fast in the last part of the rep", "Hips sinking so it turns into a push-up", "Elbows flaring straight out"],
+      "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the top of the shoulder"]
+    },
+    "regression": "incline-push-up",
+    "progression": "pike-push-up",
+    "alternates": {
+      "home": [],
+      "niggle": { "wrist": ["fist-push-up"], "shoulder": ["band-row", "glute-bridge"], "elbow": ["hollow-hold"] }
+    },
+    "media": { "kind": "youtube", "videoId": "Y-GpL8d3Ia0", "searchHint": "FitnessFAQs pike push up negative eccentric", "preferredChannels": ["FitnessFAQs", "Calisthenicmovement"] },
+    "notes": "HSPU step 1. Do wrist-prep first."
+  },
+  {
     "id": "pike-push-up",
     "name": "Pike push-up",
     "type": "main_strength",
@@ -218,6 +247,7 @@
       "mistakes": ["Hips dropping so it turns into a push-up", "Elbows flaring straight out", "Half reps that stop well above the floor"],
       "stopIf": ["Sharp or joint pain in the wrist, elbow or shoulder", "Pinching at the top of the shoulder"]
     },
+    "regression": "pike-push-up-negative",
     "progression": "elevated-pike-push-up",
     "alternates": {
       "home": [],

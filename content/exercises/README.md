@@ -56,7 +56,7 @@ Check your work with `npm run validate` (errors fail, warnings don't).
 | `phases` | yes | at least one |
 | `flags` | no | safety flags |
 | `dose` | no | override of the type defaults, only the keys that differ |
-| `loggable` | yes | `weight`: log kg; `band`: log band assistance; `setup`: setup detail to log, or `null` |
+| `loggable` | yes | `weight`: log kg; `band`: log band assistance; `setup`: setup detail to log, or `null`; optional `cm`: `true` to log cm from the floor per set (splits, pancake, pike) |
 | `technique` | yes | `setup` 1-3 sentences; `cues` exactly 3-4; `mistakes` at least 2; `stopIf` at least 1 |
 | `regression`, `progression` | no | exercise ids of the easier / harder neighbour |
 | `alternates` | yes | `home`, `niggle`, optional `general`; all exercise ids |
@@ -71,11 +71,16 @@ No other fields are allowed.
 - `type`: `skill_hold`, `main_strength`, `accessory`, `core`, `conditioning`, `mobility`, `stretch`
 - `pattern`: `pull`, `push`, `legs`, `core`, `handstand`, `flexibility`, `conditioning`, `warmup`
 - `mode`: `reps`, `time`, `time_per_side`, `reps_per_side`
-- `equipment`: `pull_up_bar`, `dip_station`, `trx`, `band`, `door_anchor`, `dumbbell`, `kettlebell`, `slam_ball`, `box`, `bench`, `wall`, `floor`, `none`
+- `equipment`: `pull_up_bar`, `dip_station`, `trx`, `band`, `door_anchor`, `dumbbell`, `kettlebell`, `slam_ball`, `box`, `bench`, `wall`, `floor`, `none`, `jump_rope`
+  - `jump_rope`: a skipping rope; gym only, not home equipment
 - `loads` and `alternates.niggle` keys: `wrist`, `shoulder`, `elbow`, `knee`, `lower_back`
 - `stretchAreas`: `hamstrings`, `hip_flexors`, `adductors`, `back_shoulders`, `wrists`, `other`
 - `phases`: `warmup`, `main`, `cooldown`
-- `flags`: `pnf`, `explosive`, `straight_arm`, `hand_balancing`, `needs_wrist_prep`
+- `flags`: `pnf`, `explosive`, `straight_arm`, `hand_balancing`, `needs_wrist_prep`, `balance`, `spring`, `active_flex`, `stabiliser`
+  - `balance`: single-leg balance and control work (warm-up balance block, balance tree)
+  - `spring`: feet, ankles and calves for springiness; with `explosive` it is a plyo item whose contacts are counted
+  - `active_flex`: strength at end range (leg raise holds, slow kicks); goes in the cool-down after the passive stretches
+  - `stabiliser`: small hip and adductor stabilisers (glute medius, TFL, rotators, adductors), rotated in as accessories
 - `loggable.setup`: `trx_angle`, `box_height`, `incline_height`, `foot_elevation`, or `null`
 - `media.preferredChannels`: `FitnessFAQs`, `Calisthenicmovement`, `Antranik`, `GMB Fitness`, `Bodyweight Warrior`, `Hybrid Calisthenics`, `Stretch Therapy`
 
@@ -136,7 +141,9 @@ Home means bands only. `homeOk: true` is allowed only if every `equipment` entry
             "requirements": [{ "testId": "chest-to-wall-handstand-hold", "metric": "seconds", "min": 60 }] } }
 ```
 
-`description` is one sentence saying what the gate unlocks. Each requirement names a test in `content/test-battery.json`, its `metric` (`reps`, `seconds`, `cm_from_floor`, `pass_fail`; `pass_fail` uses `"min": 1`) and the minimum.
+`description` is one sentence saying what the gate unlocks. Each requirement names a test in `content/test-battery.json`, its `metric` (`reps`, `seconds`, `cm_from_floor`, `pass_fail`, `cm_height`; `pass_fail` uses `"min": 1`; `cm_height` is a wall-mark height in cm where higher is better, while `cm_from_floor` is a gap where lower is better) and the minimum.
+
+A tree may set `"perSide": true` (e.g. `front-split`): left and right each keep their own step and progress separately.
 
 ## Niggle mobility blocks
 

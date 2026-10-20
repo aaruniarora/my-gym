@@ -9,12 +9,23 @@ export type DayTemplate = {
   conditioning: string[]
   // cool-down stretches
   flexibility: string[]
-  // adds the splits block as its own flexibility block
+  // folds the splits trees into the cool-down
   splits: boolean
+  // movement day only
+  balance?: string[]
+  spring?: string[]
 }
 
 export const SPLITS_BLOCK = ['tree:front-split', 'tree:middle-split', 'tree:pike-pancake']
+// cool-down picks by stretch area; tree refs only on splits days
+export const COOLDOWN_AREAS: Record<string, string[]> = {
+  hamstrings: ['tree:front-split', 'seated-pike'],
+  hip_flexors: ['tree:front-split', 'couch-stretch'],
+  adductors: ['tree:middle-split', 'pancake-passive'],
+  back_shoulders: ['tree:bridge', 'lat-stretch', 'thoracic-extension'],
+}
 export const WARMUP_POOL = ['leg-swing', 'hip-circle', 'cat-cow', 'worlds-greatest-stretch']
+export const FOOT_POOL = ['short-foot', 'toe-yoga', 'tibialis-raise', 'calf-raise']
 export const FULL_BODY_SKILLS = ['handstand', 'l-sit', 'bridge']
 
 const none = { secondary: [], core: [], conditioning: ['burpee', 'mountain-climber', 'skipping'], splits: false }
@@ -67,5 +78,15 @@ export const dayTemplates: Record<DayType, DayTemplate> = {
     conditioning: ['skipping'],
     flexibility: ['frog-stretch', 'ninety-ninety'],
     splits: true,
+  },
+  // secondary (stabilisers) and the active-flex drills are picked at build time; jump-rope becomes pogo-hop at home
+  movement: {
+    ...none,
+    strengthPairs: [],
+    skills: [],
+    conditioning: [],
+    flexibility: ['frog-stretch', 'ninety-ninety'],
+    balance: ['tree:balance', 'hip-airplane', 'knee-chamber-hold', 'single-leg-rdl'],
+    spring: ['jump-rope', 'low-hop-soft-landing', 'calf-raise', 'tibialis-raise'],
   },
 }

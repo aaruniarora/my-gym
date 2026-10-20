@@ -9,6 +9,13 @@ export default function Summary({ record, logs, events, onDone }: Props) {
   // per-side exercises log both sides; count the pair as one set
   const sets = logs.filter((l) => l.side !== 'left')
   const best: Record<string, SetLog> = {}
+  // lowest cm per exercise and side
+  const cm: Record<string, Record<string, number>> = {}
+  for (const l of logs) if (l.cmFromFloor !== undefined) {
+    const c = (cm[l.exerciseId] ??= {})
+    const side = l.side ?? ''
+    c[side] = Math.min(c[side] ?? Infinity, l.cmFromFloor)
+  }
   for (const l of logs) {
     const b = best[l.exerciseId]
     if (!b || (l.reps ?? l.seconds ?? 0) > (b.reps ?? b.seconds ?? 0)) best[l.exerciseId] = l
@@ -22,7 +29,8 @@ export default function Summary({ record, logs, events, onDone }: Props) {
       <h3>Best sets</h3>
       <ul>
         {Object.values(best).map((l) => (
-          <li key={l.exerciseId}>{exerciseById[l.exerciseId]?.name ?? l.exerciseId}: {l.reps !== undefined ? `${l.reps} reps` : `${l.seconds} s`}</li>
+          <li key={l.exerciseId}>{exerciseById[l.exerciseId]?.name ?? l.exerciseId}: {l.reps !== undefined ? `${l.reps} reps` : `${l.seconds} s`}
+            {cm[l.exerciseId] && ` · ${Object.entries(cm[l.exerciseId]).sort(([a], [b]) => a.localeCompare(b)).map(([side, n]) => `${side && `${side} `}${n} cm`).join(' / ')}`}</li>
         ))}
       </ul>
       <h3>Progression</h3>

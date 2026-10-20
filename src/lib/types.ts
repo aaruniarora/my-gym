@@ -5,8 +5,8 @@ export type NiggleArea = (typeof niggleAreas)[number]
 
 export type Location = 'gym' | 'home'
 export type DayMode = 'normal' | 'push' | 'tired' | 'bare'
-export type DayType = 'pull' | 'push' | 'legs' | 'skill_core' | 'full_body' | 'light'
-export type BlockKind = 'warmup' | 'skill' | 'strength' | 'secondary' | 'core' | 'conditioning' | 'flexibility' | 'niggle_mobility' | 'cooldown'
+export type DayType = 'pull' | 'push' | 'legs' | 'skill_core' | 'full_body' | 'light' | 'movement'
+export type BlockKind = 'warmup' | 'skill' | 'strength' | 'secondary' | 'core' | 'conditioning' | 'flexibility' | 'niggle_mobility' | 'cooldown' | 'balance' | 'spring'
 
 export type PlannedExercise = {
   exerciseId: string
@@ -20,6 +20,8 @@ export type PlannedExercise = {
   checkSet?: boolean
   // work/rest intervals: the player runs sets back to back and auto-logs them
   interval?: boolean
+  // per-side trees: the side whose step was planned; the player holds it longer
+  weakSide?: 'left' | 'right'
 }
 
 export type Block = { kind: BlockKind; exercises: PlannedExercise[] }
@@ -43,6 +45,7 @@ export type SetLog = {
   reps?: number
   seconds?: number
   side?: 'left' | 'right'
+  cmFromFloor?: number
   repsLeft: 0 | 1 | 2 | 3
   weightKg?: number
   bandIds?: string[]
@@ -64,7 +67,8 @@ export type SessionRecord = {
 
 export type Band = { id: string; colour: string; label: string; order: number; resistanceKg?: number }
 
-export type SkillProgress = { treeId: string; stepIndex: number; hits: number; misses: number; droppedUntil?: string }
+// per-side trees keep one entry per side
+export type SkillProgress = { treeId: string; side?: 'left' | 'right'; stepIndex: number; hits: number; misses: number; droppedUntil?: string }
 
 export type Niggle = { area: NiggleArea; startedAt: string; clearedAt?: string }
 
@@ -79,7 +83,7 @@ export type Settings = {
   neverShow: string[]
   favourites: string[]
   niggles: Niggle[]
-  // exerciseId -> best reps or seconds
+  // exerciseId (or test id for the movement tests) -> best reps, seconds or cm
   bests: Record<string, number>
   headphoneControls: boolean
   lastDraft: { minutes: number; location: Location; mode: DayMode }

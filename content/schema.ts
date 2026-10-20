@@ -3,16 +3,16 @@ import { z } from 'zod'
 export const exerciseTypes = ['skill_hold', 'main_strength', 'accessory', 'core', 'conditioning', 'mobility', 'stretch'] as const
 export const patterns = ['pull', 'push', 'legs', 'core', 'handstand', 'flexibility', 'conditioning', 'warmup'] as const
 export const modes = ['reps', 'time', 'time_per_side', 'reps_per_side'] as const
-export const equipment = ['pull_up_bar', 'dip_station', 'trx', 'band', 'door_anchor', 'dumbbell', 'kettlebell', 'slam_ball', 'box', 'bench', 'wall', 'floor', 'none'] as const
+export const equipment = ['pull_up_bar', 'dip_station', 'trx', 'band', 'door_anchor', 'dumbbell', 'kettlebell', 'slam_ball', 'box', 'bench', 'wall', 'floor', 'none', 'jump_rope'] as const
 export const homeEquipment = ['band', 'door_anchor', 'wall', 'floor', 'none'] as const
 export const niggleAreas = ['wrist', 'shoulder', 'elbow', 'knee', 'lower_back'] as const
 export const stretchAreas = ['hamstrings', 'hip_flexors', 'adductors', 'back_shoulders', 'wrists', 'other'] as const
 export const phases = ['warmup', 'main', 'cooldown'] as const
-export const flags = ['pnf', 'explosive', 'straight_arm', 'hand_balancing', 'needs_wrist_prep'] as const
+export const flags = ['pnf', 'explosive', 'straight_arm', 'hand_balancing', 'needs_wrist_prep', 'balance', 'spring', 'active_flex', 'stabiliser'] as const
 export const setups = ['trx_angle', 'box_height', 'incline_height', 'foot_elevation'] as const
 export const coaches = ['FitnessFAQs', 'Calisthenicmovement', 'Antranik', 'GMB Fitness', 'Bodyweight Warrior', 'Hybrid Calisthenics', 'Stretch Therapy'] as const
 export const treeKinds = ['strength', 'straight_arm', 'balance', 'flexibility', 'core'] as const
-export const metrics = ['reps', 'seconds', 'cm_from_floor', 'pass_fail'] as const
+export const metrics = ['reps', 'seconds', 'cm_from_floor', 'pass_fail', 'cm_height'] as const
 
 const id = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'must be kebab-case')
 const ids = z.array(id)
@@ -53,7 +53,8 @@ export const ExerciseSchema = z.strictObject({
   phases: z.array(z.enum(phases)).min(1),
   flags: z.array(z.enum(flags)).optional(),
   dose: dose.partial().optional(),
-  loggable: z.strictObject({ weight: z.boolean(), band: z.boolean(), setup: z.enum(setups).nullable() }),
+  // cm: log cmFromFloor per set
+  loggable: z.strictObject({ weight: z.boolean(), band: z.boolean(), setup: z.enum(setups).nullable(), cm: z.boolean().optional() }),
   technique: z.strictObject({
     setup: z.string().min(1),
     cues: z.array(z.string()).min(3).max(4),
@@ -83,6 +84,8 @@ export const SkillTreeSchema = z.strictObject({
   kind: z.enum(treeKinds),
   // true: at most one step per 4-week block
   straightArm: z.boolean(),
+  // true: each side (left/right) progresses separately
+  perSide: z.boolean().optional(),
   steps: z.array(z.strictObject({
     exerciseId: id,
     target,

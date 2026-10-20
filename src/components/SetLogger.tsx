@@ -16,14 +16,16 @@ export default function SetLogger({ exercise, logs, settings, onSave }: Props) {
   const [bandIds, setBandIds] = useState(first.bandIds ?? [])
   const [setup, setSetup] = useState(first.setup ?? '')
   const [note, setNote] = useState(first.note ?? '')
+  const [cm, setCm] = useState<Record<string, string>>(() => Object.fromEntries(logs.map((l) => [l.id, l.cmFromFloor !== undefined ? String(l.cmFromFloor) : ''])))
 
   function save() {
-    onSave(logs.map(({ weightKg: _w, bandIds: _b, setup: _s, note: _n, ...l }) => ({
+    onSave(logs.map(({ weightKg: _w, bandIds: _b, setup: _s, note: _n, cmFromFloor: _c, ...l }) => ({
       ...l,
       ...(timed ? { seconds: amount } : { reps: amount }),
       ...(loggable.weight && weight !== '' && { weightKg: Number(weight) }),
       ...(loggable.band && bandIds.length > 0 && { bandIds }),
       ...(loggable.setup && setup !== '' && { setup }),
+      ...(loggable.cm && cm[l.id] !== '' && { cmFromFloor: Number(cm[l.id]) }),
       ...(note !== '' && { note }),
     })))
   }
@@ -44,6 +46,11 @@ export default function SetLogger({ exercise, logs, settings, onSave }: Props) {
             </button>
           ))}</div>)}
       {loggable.setup && <label>{setupLabels[loggable.setup]} <input value={setup} onChange={(e) => setSetup(e.target.value)} /></label>}
+      {loggable.cm && logs.map((l) => (
+        <label key={l.id}>{l.side === 'left' ? 'Left ' : l.side === 'right' ? 'Right ' : ''}cm from floor
+          <input type="number" inputMode="decimal" value={cm[l.id]} onChange={(e) => setCm({ ...cm, [l.id]: e.target.value })} />
+        </label>
+      ))}
       <input placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       <button className="primary wide" onClick={save}>Close</button>
     </div>

@@ -25,7 +25,7 @@ type Phase = 'card' | 'ready' | 'work' | 'rest'
 // rest: adaptive with rating; interval: fixed work/rest; transition: mobility/stretch hand-over, no rating
 type RestKind = 'rest' | 'interval' | 'transition'
 // the set just logged, kept for rating, edit and rest adjustment
-type Last = { ids: string[]; exerciseId: string; base: number; target: number }
+type Last = { ids: string[]; exerciseId: string; base: number; target: number; lastCm?: (number | undefined)[] }
 
 const SIDE_PAUSE = 3
 const CARD_KINDS: BlockKind[] = ['skill', 'strength', 'secondary', 'core', 'conditioning']
@@ -60,6 +60,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const [now, setNow] = useState(Date.now())
   const [sheet, setSheet] = useState<'technique' | 'swap' | 'edit' | null>(null)
   const [dbLast, setDbLast] = useState<SetLog | undefined>()
+  const [dbSides, setDbSides] = useState<Partial<Record<'left' | 'right', SetLog>>>({})
   const started = useRef(false)
   const tooHardReported = useRef(new Set<string>())
   const media = useRef({ toggle: () => {}, next: () => {}, previous: () => {} })
@@ -79,13 +80,17 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const perSide = ex.mode === 'time_per_side'
   const timed = ex.mode === 'time' || perSide
   const sidePause = settings.sidePause ? SIDE_PAUSE : 0
-  const workTotal = pe.seconds !== undefined ? (perSide ? 2 * pe.seconds + sidePause : pe.seconds) : 0
+  // the weaker side holds 1.5x longer
+  const hold = (side: 'left' | 'right') => Math.round((pe.seconds ?? 0) * (pe.weakSide === side ? 1.5 : 1))
+  const [rightSecs, leftSecs] = [hold('right'), hold('left')]
+  const workTotal = pe.seconds !== undefined ? (perSide ? rightSecs + sidePause + leftSecs : pe.seconds) : 0
   const left = pausedLeft ?? Math.max(0, deadline - now)
   const secLeft = Math.ceil(left / 1000)
 
   useEffect(() => {
     let live = true
     lastSetLog(ex.id).then((l) => live && setDbLast(l)).catch(() => {})
+    if (ex.loggable.cm) Promise.all([lastSetLog(ex.id, 'left', true), lastSetLog(ex.id, 'right', true)]).then(([left, right]) => live && setDbSides({ left, right })).catch(() => {})
     if (started.current && settings.headphoneControls) setMediaTitle(ex.name)
     return () => { live = false }
   }, [ex.id])
@@ -131,12 +136,13 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   function startWork() {
     beep('go', settings)
     if (pe.interval) speak('Go', settings)
+    if (perSide && pe.weakSide === 'right') speak('Weaker side: longer hold', settings)
     setPhase('work')
     if (timed) startTimer(workTotal)
   }
 
   // logs the current set with prefilled values and rating Good, then rests
-  function logSet(seconds?: number) {
+  function logSet(seconds?: number, leftSeconds = seconds) {
     const prev = logs.filter((l) => l.exerciseId === ex.id).at(-1) ?? (dbLast?.exerciseId === ex.id ? dbLast : undefined)
     const base: Omit<SetLog, 'id'> = {
       sessionId: plan.id,
@@ -151,7 +157,17 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
       at: new Date().toISOString(),
     }
     const sides = ex.mode.endsWith('_per_side') ? (['right', 'left'] as const) : [undefined]
-    const fresh = sides.map((side) => ({ ...base, id: crypto.randomUUID(), ...(side && { side }) }))
+    // cm is never prefilled; the last typed value on that side (this session, else saved) is the placeholder
+    const lastCm = (side?: 'left' | 'right') => {
+      const db = side ? dbSides[side] : dbLast
+      return logs.filter((l) => l.exerciseId === ex.id && l.side === side && l.cmFromFloor !== undefined).at(-1)?.cmFromFloor ?? (db?.exerciseId === ex.id ? db.cmFromFloor : undefined)
+    }
+    const fresh = sides.map((side) => ({
+      ...base,
+      id: crypto.randomUUID(),
+      ...(side && { side }),
+      ...(timed && side === 'left' && { seconds: leftSeconds }),
+    }))
     const ids = fresh.map((l) => l.id)
     const all = [...logs.filter((l) => !logIds[pos]?.includes(l.id)), ...fresh]
     setLogs(all)
@@ -163,9 +179,10 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     const nextEx = n < items.length ? exerciseById[exId(n)] : undefined
     let rest = clamp(pe.restSeconds, range)
     if (ex.type === 'mobility' || ex.type === 'stretch') {
-      if (!nextEx) return finish(true, all)
+      // a last cm-logged stretch still gets the rest screen so cm can be entered
+      if (!nextEx && !ex.loggable.cm) return finish(true, all)
       setRestKind('transition')
-      speak(`Next: ${nextEx.name}`, settings)
+      if (nextEx) speak(`Next: ${nextEx.name}`, settings)
     } else if (pe.interval) {
       rest = pe.restSeconds
       setRestKind('interval')
@@ -174,7 +191,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
       setRestKind('rest')
       speak(`Rest ${rest} seconds`, settings)
     }
-    setLast({ ids, exerciseId: ex.id, base: rest, target: rest })
+    setLast({ ids, exerciseId: ex.id, base: rest, target: rest, ...(ex.loggable.cm && { lastCm: sides.map(lastCm) }) })
     setPos(n)
     setPhase('rest')
     startTimer(rest)
@@ -183,7 +200,8 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   function finishWork(early = false) {
     if (!early) beep('done', settings)
     const elapsed = Math.round((workTotal * 1000 - left) / 1000)
-    logSet(!early ? pe.seconds : perSide ? Math.max(0, Math.round((elapsed - sidePause) / 2)) : elapsed)
+    if (!early) return perSide ? logSet(rightSecs, leftSecs) : logSet(pe.seconds)
+    logSet(perSide ? Math.max(0, Math.round((elapsed - sidePause) / 2)) : elapsed)
   }
 
   // Hard adds 30 s, a second consecutive Easy takes 15 s off, always within the type's range
@@ -212,11 +230,11 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
       if (secLeft === 0) startWork()
     }
     if (phase === 'work' && timed) {
-      if (perSide && secLeft === pe.seconds! + sidePause) {
-        speak('Switch to left side', settings)
+      if (perSide && secLeft === leftSecs + sidePause) {
+        speak(pe.weakSide === 'left' ? 'Switch to left side. Weaker side: longer hold' : 'Switch to left side', settings)
         beep('switch', settings)
       }
-      if (perSide && sidePause && secLeft === pe.seconds!) beep('go', settings)
+      if (perSide && sidePause && secLeft === leftSecs) beep('go', settings)
       if (secLeft === 0) finishWork()
     }
     // rest doubles as the get-ready countdown unless a technique card comes next
@@ -307,9 +325,12 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   ])].filter((id) => exerciseById[id] && id !== ex.id && (plan.location !== 'home' || exerciseById[id].homeOk) && !settings.neverShow.includes(id) && canDo(id))
 
   const elapsed = workTotal - secLeft
-  const sideLabel = !perSide ? '' : elapsed < pe.seconds! ? 'Right side' : elapsed < pe.seconds! + sidePause ? 'Switch sides' : 'Left side'
-  const shown = !perSide ? secLeft : elapsed < pe.seconds! ? pe.seconds! - elapsed : elapsed < pe.seconds! + sidePause ? pe.seconds! + sidePause - elapsed : secLeft
+  const sideLabel = !perSide ? '' : elapsed < rightSecs ? 'Right side' : elapsed < rightSecs + sidePause ? 'Switch sides' : 'Left side'
+  const shown = !perSide ? secLeft : elapsed < rightSecs ? rightSecs - elapsed : elapsed < rightSecs + sidePause ? rightSecs + sidePause - elapsed : secLeft
   const lastLogs = logs.filter((l) => last?.ids.includes(l.id))
+  const cmLogs = lastLogs.filter((l) => exerciseById[l.exerciseId].loggable.cm)
+  const setCm = (id: string, value: string) => setLogs(logs.map((l) => (l.id === id ? { ...l, cmFromFloor: value === '' ? undefined : Number(value) } : l)))
+  const cmHint = (id: string) => last?.lastCm?.[last.ids.indexOf(id)]
   const rating = lastLogs[0]?.repsLeft
 
   return (
@@ -339,8 +360,14 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
         ? <><p>{sideLabel}</p><div className="timer">{mmss(shown)}</div><button className="wide" onClick={() => finishWork(true)}>Done early</button></>
         : <button className="primary done-target" onClick={done}>Done</button>)}
       {phase === 'rest' && <>
-        <p>{restKind === 'transition' ? `Next: ${ex.name}` : 'Rest'}</p>
+        <p>{restKind !== 'transition' ? 'Rest' : atEnd ? 'Done' : `Next: ${ex.name}`}</p>
         <div className="timer">{mmss(secLeft)}</div>
+        {/* typing holds the timer, like edit */}
+        {cmLogs.length > 0 && <div className="row">{cmLogs.map((l) => (
+          <label key={l.id}>{l.side === 'left' ? 'Left ' : l.side === 'right' ? 'Right ' : ''}cm from floor
+            <input type="number" inputMode="decimal" min={0} value={l.cmFromFloor ?? ''} placeholder={cmHint(l.id) !== undefined ? `last ${cmHint(l.id)}` : undefined} onFocus={() => pausedLeft === null && setPausedLeft(left)} onChange={(e) => setCm(l.id, e.target.value)} />
+          </label>
+        ))}</div>}
         {restKind !== 'transition' && lastLogs.length > 0 && <>
           <div className="row big">
             {RATINGS.map(([label, r]) => <button key={label} className={rating === r ? 'primary' : ''} onClick={() => rate(r)}>{label}</button>)}
