@@ -302,6 +302,16 @@ Every exercise has a **technique card**, shown before the first set and availabl
 5. **Program view:** the quarter, the current block and week, upcoming tests.
 6. **Settings:** session-length presets, voice on/off, equipment lists, data export.
 
+### Garmin data (proposed: replaces the Shortcuts route below)
+
+Garmin Connect does **not** send cycle data to Apple Health, so the Shortcut route can't see my periods. Proposed instead:
+- A **daily scheduled GitHub Action** runs a small script using the unofficial open-source `python-garminconnect` library. It logs in as me, reads **menstrual cycle, sleep and readiness data**, and writes them to Supabase `health_daily`.
+- **Secrets:** Garmin login and Supabase key are stored as GitHub Actions secrets, never in the code. The library caches a login token so it doesn't sign in every day.
+- **Caveats:**
+  - It's unofficial and could break when Garmin changes things. It may also be against Garmin's terms of use.
+  - Two-factor login may need a one-time manual step.
+- **Fallback:** if it breaks, the app shows "Garmin sync failed" and offers a one-tap period log.
+
 ### Apple Health / Garmin data (via iOS Shortcuts)
 
 - Web apps can't read Apple Health, and Garmin's developer program is paused for new applicants. So a **personal iOS Shortcut automation** runs daily. It reads menstrual flow and sleep from Apple Health ("Find Health Samples") and POSTs them to a Supabase Edge Function. It authenticates with a personal ingest token, not my password.
@@ -356,7 +366,11 @@ Each phase ends with something usable that I review before the next one starts.
 
 ## 6. Open items
 
-- [ ] Check whether Garmin cycle data appears in Apple Health.
+- [x] Check whether Garmin cycle data appears in Apple Health: **it doesn't**, so the plan is a Garmin sync via GitHub Action (pending my OK on the caveats).
+- [x] Phase 1 review decisions:
+  - forearm stretches are allowed in the wrist niggle block (pain-free)
+  - the "stop if painful" note is enough for niggle band drills
+  - front lever and dragon flag gates stay as planned
 - [ ] Find the existing Supabase account; create a project for my-gym.
 - [x] Repo hygiene: `resources/` is in `.gitignore`, so the reference zips and the PDF stay local only. GitHub Pages on a free plan needs a **public** repo. Code and exercise content are fine to make public; personal data lives only in Supabase.
 - [ ] Review the skill-tree drafts and the gate thresholds in phase 1.
