@@ -134,13 +134,14 @@ export function validateContent(rootDir: string) {
   const niggleData = load('niggle-mobility.json')
   const niggleMobility = NiggleMobilitySchema.safeParse(niggleData)
   if (niggleData !== undefined && !niggleMobility.success) errors.push(`niggle-mobility.json: ${niggleMobility.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`)
-  for (const [area, list] of Object.entries(niggleMobility.data ?? {})) for (const id of list) {
+  for (const [area, list] of Object.entries(niggleMobility.data ?? {})) for (const entry of list) {
+    const { id, allowLoaded = false } = typeof entry === 'string' ? { id: entry } : entry
     const e = exerciseById.get(id)
     if (!e) errors.push(`niggle-mobility.${area}: unknown exercise id ${id}`)
     else {
       if (e.type !== 'mobility' && e.type !== 'stretch') errors.push(`niggle-mobility.${area}: ${id} must be type mobility or stretch`)
       if (!e.homeOk) errors.push(`niggle-mobility.${area}: ${id} is not homeOk`)
-      if (e.loads.includes(area as Exercise['loads'][number])) errors.push(`niggle-mobility.${area}: ${id} itself loads ${area}`)
+      if (!allowLoaded && e.loads.includes(area as Exercise['loads'][number])) errors.push(`niggle-mobility.${area}: ${id} itself loads ${area}`)
     }
   }
 

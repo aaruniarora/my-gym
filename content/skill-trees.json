@@ -16,8 +16,8 @@
   {
     "id": "muscle-up", "name": "Muscle-up", "kind": "strength", "straightArm": false,
     "steps": [
-      { "exerciseId": "high-pull-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
-      { "exerciseId": "band-assisted-muscle-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks muscle-up transition work once you have 8 strict pull-ups, 10 dips and a chest-to-bar pull-up.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 8 }, { "testId": "dip-max", "metric": "reps", "min": 10 }, { "testId": "chest-to-bar-pull-up-max", "metric": "reps", "min": 1 }] } },
+      { "exerciseId": "high-pull-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks muscle-up work once you have 8 strict pull-ups.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 8 }] } },
+      { "exerciseId": "band-assisted-muscle-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks muscle-up transition work once you have 10 dips and a chest-to-bar pull-up.", "requirements": [{ "testId": "dip-max", "metric": "reps", "min": 10 }, { "testId": "chest-to-bar-pull-up-max", "metric": "reps", "min": 1 }] } },
       { "exerciseId": "muscle-up-negative", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
       { "exerciseId": "bar-muscle-up", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } }
     ],
@@ -27,7 +27,7 @@
     "id": "front-lever", "name": "Front lever", "kind": "straight_arm", "straightArm": true,
     "steps": [
       { "exerciseId": "tuck-hang", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
-      { "exerciseId": "tuck-front-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },
+      { "exerciseId": "tuck-front-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks tuck front lever holds once you have 3 strict pull-ups.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 3 }] } },
       { "exerciseId": "advanced-tuck-front-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks the advanced tuck front lever once you have 8 pull-ups, a 30 s hollow hold and a 20 s tuck front lever.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 8 }, { "testId": "hollow-hold", "metric": "seconds", "min": 30 }, { "testId": "tuck-front-lever-hold", "metric": "seconds", "min": 20 }] } },
       { "exerciseId": "one-leg-front-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
       { "exerciseId": "straddle-front-lever", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
@@ -38,7 +38,7 @@
   {
     "id": "back-lever", "name": "Back lever", "kind": "straight_arm", "straightArm": true,
     "steps": [
-      { "exerciseId": "skin-the-cat", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 } },
+      { "exerciseId": "skin-the-cat", "target": { "sets": 3, "reps": 5 }, "checkSet": { "sets": 3, "reps": 3 }, "gate": { "description": "Unlocks back lever work once you have 3 strict pull-ups.", "requirements": [{ "testId": "pull-up-max", "metric": "reps", "min": 3 }] } },
       { "exerciseId": "german-hang", "target": { "sets": 3, "seconds": 20 }, "checkSet": { "sets": 3, "seconds": 10 } },
       { "exerciseId": "tuck-back-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 }, "gate": { "description": "Unlocks back lever holds once you have a controlled skin the cat, a 20 s German hang and 5 pull-ups.", "requirements": [{ "testId": "skin-the-cat", "metric": "pass_fail", "min": 1 }, { "testId": "german-hang-hold", "metric": "seconds", "min": 20 }, { "testId": "pull-up-max", "metric": "reps", "min": 5 }] } },
       { "exerciseId": "advanced-tuck-back-lever", "target": { "sets": 3, "seconds": 30 }, "checkSet": { "sets": 3, "seconds": 10 } },

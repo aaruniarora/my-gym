@@ -106,7 +106,8 @@ export const TestBatterySchema = z.strictObject({
   higherIsBetter: z.boolean(),
 })
 
-const mobilityBlock = z.array(id).min(1).max(5)
+// allowLoaded: user-confirmed pain-free even though the exercise loads this area
+const mobilityBlock = z.array(z.union([id, z.strictObject({ id, allowLoaded: z.literal(true) })])).min(1).max(5)
 export const NiggleMobilitySchema = z.strictObject({
   wrist: mobilityBlock,
   shoulder: mobilityBlock,

@@ -146,7 +146,7 @@ Home means bands only. `homeOk: true` is allowed only if every `equipment` entry
 { "wrist": ["wrist-circles", "wrist-rocks", "elbow-cars"], "shoulder": ["shoulder-cars", "wall-slide"], "elbow": ["..."], "knee": ["..."], "lower_back": ["..."] }
 ```
 
-Every id must be an existing exercise of type `mobility` or `stretch`, with `homeOk: true`, that does not list that area in its `loads`.
+Every id must be an existing exercise of type `mobility` or `stretch`, with `homeOk: true`, that does not list that area in its `loads`. To keep an exercise that loads the area but is confirmed pain-free, write it as `{ "id": "forearm-flexor-stretch", "allowLoaded": true }`; only the `loads` check is skipped.
 
 ## Flexibility trees
 
@@ -171,7 +171,7 @@ Errors:
 - A skill-tree step target equals the exercise's progression target (sets and reps or seconds); `cmFromFloor` steps are exempt.
 - A skill-tree `checkSet` has no more sets, reps or seconds than its target.
 - Step gate requirements reference an existing test, with the same `metric` as that test.
-- `niggle-mobility.json` exists and has all five areas; each id exists, is type `mobility` or `stretch`, is `homeOk: true` and does not load that area.
+- `niggle-mobility.json` exists and has all five areas; each id exists, is type `mobility` or `stretch`, is `homeOk: true` and does not load that area unless the entry sets `allowLoaded`.
 - `dose-defaults.json` is valid and `content/schema/*.schema.json` is up to date (`npm run schema:gen`).
 
 Warnings:

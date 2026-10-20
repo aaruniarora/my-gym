@@ -3,17 +3,29 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "tsx scripts/validate-content.ts",
-    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json --noEmit",
     "test": "vitest run",
+    "validate": "tsx scripts/validate-content.ts",
     "schema:gen": "tsx scripts/gen-schema.ts"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
+    "vite": "^8.3.4",
     "vitest": "^4.1.12",
     "zod": "^3.25.76",
     "zod-to-json-schema": "^3.25.2"
+  },
+  "dependencies": {
+    "idb": "^8.0.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   }
 }
