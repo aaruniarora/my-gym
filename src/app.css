@@ -91,7 +91,7 @@ input, select {
 .player .logger label { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 8px 0; }
 .player .logger input { width: 100%; max-width: 50%; }
 .player .logger > input { max-width: none; }
-.player .sheet { position: fixed; inset: 0; overflow-y: auto; background: #000; padding: 16px; z-index: 10; }
+.player .sheet { position: fixed; inset: 0; overflow-y: auto; background: #000; padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); z-index: 10; }
 .technique .demo { width: 100%; border-radius: 12px; background: #222; }
 .technique .video { aspect-ratio: 16 / 9; border: 0; }
 .player .active-demo .demo { display: block; max-height: 40vh; width: auto; max-width: 100%; margin: 0 auto; border-radius: 12px; background: #222; }
@@ -113,7 +113,7 @@ button.link { background: none; padding: 0; min-height: 0; min-width: 0; color: 
 .card p { margin: 4px 0; }
 .settings > label { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 8px 0; }
 .settings input[type='checkbox'] { min-height: 0; width: 24px; height: 24px; }
-.overlay { position: fixed; inset: 0; overflow-y: auto; background: var(--bg); padding: 16px; z-index: 10; }
+.overlay { position: fixed; inset: 0; overflow-y: auto; background: var(--bg); padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); z-index: 10; }
 details { margin: 8px 0; }
 details > summary { min-height: 48px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
 details > summary::before { content: 'B8'; margin-right: 8px; }

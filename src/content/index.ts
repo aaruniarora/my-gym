@@ -12,7 +12,7 @@ import testBattery from '../../content/test-battery.json'
 import doseDefaultsJson from '../../content/dose-defaults.json'
 import niggleMobilityJson from '../../content/niggle-mobility.json'
 import conditioningFormatsJson from '../../content/conditioning-formats.json'
-import exdbCatalog from '../../content/media/exdb-catalog.json'
+import exdbUsed from '../../content/media/exdb-used.json'
 import type { NiggleArea } from '../lib/types'
 
 export type Dose = Omit<DoseDefaults[keyof DoseDefaults], 'note'>
@@ -35,8 +35,9 @@ export function effectiveDose(ex: Exercise): Dose {
   return { ...defaults, ...ex.dose }
 }
 
-export const EXDB_IMAGE_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/'
-const exdbImagesById = new Map((exdbCatalog as { id: string; images: string[] }[]).map((e) => [e.id, e.images]))
+// photos are fetched into public/ by scripts/fetch-exdb-media.mjs
+export const EXDB_IMAGE_BASE = import.meta.env.BASE_URL + 'media/exdb/'
+const exdbImagesById = new Map((exdbUsed as { id: string; images: string[] }[]).map((e) => [e.id, e.images]))
 
 export function exdbImages(ex: Exercise): string[] {
   if (ex.media.kind !== 'exdb') return []

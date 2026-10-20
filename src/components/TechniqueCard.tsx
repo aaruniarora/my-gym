@@ -13,10 +13,23 @@ export function Demo({ exercise }: { exercise: Exercise }) {
     const t = setInterval(() => setFrame((f) => f + 1), 1000)
     return () => clearInterval(t)
   }, [])
+  const [online, setOnline] = useState(navigator.onLine)
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine)
+    addEventListener('online', update)
+    addEventListener('offline', update)
+    return () => { removeEventListener('online', update); removeEventListener('offline', update) }
+  }, [])
   const { media } = exercise
   if (images.length > 0) return <img className="demo" src={images[frame % images.length]} alt={exercise.name} />
   if (media.kind !== 'youtube') return null
   const id = media.videoId
+  if (id && !online) return (
+    <>
+      <img className="demo" src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt={exercise.name} />
+      <p className="muted">Video needs internet - follow the cues</p>
+    </>
+  )
   return id
     ? <iframe className="demo video" src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1`}
         title={exercise.name} allow="autoplay; encrypted-media; picture-in-picture" />
