@@ -168,6 +168,35 @@ The program follows my actual level, not the calendar.
 - **Re-planning within the quarter:** hitting a milestone early updates the rest of the quarter's targets straight away. The quarter structure stays the same; only what fills it changes.
 - **Prerequisites still apply:** "I can already do this" can't skip past a safety prerequisite for straight-arm skills or freestanding handstand drills without passing that prerequisite's check. Example: planche work beyond leans still needs the 30 s lean and 20 push-ups.
 
+### History as a tracker
+
+History opens on a **month calendar**, with the session list below it.
+
+- **A day only counts if real work was done.** Starting a session isn't enough, so nothing counts by accident.
+  - **Completed:** the session finished, with at least 50% of planned sets logged or at least 10 minutes of logged work. Shown as a filled dot.
+  - **Partial:** ended early, but met the 10-minute or 50% bar. It counts, shown as a lighter dot.
+  - **Started only:** below the bar, for example 0–1 sets logged. It doesn't count, shown as a hollow dot.
+- **The week row** shows "3 / 4 this week" against the weekly target. The streak is counted in weeks that hit the target.
+- **Tapping a day** shows that day's sessions with their sets.
+
+### Progress graphs (Phase 4)
+
+- **Every graph has one point per week, not per day**, so a single tired session or a different band doesn't hide the trend.
+- **Per exercise:** best set of the week, weekly total reps or seconds, heaviest weight, and the lightest band used.
+- **Per skill:** the tree step reached by the end of each week, shown as a staircase.
+- **Splits and leg-raise height:** the best cm of the week, left and right on one chart.
+- **Milestone tests** (weeks 1/4/8/12) are marked on the same weekly axis.
+
+### Training focus toggles
+
+The app can be shared with friends, who may not want every part of the program. A setting has three ticks, **Strength, Mobility and Flexibility**, all ticked by default. At least one must stay ticked.
+
+- **Strength off:** no strength, skill or core blocks. The session is made up of the ticked parts.
+- **Mobility off:** the warm-up shrinks to a short safety minimum (for example wrist prep before hand-balancing, and a general warm-up before strength work). There are no mobility blocks or Movement days.
+- **Flexibility off:** the cool-down becomes a short general cool-down with no splits, pike or bridge work, and the flexibility trees and tests are hidden.
+- **The time available is filled from the ticked parts only.**
+- **Cycle tracking (Phase 5):** a separate "Track my menstrual cycle" setting, off unless chosen. It also covers anyone who doesn't have cycles or doesn't want to track them.
+
 ### Other adaptations
 
 - **Other activity (dance, etc.):** a quick log of type, duration and intensity, either in the check-in or any time. It counts toward the 7-day picture:
