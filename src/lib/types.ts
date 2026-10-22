@@ -53,6 +53,7 @@ export type SetLog = {
   note?: string
   mode: DayMode
   at: string
+  updatedAt?: string
 }
 
 export type SessionRecord = {
@@ -63,12 +64,13 @@ export type SessionRecord = {
   note?: string
   painEvents?: string[]
   tooHardEvents?: string[]
+  updatedAt?: string
 }
 
 export type Band = { id: string; colour: string; label: string; order: number; resistanceKg?: number }
 
 // per-side trees keep one entry per side
-export type SkillProgress = { treeId: string; side?: 'left' | 'right'; stepIndex: number; hits: number; misses: number; droppedUntil?: string }
+export type SkillProgress = { treeId: string; side?: 'left' | 'right'; stepIndex: number; hits: number; misses: number; droppedUntil?: string; updatedAt?: string }
 
 export type Niggle = { area: NiggleArea; startedAt: string; clearedAt?: string }
 
@@ -88,4 +90,8 @@ export type Settings = {
   headphoneControls: boolean
   lastDraft: { minutes: number; location: Location; mode: DayMode }
   placed: boolean
+  updatedAt?: string
 }
+
+// a local row waiting to be pushed; one entry per row, overwritten by newer saves
+export type Outbox = { id: string; table: 'settings' | 'progress' | 'sessions' | 'set_logs'; row: unknown; at: string }

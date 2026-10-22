@@ -1,12 +1,17 @@
 import { exerciseById } from '../content'
+import type { Account } from '../App'
 import { getProgress, listSessions, listSetLogs } from '../lib/db'
+import { canSync } from '../lib/supabase'
 import type { Band, Settings } from '../lib/types'
 
-type Props = { settings: Settings; onSettings: (s: Settings) => void; onPlacement: () => void }
+type Props = {
+  settings: Settings; onSettings: (s: Settings) => void; onPlacement: () => void
+  account: Account; onSignIn: () => void; onSync: () => void; onSignOut: () => void
+}
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
-export default function SettingsView({ settings, onSettings, onPlacement }: Props) {
+export default function SettingsView({ settings, onSettings, onPlacement, account, onSignIn, onSync, onSignOut }: Props) {
   const set = (patch: Partial<Settings>) => onSettings({ ...settings, ...patch })
   const bands = [...settings.bands].sort((a, b) => a.order - b.order)
   const setBands = (list: Band[]) => set({ bands: list.map((b, i) => ({ ...b, order: i })) })
@@ -69,6 +74,20 @@ export default function SettingsView({ settings, onSettings, onPlacement }: Prop
           <button onClick={() => set({ neverShow: settings.neverShow.filter((x) => x !== id) })}>Remove</button>
         </div>
       ))}
+
+      <h3>Account</h3>
+      {!canSync && <p className="muted">Sync not configured</p>}
+      {canSync && !account.email && <button onClick={onSignIn}>Sign in</button>}
+      {canSync && account.email && (
+        <>
+          <p className="muted">Signed in as {account.email} · {account.lastSync ? `Last synced ${new Date(account.lastSync).toLocaleString()}` : 'Not synced yet'}</p>
+          {account.failed && <p className="muted">Sync failed</p>}
+          <div className="row">
+            <button onClick={onSync}>Sync now</button>
+            <button onClick={onSignOut}>Sign out</button>
+          </div>
+        </>
+      )}
 
       <h3>Data</h3>
       <div className="row">

@@ -1,0 +1,8 @@
+{
+  "_note": "After creating your account, set Allow new users to sign up = off (disable_signup: true). Strip this _note before sending.",
+  "site_url": "https://aaruniarora.github.io/my-gym/",
+  "uri_allow_list": "https://aaruniarora.github.io/my-gym/,http://localhost:5173",
+  "external_email_enabled": true,
+  "mailer_autoconfirm": true,
+  "disable_signup": false
+}

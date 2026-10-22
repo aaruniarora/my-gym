@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react'
 import History from './components/History'
 import Placement from './components/Placement'
+import SignIn from './components/SignIn'
 import Player from './components/Player'
 import SettingsView from './components/Settings'
 import Summary from './components/Summary'
 import Today, { type Draft } from './components/Today'
 import { buildSession } from './lib/builder'
-import { getProgress, getSettings, listSessions, listSetLogs, saveProgress, saveSession, saveSetLog, saveSettings } from './lib/db'
+import { clearOutbox, deleteMeta, getMeta, getProgress, getSettings, listOutbox, listSessions, listSetLogs, saveProgress, saveSession, saveSetLog, saveSettings, setMeta } from './lib/db'
 import { exerciseById } from './content'
+import { canSync, supabase } from './lib/supabase'
+import { supabaseSyncClient, sync } from './lib/sync'
 import { applyPain, applySession, applyTooHard, withinAbility } from './lib/progression'
 import type { SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './lib/types'
 
-type Screen = 'today' | 'player' | 'summary' | 'placement' | 'history' | 'settings'
+type Screen = 'today' | 'player' | 'summary' | 'placement' | 'history' | 'settings' | 'signin'
+export type Account = { email?: string; offline: boolean; lastSync?: string; failed: boolean }
+
+const syncClient = supabase && supabaseSyncClient(supabase)
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('today')
@@ -21,6 +27,7 @@ export default function App() {
   const [recentLogs, setRecentLogs] = useState<SetLog[]>([])
   const [plan, setPlan] = useState<SessionPlan>()
   const [summary, setSummary] = useState<{ record: SessionRecord; logs: SetLog[]; events: string[] }>()
+  const [account, setAccount] = useState<Account>()
 
   async function load() {
     // date part only so date-only and full ISO plan dates both compare correctly
@@ -31,9 +38,32 @@ export default function App() {
     setProgress(await getProgress())
     setSettings(await getSettings())
   }
-  useEffect(() => { void load() }, [])
 
-  if (!settings) return null
+  async function loadAccount(failed = false) {
+    setAccount({ email: await getMeta('userEmail'), offline: !!(await getMeta('offlineChoice')), lastSync: await getMeta('lastSync'), failed })
+  }
+
+  // background sync; does nothing offline-only or when signed out
+  async function runSync() {
+    if (!supabase || !syncClient || !(await supabase.auth.getSession()).data.session) return
+    let failed = false
+    try {
+      if ((await sync(syncClient)).pulled) await load()
+    } catch {
+      failed = true
+    }
+    await loadAccount(failed)
+  }
+
+  useEffect(() => {
+    void load().then(() => loadAccount()).then(runSync)
+    const online = () => void runSync()
+    window.addEventListener('online', online)
+    return () => window.removeEventListener('online', online)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once on start
+  }, [])
+
+  if (!settings || !account) return null
 
   const updateSettings = (s: Settings) => { setSettings(s); void saveSettings(s) }
   const build = (d: Draft) => buildSession({ ...d, now: new Date(), recent, recentLogs, progress, settings })
@@ -51,6 +81,7 @@ export default function App() {
     await load()
     setSummary({ record, logs, events })
     setScreen(record.completed ? 'summary' : 'today')
+    void runSync()
   }
 
   async function place(p: SkillProgress[], s: Settings) {
@@ -72,8 +103,32 @@ export default function App() {
     void saveProgress(p)
   }
 
+  async function signedIn() {
+    await loadAccount()
+    setScreen('today')
+    await runSync()
+  }
+
+  async function offline() {
+    await setMeta('offlineChoice', '1')
+    await loadAccount()
+    setScreen(screen === 'signin' ? 'settings' : 'today')
+  }
+
+  async function signOut() {
+    await supabase?.auth.signOut()
+    // local data stays; the next account starts with a clean queue and a full pull
+    await clearOutbox(await listOutbox())
+    await Promise.all(['lastPull', 'lastSync', 'userEmail'].map(deleteMeta))
+    await setMeta('offlineChoice', '1')
+    await loadAccount()
+  }
+
   if (!settings.placed || screen === 'placement')
     return <Placement settings={settings} progress={progress} onSave={place} onCancel={settings.placed ? () => setScreen('settings') : undefined} />
+  // first launch after placement, then from Settings
+  if (canSync && (screen === 'signin' || (!account.email && !account.offline)))
+    return <SignIn onSignedIn={signedIn} onOffline={offline} />
   if (screen === 'player' && plan)
     return <Player plan={plan} settings={settings} onFinish={finish} onAbort={() => setScreen('today')} onPain={pain} onTooHard={tooHard} canDo={(id) => withinAbility(id, progress, settings?.bests ?? {}, new Date())} />
   if (screen === 'summary' && summary)
@@ -83,7 +138,8 @@ export default function App() {
     <>
       {screen === 'today' && <Today settings={settings} recent={recent} onSettings={updateSettings} build={build} onStart={(p) => { setPlan(p); setScreen('player') }} />}
       {screen === 'history' && <History settings={settings} />}
-      {screen === 'settings' && <SettingsView settings={settings} onSettings={updateSettings} onPlacement={() => setScreen('placement')} />}
+      {screen === 'settings' && <SettingsView settings={settings} onSettings={updateSettings} onPlacement={() => setScreen('placement')}
+        account={account} onSignIn={() => setScreen('signin')} onSync={runSync} onSignOut={signOut} />}
       <nav className="bottom-nav">
         {(['today', 'history', 'settings'] as const).map((s) => (
           <button key={s} className={screen === s ? 'active' : ''} onClick={() => setScreen(s)}>
