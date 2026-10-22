@@ -90,6 +90,8 @@ export type Settings = {
   headphoneControls: boolean
   lastDraft: { minutes: number; location: Location; mode: DayMode }
   placed: boolean
+  // training parts to plan; at least one stays ticked. Optional for settings saved before it existed
+  focus?: { strength: boolean; mobility: boolean; flexibility: boolean }
   updatedAt?: string
 }
 

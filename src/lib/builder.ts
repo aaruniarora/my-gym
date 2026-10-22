@@ -1,6 +1,6 @@
 import type { Exercise } from '../../content/schema'
 import { effectiveDose, exerciseById, exercises, niggleMobility, skillTrees, tests } from '../content'
-import { COOLDOWN_AREAS, dayTemplates, FOOT_POOL, FULL_BODY_SKILLS, SPLITS_BLOCK, WARMUP_POOL } from './dayTemplates'
+import { COOLDOWN_AREAS, dayTemplates, FOOT_POOL, FULL_BODY_SKILLS, GENERAL_COOLDOWN, SPLITS_BLOCK, WARMUP_POOL } from './dayTemplates'
 import { abilityStep, currentStep, withinAbility } from './progression'
 import type { Block, BlockKind, DayMode, DayType, Location, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
@@ -13,6 +13,8 @@ const STRETCH_AREA_CAP = 240
 // [session minutes, cool-down minutes], linear in between
 const COOLDOWN_SIZE = [[10, 2], [30, 5], [60, 8], [90, 20]]
 const COOLDOWN_MIN = 120
+// cool-down size with flexibility unticked
+const GENERAL_COOL_MAX = 180
 const coolMinutes = (m: number) => {
   const i = COOLDOWN_SIZE.findIndex(([x]) => m < x)
   // below 10 min the first point, from 90 min the last
@@ -58,6 +60,8 @@ const covers = (d: DayType): DayType[] => (d === 'full_body' ? ['pull', 'push', 
 const lastWeek = (recent: SessionRecord[], now: Date) =>
   recent.filter((s) => s.completed && now.getTime() - new Date(s.startedAt).getTime() < 7 * 24 * HOUR)
 const returningFromBreak = (recent: SessionRecord[], now: Date) => lastWeek(recent, now).length === 0 && recent.some((s) => s.completed)
+// settings saved before focus existed have none
+const focusOf = (s: Settings) => ({ strength: true, mobility: true, flexibility: true, ...s.focus })
 
 export function pickDayType(recent: SessionRecord[], settings: Settings, now: Date): DayType {
   if (settings.weeklyTarget <= 3 || returningFromBreak(recent, now)) return 'full_body'
@@ -66,7 +70,7 @@ export function pickDayType(recent: SessionRecord[], settings: Settings, now: Da
   const count = (d: DayType) => week.filter((s) => covers(s.plan.dayType).includes(d)).length
   const fresh = ROTATION.map((_, i) => ROTATION[(start + i) % ROTATION.length])
     .filter((d) => !week.some((s) => covers(s.plan.dayType).includes(d) && now.getTime() - ended(s) < 48 * HOUR))
-  return fresh.sort((a, b) => count(a) - count(b))[0] ?? (week.length >= 5 ? 'movement' : 'light')
+  return fresh.sort((a, b) => count(a) - count(b))[0] ?? (week.length >= 5 && focusOf(settings).mobility ? 'movement' : 'light')
 }
 
 export function estimateSeconds(pe: PlannedExercise, ex: Exercise): number {
@@ -97,6 +101,8 @@ export function buildSession(input: {
   const niggles = settings.niggles.filter((n) => !n.clearedAt).map((n) => n.area)
   const used = new Set<string>()
   const caps = new Map<PlannedExercise, number>()
+  const focus = focusOf(settings)
+  const onlyFlex = focus.flexibility && !focus.strength && !focus.mobility
 
   const ok = (id: string, kind: BlockKind) => {
     const ex = exerciseById[id]
@@ -113,6 +119,7 @@ export function buildSession(input: {
     let weakSide: 'left' | 'right' | undefined
     if (ref.startsWith('tree:')) {
       const st = skillTrees.find((s) => s.id === ref.slice(5))!
+      if (!focus.flexibility && st.kind === 'flexibility') return undefined
       if (st.perSide) {
         // weaker side: lower step, else the larger last logged cm on that step
         const [l, r] = (['left', 'right'] as const).map((side) => currentStep(progress, st, now, bests, side).stepIndex)
@@ -250,7 +257,7 @@ export function buildSession(input: {
   const skillTreeIds = dayType === 'full_body' ? [...FULL_BODY_SKILLS].sort((a, b) => lastSeen(a) - lastSeen(b)) : t.skills
   // skills are planned first so a strength alternate can't take a tree step's exercise
   const skill: Block = { kind: 'skill', exercises: [] }
-  if (!short && minutes >= 20) {
+  if (focus.strength && !short && minutes >= 20) {
     for (const s of skillTreeIds) {
       if (skill.exercises.length >= (minutes >= 75 ? 2 : 1)) break
       const pe = plan(`tree:${s}`, 'skill')
@@ -259,7 +266,7 @@ export function buildSession(input: {
   }
 
   const strength: Block = { kind: 'strength', exercises: [] }
-  for (const [a, b] of t.strengthPairs.slice(0, mode === 'bare' ? 1 : undefined)) {
+  for (const [a, b] of focus.strength ? t.strengthPairs.slice(0, mode === 'bare' ? 1 : undefined) : []) {
     const pa = plan(a, 'strength')
     const pb = plan(b, 'strength')
     if (pa && pb) {
@@ -277,7 +284,7 @@ export function buildSession(input: {
   const blocks: Block[] = [strength]
   if (t.balance) blocks.push(list('balance', t.balance))
   if (t.spring) blocks.push(list('spring', t.spring.map((r) => (r === 'jump-rope' && location === 'home' ? 'pogo-hop' : r))))
-  if (!short) {
+  if (!short && focus.strength) {
     if (minutes >= 20) blocks.push(skill)
     // under 60 min the stabiliser takes the last template slot
     const replace = dayType !== 'movement' && minutes < 60 && t.secondary.length > 0
@@ -286,8 +293,8 @@ export function buildSession(input: {
     const stabs = pick(rotate(withFlag('stabiliser')), 'secondary', nStab, stabSets)
     secondary.exercises.push(...(replace && !stabs.length ? list('secondary', t.secondary.slice(-1)).exercises : stabs))
     blocks.push(secondary, list('core', t.core))
-    blocks.push(list('niggle_mobility', [...new Set(niggles.flatMap((a) => niggleMobility[a]))]))
   }
+  if (!short && focus.mobility) blocks.push(list('niggle_mobility', [...new Set(niggles.flatMap((a) => niggleMobility[a]))]))
 
   // weekly stretch seconds per area from stretch/mobility logs; reps count 3 s each like estimateSeconds
   const weekLogs = input.recentLogs.filter((l) => now.getTime() - new Date(l.at).getTime() < 7 * 24 * HOUR)
@@ -297,21 +304,34 @@ export function buildSession(input: {
       .reduce((n, l) => n + (l.seconds ?? (l.reps ?? 0) * 3), 0)
   // largest deficit against the 10 min/area/week target first, i.e. fewest logged seconds
   const areas = Object.keys(COOLDOWN_AREAS).sort((a, b) => logged(a) - logged(b))
-  const splits = !short && (t.splits || minutes >= 75)
+  const splits = !short && (t.splits || minutes >= 75 || onlyFlex)
   const coolRefs = [...new Set([...areas.flatMap((a) => COOLDOWN_AREAS[a]), ...(splits ? SPLITS_BLOCK : []), ...t.flexibility])]
   // the cool-down is filled before the wrist check since a bridge step can need wrist prep
-  const coolTarget = Math.round(coolMinutes(minutes) * 60)
+  const budget = (share: number) => Math.min(600, Math.max(120, Math.round(minutes * 60 * share)))
+  // strength unticked: flexibility fills the session after a mobility warm-up at its cap; unticked it is a short general cool-down
+  let coolTarget = !focus.flexibility ? GENERAL_COOL_MAX : !focus.strength ? Math.max(Math.round(coolMinutes(minutes) * 60), minutes * 60 - (focus.mobility ? budget(1) : 0)) : Math.round(coolMinutes(minutes) * 60)
   // active-flex drills count toward the cool-down budget; they sit first here so trimming pops passive stretches, and move after them at the end
-  const activeFlex = short ? [] : pick(rotate(withFlag('active_flex')), 'cooldown', dayType === 'movement' ? 2 : 1, 1)
-  const cooldown = fill('cooldown', coolRefs, coolTarget - activeFlex.reduce((n, pe) => n + secs(pe), 0))
+  const activeFlex = short || !focus.flexibility ? [] : pick(rotate(withFlag('active_flex')), 'cooldown', dayType === 'movement' ? 2 : 1, 1)
+  const cooldown = focus.flexibility ? fill('cooldown', coolRefs, coolTarget - activeFlex.reduce((n, pe) => n + secs(pe), 0)) : { kind: 'cooldown' as const, exercises: [] }
+  // general cool-down: one short hold each while it fits in 3 min
+  for (const r of focus.flexibility ? [] : [...GENERAL_COOLDOWN, ...t.flexibility.filter((r) => !r.startsWith('tree:'))]) {
+    const pe = plan(r, 'cooldown')
+    if (!pe) continue
+    if (pe.seconds !== undefined) pe.seconds = effectiveDose(exerciseById[pe.exerciseId]).seconds![0]
+    caps.set(pe, 1)
+    if (blockSecs(cooldown) + secs(pe) <= GENERAL_COOL_MAX) cooldown.exercises.push(pe)
+  }
   cooldown.exercises.unshift(...activeFlex)
   blocks.push(cooldown)
 
   const needsWrist = blocks.some((b) => b.exercises.some((pe) => exerciseById[pe.exerciseId].flags?.some((f) => f === 'hand_balancing' || f === 'needs_wrist_prep')))
-  const budget = (share: number) => Math.min(600, Math.max(120, Math.round(minutes * 60 * share)))
-  const warm = fill('warmup', [...(needsWrist ? ['wrist-prep'] : []), ...WARMUP_POOL], budget(0.08))
+  const strengthWork = blocks.some((b) => ['skill', 'strength', 'secondary', 'core'].includes(b.kind) && b.exercises.length)
+  // mobility unticked: safety minimum only, wrist prep plus one general item before strength work
+  const warm = focus.mobility
+    ? fill('warmup', [...(needsWrist ? ['wrist-prep'] : []), ...WARMUP_POOL], budget(focus.strength ? 0.08 : 1))
+    : list('warmup', [...(needsWrist ? ['wrist-prep'] : []), ...(strengthWork ? WARMUP_POOL.filter((r) => ok(r, 'warmup')).slice(0, 1) : [])])
   // balance segment on top of the mobility budget: jump rope from 30 min, feet item and longer holds from 60
-  const [bal] = pick(['tree:balance'], 'warmup', 1, 1)
+  const [bal] = focus.mobility ? pick(['tree:balance'], 'warmup', 1, 1) : []
   if (bal?.seconds !== undefined) bal.seconds = minutes >= 60 ? 30 : 20
   // one short set can't meet the tree target, so the warm-up item doesn't score the tree
   if (bal) {
@@ -320,13 +340,14 @@ export function buildSession(input: {
   }
   const segStart = warm.exercises.length
   warm.exercises.push(...(bal ? [bal] : []))
-  const [feet] = minutes >= 60 ? pick(rotate(FOOT_POOL), 'warmup', 1, 1) : []
-  const [rope] = minutes >= 30 && location === 'gym' && dayType !== 'legs' ? pick(['jump-rope'], 'warmup', 1, 1) : []
+  const [feet] = focus.mobility && minutes >= 60 ? pick(rotate(FOOT_POOL), 'warmup', 1, 1) : []
+  const [rope] = focus.mobility && minutes >= 30 && location === 'gym' && dayType !== 'legs' ? pick(['jump-rope'], 'warmup', 1, 1) : []
   if (rope) rope.seconds = minutes >= 60 ? 45 : 30
   warm.exercises.push(...[feet, rope].filter((pe) => !!pe))
   // warm-up pace: mobility rest instead of skill-hold rest, so the segment stays short
   for (const pe of warm.exercises.slice(segStart)) pe.restSeconds = REST.mobility.base
   blocks.push(warm)
+  if (!focus.strength && focus.flexibility) coolTarget = minutes * 60 - blockSecs(warm)
 
   const target = minutes * 60
   const total = () => blocks.reduce((n, b) => n + blockSecs(b), 0)
@@ -364,15 +385,16 @@ export function buildSession(input: {
 
   let finisherTried = false
   while (total() < target - 120) {
-    // tired days fill spare time with mobility and flexibility instead of strength and skill
-    const pe = tired
-      ? (growable(blocks.find((b) => b.kind === 'warmup'), stretchRoom) ?? growable(cooldown, coolRoom))
+    // tired days (and strength unticked) fill spare time with mobility and flexibility; only ticked parts grow
+    const soft = tired || !focus.strength
+    const pe = soft
+      ? (growable(focus.mobility ? warm : undefined, stretchRoom) ?? growable(cooldown, coolRoom))
       : (growable(strength) ?? growable(skill) ?? growable(cooldown, coolRoom))
     if (pe) {
       pe.sets++
       continue
     }
-    const extra = tired ? WARMUP_POOL.find((r) => ok(r, 'warmup')) : undefined
+    const extra = soft && focus.mobility ? WARMUP_POOL.find((r) => ok(r, 'warmup')) : undefined
     const more = extra && plan(extra, 'warmup')
     if (more) {
       if (fitsOneMore(more)) blocks.find((b) => b.kind === 'warmup')!.exercises.push(more)
@@ -384,7 +406,7 @@ export function buildSession(input: {
       slow.restSeconds = Math.min(maxRest(slow), slow.restSeconds + 30)
       continue
     }
-    if (finisherTried || short || tired || !t.conditioning.length) break
+    if (finisherTried || short || tired || !focus.strength || !t.conditioning.length) break
     finisherTried = true
     const finisher: Block = { kind: 'conditioning', exercises: [] }
     blocks.push(finisher)

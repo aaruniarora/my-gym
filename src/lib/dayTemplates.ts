@@ -24,6 +24,8 @@ export const COOLDOWN_AREAS: Record<string, string[]> = {
   adductors: ['tree:middle-split', 'pancake-passive'],
   back_shoulders: ['tree:bridge', 'lat-stretch', 'thoracic-extension'],
 }
+// cool-down with flexibility unticked
+export const GENERAL_COOLDOWN = ['standing-hamstring-stretch', 'couch-stretch', 'lat-stretch']
 export const WARMUP_POOL = ['leg-swing', 'hip-circle', 'cat-cow', 'worlds-greatest-stretch']
 export const FOOT_POOL = ['short-foot', 'toe-yoga', 'tibialis-raise', 'calf-raise']
 export const FULL_BODY_SKILLS = ['handstand', 'l-sit', 'bridge']

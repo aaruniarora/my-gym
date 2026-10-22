@@ -25,6 +25,7 @@ const defaultSettings: Settings = {
   headphoneControls: false,
   lastDraft: { minutes: 30, location: 'gym', mode: 'normal' },
   placed: false,
+  focus: { strength: true, mobility: true, flexibility: true },
 }
 
 export const progressKey = (p: SkillProgress) => (p.side ? `${p.treeId}:${p.side}` : p.treeId)

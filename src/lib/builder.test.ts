@@ -406,3 +406,66 @@ describe('warm-up segment, cool-down active flex, stabilisers, contacts and move
     expect(plan.blocks.find((b) => b.kind === 'balance')!.exercises[0]).toMatchObject({ treeId: 'balance', sets: 3 })
   })
 })
+
+describe('focus toggles', () => {
+  const flagOf = (id: string, f: string) => !!(exerciseById[id].flags as string[] | undefined)?.includes(f)
+  const withFocus = (focus: Partial<NonNullable<Settings['focus']>>): Settings => ({ ...settings, focus: { strength: true, mobility: true, flexibility: true, ...focus } })
+  const kinds = (plan: SessionPlan) => plan.blocks.map((b) => b.kind)
+  const secsOf = (b: SessionPlan['blocks'][number]) => b.exercises.reduce((n, pe) => n + estimateSeconds(pe, exerciseById[pe.exerciseId]), 0)
+  const movement = [done('pull', 46), done('pull', 40), done('push', 30), done('legs', 20), done('skill_core', 10)]
+
+  it('all on has warmup, skill, strength and cooldown blocks', () => {
+    const plan = build(30, { settings: withFocus({}) })
+    expect(plan.dayType).toBe('pull')
+    expect(kinds(plan)).toEqual(expect.arrayContaining(['warmup', 'skill', 'strength', 'cooldown']))
+  })
+
+  it('strength off plans no strength work, fits 30 min and has an active_flex drill', () => {
+    const plan = build(30, { settings: withFocus({ strength: false }) })
+    for (const k of ['skill', 'strength', 'secondary', 'core', 'conditioning']) expect(kinds(plan)).not.toContain(k)
+    expect(Math.abs(plan.estSeconds - 30 * 60)).toBeLessThanOrEqual(150)
+    expect(exercisesOf(plan, 'cooldown').some((pe) => flagOf(pe.exerciseId, 'active_flex'))).toBe(true)
+  })
+
+  it('mobility off keeps the warm-up minimal and drops niggle mobility', () => {
+    const wrist = { ...withFocus({ mobility: false }), niggles: [{ area: 'wrist' as const, startedAt: hoursAgo(48) }] }
+    const plan = build(30, { settings: wrist })
+    const warm = exercisesOf(plan, 'warmup')
+    expect(warm.length).toBeLessThanOrEqual(2)
+    for (const pe of warm) {
+      expect(flagOf(pe.exerciseId, 'balance')).toBe(false)
+      expect(flagOf(pe.exerciseId, 'spring')).toBe(false)
+    }
+    expect(kinds(plan)).not.toContain('niggle_mobility')
+  })
+
+  it('mobility off turns a movement day into light', () => {
+    expect(pickDayType(movement, settings, now)).toBe('movement')
+    expect(pickDayType(movement, withFocus({ mobility: false }), now)).toBe('light')
+  })
+
+  it('flexibility off ends in a short general cool-down with no splits, bridge or active flex', () => {
+    const plan = build(30, { settings: withFocus({ flexibility: false }) })
+    const last = plan.blocks.at(-1)!
+    expect(last.kind).toBe('cooldown')
+    expect(last.exercises.length).toBeLessThanOrEqual(3)
+    expect(secsOf(last)).toBeLessThanOrEqual(200)
+    for (const pe of last.exercises) {
+      expect(['front-split', 'middle-split', 'pike-pancake', 'bridge']).not.toContain(pe.treeId)
+      expect(flagOf(pe.exerciseId, 'active_flex')).toBe(false)
+    }
+    expect(all(plan).some((pe) => pe.treeId === 'bridge')).toBe(false)
+  })
+
+  it('flexibility only plans a wrist-prep warm-up and a splits cool-down for 20+ min', () => {
+    const plan = build(30, { settings: withFocus({ strength: false, mobility: false }) })
+    for (const b of plan.blocks) expect(['warmup', 'cooldown']).toContain(b.kind)
+    for (const pe of exercisesOf(plan, 'warmup')) expect(pe.exerciseId).toBe('wrist-prep')
+    expect(plan.estSeconds).toBeGreaterThanOrEqual(20 * 60)
+    expect(exercisesOf(plan, 'cooldown').some((pe) => ['front-split', 'middle-split', 'pike-pancake'].includes(pe.treeId ?? ''))).toBe(true)
+  })
+
+  it('settings without a focus field behave as all on', () => {
+    expect(kinds(build(30))).toEqual(kinds(build(30, { settings: withFocus({}) })))
+  })
+})

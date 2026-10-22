@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 import History from './components/History'
 import Placement from './components/Placement'
 import SignIn from './components/SignIn'
@@ -9,6 +10,7 @@ import Today, { type Draft } from './components/Today'
 import { buildSession } from './lib/builder'
 import { clearOutbox, deleteMeta, getMeta, getProgress, getSettings, listOutbox, listSessions, listSetLogs, saveProgress, saveSession, saveSetLog, saveSettings, setMeta } from './lib/db'
 import { exerciseById } from './content'
+import { afterSignIn, launchScreen } from './lib/launch'
 import { canSync, supabase } from './lib/supabase'
 import { supabaseSyncClient, sync } from './lib/sync'
 import { applyPain, applySession, applyTooHard, withinAbility } from './lib/progression'
@@ -28,6 +30,7 @@ export default function App() {
   const [plan, setPlan] = useState<SessionPlan>()
   const [summary, setSummary] = useState<{ record: SessionRecord; logs: SetLog[]; events: string[] }>()
   const [account, setAccount] = useState<Account>()
+  const { needRefresh: [needRefresh], updateServiceWorker } = useRegisterSW()
 
   async function load() {
     // date part only so date-only and full ISO plan dates both compare correctly
@@ -36,7 +39,9 @@ export default function App() {
     setRecent(sessions)
     setRecentLogs((await Promise.all(sessions.map((s) => listSetLogs(s.plan.id)))).flat())
     setProgress(await getProgress())
-    setSettings(await getSettings())
+    const s = await getSettings()
+    setSettings(s)
+    return s
   }
 
   async function loadAccount(failed = false) {
@@ -55,8 +60,16 @@ export default function App() {
     await loadAccount(failed)
   }
 
+  async function start() {
+    const s = await load()
+    const hasSession = !!supabase && !!(await supabase.auth.getSession()).data.session
+    setScreen(launchScreen({ canSync, hasSession, offlineChoice: !!(await getMeta('offlineChoice')), placed: s.placed }))
+    await loadAccount()
+    await runSync()
+  }
+
   useEffect(() => {
-    void load().then(() => loadAccount()).then(runSync)
+    void start()
     const online = () => void runSync()
     window.addEventListener('online', online)
     return () => window.removeEventListener('online', online)
@@ -103,16 +116,23 @@ export default function App() {
     void saveProgress(p)
   }
 
+  // SignIn has already stored userEmail and run enqueueAll; full push+pull before leaving
   async function signedIn() {
-    await loadAccount()
-    setScreen('today')
-    await runSync()
+    let failed = false
+    try {
+      if (syncClient) await sync(syncClient)
+    } catch {
+      failed = true
+    }
+    const s = await load()
+    await loadAccount(failed)
+    setScreen(afterSignIn(s.placed))
   }
 
   async function offline() {
     await setMeta('offlineChoice', '1')
     await loadAccount()
-    setScreen(screen === 'signin' ? 'settings' : 'today')
+    setScreen(settings?.placed ? 'today' : 'placement')
   }
 
   async function signOut() {
@@ -124,11 +144,10 @@ export default function App() {
     await loadAccount()
   }
 
+  if (canSync && screen === 'signin')
+    return <SignIn onSignedIn={signedIn} onOffline={offline} />
   if (!settings.placed || screen === 'placement')
     return <Placement settings={settings} progress={progress} onSave={place} onCancel={settings.placed ? () => setScreen('settings') : undefined} />
-  // first launch after placement, then from Settings
-  if (canSync && (screen === 'signin' || (!account.email && !account.offline)))
-    return <SignIn onSignedIn={signedIn} onOffline={offline} />
   if (screen === 'player' && plan)
     return <Player plan={plan} settings={settings} onFinish={finish} onAbort={() => setScreen('today')} onPain={pain} onTooHard={tooHard} canDo={(id) => withinAbility(id, progress, settings?.bests ?? {}, new Date())} />
   if (screen === 'summary' && summary)
@@ -136,6 +155,7 @@ export default function App() {
 
   return (
     <>
+      {needRefresh && <button className="banner" onClick={() => void updateServiceWorker(true)}>New version ready — tap to update</button>}
       {screen === 'today' && <Today settings={settings} recent={recent} onSettings={updateSettings} build={build} onStart={(p) => { setPlan(p); setScreen('player') }} />}
       {screen === 'history' && <History settings={settings} />}
       {screen === 'settings' && <SettingsView settings={settings} onSettings={updateSettings} onPlacement={() => setScreen('placement')}
