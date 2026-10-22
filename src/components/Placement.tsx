@@ -14,6 +14,9 @@ const BESTS: [string, string][] = [
   ['single-leg-balance-eyes-closed-left', 's'], ['single-leg-balance-eyes-closed-right', 's'], ['jump-rope-continuous', 's'],
 ]
 
+// test metrics that measure flexibility, hidden with flexibility unticked
+const FLEX_METRICS = ['cm_from_floor', 'cm_height']
+const flexBest = (id: string) => FLEX_METRICS.includes(tests.find((t) => t.id === id)?.metric ?? '')
 const SIDES = ['left', 'right'] as const
 // per-side trees place each side separately
 const slots = (t: SkillTree) => (t.perSide ? SIDES.map((side) => ({ side, key: `${t.id}:${side}` })) : [{ side: undefined, key: t.id }])
@@ -26,6 +29,7 @@ export default function Placement({ settings, progress, onSave, onCancel }: Prop
   // untouched trees keep their hits, misses and drop-back
   const changed = placed.filter((p) => progress.find((x) => x.treeId === p.treeId && x.side === p.side)?.stepIndex !== p.stepIndex)
   const now = new Date()
+  const flex = settings.focus?.flexibility !== false
 
   function setBest(id: string, value: string) {
     const { [id]: _, ...rest } = bests
@@ -36,7 +40,7 @@ export default function Placement({ settings, progress, onSave, onCancel }: Prop
     <main className="settings">
       <h2>Where are you now?</h2>
       <p className="muted">Pick the hardest step you can do with good form.</p>
-      {skillTrees.flatMap((t) => slots(t).map(({ side, key }) => {
+      {skillTrees.filter((t) => flex || t.kind !== 'flexibility').flatMap((t) => slots(t).map(({ side, key }) => {
         const missing = currentStep(placed, t, now, bests, side).gateMissing
         return (
           <div key={key}>
@@ -51,7 +55,7 @@ export default function Placement({ settings, progress, onSave, onCancel }: Prop
       }))}
 
       <h3>My best</h3>
-      {BESTS.map(([id, unit]) => (
+      {BESTS.filter(([id]) => flex || !flexBest(id)).map(([id, unit]) => (
         <label key={id}>{exerciseById[id]?.name ?? tests.find((t) => t.id === id)?.name ?? id} ({unit})
           <input type="number" inputMode="numeric" min={0} value={bests[id] ?? ''} onChange={(e) => setBest(id, e.target.value)} />
         </label>

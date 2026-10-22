@@ -2,6 +2,7 @@ import { exerciseById } from '../content'
 import type { Account } from '../App'
 import { getProgress, listSessions, listSetLogs } from '../lib/db'
 import { canSync } from '../lib/supabase'
+import { APP_VERSION } from '../lib/version'
 import type { Band, Settings } from '../lib/types'
 
 type Props = {
@@ -9,10 +10,13 @@ type Props = {
   account: Account; onSignIn: () => void; onSync: () => void; onSignOut: () => void
 }
 
+const FOCUS = [['strength', 'Strength'], ['mobility', 'Mobility'], ['flexibility', 'Flexibility']] as const
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 export default function SettingsView({ settings, onSettings, onPlacement, account, onSignIn, onSync, onSignOut }: Props) {
   const set = (patch: Partial<Settings>) => onSettings({ ...settings, ...patch })
+  const focus = { strength: true, mobility: true, flexibility: true, ...settings.focus }
+  const ticked = Object.values(focus).filter(Boolean).length
   const bands = [...settings.bands].sort((a, b) => a.order - b.order)
   const setBands = (list: Band[]) => set({ bands: list.map((b, i) => ({ ...b, order: i })) })
   const editBand = (i: number, patch: Partial<Band>) => setBands(bands.map((b, j) => (j === i ? { ...b, ...patch } : b)))
@@ -51,6 +55,13 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
       <label>Headphone controls (experimental) <input type="checkbox" checked={settings.headphoneControls} onChange={(e) => set({ headphoneControls: e.target.checked })} /></label>
       <p className="muted">Play/pause = done or pause, next/previous track = skip/back; keeps a silent audio track playing</p>
       <button className="wide" onClick={onPlacement}>Where are you now?</button>
+
+      <h3>Focus</h3>
+      {FOCUS.map(([key, label]) => (
+        <label key={key}>{label} <input type="checkbox" checked={focus[key]}
+          onChange={(e) => { if (e.target.checked || ticked > 1) set({ focus: { ...focus, [key]: e.target.checked } }) }} /></label>
+      ))}
+      {ticked === 1 && <p className="muted">Keep at least one</p>}
 
       <h3>Bands (lightest first)</h3>
       {bands.map((b, i) => (
@@ -94,6 +105,7 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
         <button onClick={exportData}>Export data</button>
         <button className="danger" onClick={reset}>Reset all local data</button>
       </div>
+      <p className="muted">Version {APP_VERSION}</p>
     </main>
   )
 }

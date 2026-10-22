@@ -2,14 +2,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { execSync } from 'node:child_process'
+
+function gitShortSha() {
+  try { return execSync('git rev-parse --short HEAD').toString().trim() } catch { return undefined }
+}
+const sha = (process.env.GITHUB_SHA ?? gitShortSha() ?? 'dev').slice(0, 7)
+const built = new Date().toISOString().slice(0, 10)
 
 export default defineConfig({
   base: '/my-gym/',
+  define: { __APP_VERSION__: JSON.stringify(`${sha} · ${built}`) },
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      registerType: 'prompt',
+      injectRegister: null,
       manifest: {
         name: 'my-gym',
         short_name: 'my-gym',

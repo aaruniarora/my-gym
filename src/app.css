@@ -122,3 +122,16 @@ details > summary::-webkit-details-marker { display: none; }
 details > summary { list-style: none; }
 .small { font-size: 0.85rem; }
 button.start { min-height: 72px; font-size: 1.5rem; margin-top: 16px; }
+
+.banner { position: fixed; top: 0; left: 0; right: 0; z-index: 20; border-radius: 0; background: var(--accent); color: #fff; padding: calc(8px + env(safe-area-inset-top)) 16px 8px; }
+
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin: 8px 0; }
+.cal-day { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; min-width: 0; min-height: 48px; }
+.cal-day.active { background: var(--accent); color: #fff; }
+.cal-today { outline: 2px solid var(--accent); outline-offset: -2px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.dot-partial { opacity: 0.45; }
+.dot-started { background: none; opacity: 1; box-shadow: inset 0 0 0 1.5px var(--muted); }
+.history-ex { margin: 8px 0; }
+.history-ex p { margin: 2px 0 2px 8px; }
+.history-flag { color: var(--accent); font-weight: 600; }
