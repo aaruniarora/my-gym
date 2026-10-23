@@ -1,5 +1,6 @@
 import { exerciseById } from '../content'
 import type { SessionRecord, SetLog } from '../lib/types'
+import { modeLabel } from './labels'
 
 type Props = { record: SessionRecord; logs: SetLog[]; events: string[]; onDone: () => void }
 
@@ -24,7 +25,7 @@ export default function Summary({ record, logs, events, onDone }: Props) {
   return (
     <main>
       <h2>Saved</h2>
-      <p>{new Date(record.startedAt).toLocaleDateString()} · {plan.dayType.replace('_', ' ')} · {plan.mode} · {plan.location}</p>
+      <p>{new Date(record.startedAt).toLocaleDateString()} · {plan.dayType.replace('_', ' ')} · {modeLabel(plan.mode)} · {plan.location}</p>
       <p>{plan.minutesTarget} min planned, {actual} min actual · {sets.length} sets</p>
       <h3>Best sets</h3>
       <ul>

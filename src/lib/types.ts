@@ -1,12 +1,13 @@
 // type-only so zod stays out of the app bundle
-import type { niggleAreas } from '../../content/schema'
+import type { equipment, niggleAreas } from '../../content/schema'
 
 export type NiggleArea = (typeof niggleAreas)[number]
+export type Equipment = (typeof equipment)[number]
 
 export type Location = 'gym' | 'home'
-export type DayMode = 'normal' | 'push' | 'tired' | 'bare'
-export type DayType = 'pull' | 'push' | 'legs' | 'skill_core' | 'full_body' | 'light' | 'movement'
-export type BlockKind = 'warmup' | 'skill' | 'strength' | 'secondary' | 'core' | 'conditioning' | 'flexibility' | 'niggle_mobility' | 'cooldown' | 'balance' | 'spring'
+export type DayMode = 'normal' | 'push' | 'tired'
+export type DayType = 'pull' | 'push' | 'legs' | 'skill_core' | 'full_body' | 'light' | 'movement' | 'test'
+export type BlockKind = 'warmup' | 'skill' | 'strength' | 'secondary' | 'core' | 'conditioning' | 'flexibility' | 'niggle_mobility' | 'cooldown' | 'balance' | 'spring' | 'test'
 
 export type PlannedExercise = {
   exerciseId: string
@@ -22,6 +23,8 @@ export type PlannedExercise = {
   interval?: boolean
   // per-side trees: the side whose step was planned; the player holds it longer
   weakSide?: 'left' | 'right'
+  // test sessions: the milestone test this item records
+  testId?: string
 }
 
 export type Block = { kind: BlockKind; exercises: PlannedExercise[] }
@@ -70,7 +73,7 @@ export type SessionRecord = {
 export type Band = { id: string; colour: string; label: string; order: number; resistanceKg?: number }
 
 // per-side trees keep one entry per side
-export type SkillProgress = { treeId: string; side?: 'left' | 'right'; stepIndex: number; hits: number; misses: number; droppedUntil?: string; updatedAt?: string }
+export type SkillProgress = { treeId: string; side?: 'left' | 'right'; stepIndex: number; hits: number; misses: number; droppedUntil?: string; checkPending?: boolean; updatedAt?: string }
 
 export type Niggle = { area: NiggleArea; startedAt: string; clearedAt?: string }
 
@@ -92,8 +95,16 @@ export type Settings = {
   placed: boolean
   // training parts to plan; at least one stays ticked. Optional for settings saved before it existed
   focus?: { strength: boolean; mobility: boolean; flexibility: boolean }
+  // current quarter; focus is tree ids in priority order
+  program?: { startDate: string; focus: string[] }
+  // ticked equipment per location; absent in settings saved before it existed
+  equipment?: { gym: Equipment[]; home: Equipment[] }
+  // test weeks: tests spread over the week's sessions, or one test day (weekday as JS getDay(), 0 = Sunday)
+  testMode?: { mode: 'spread' | 'day'; weekday: number }
   updatedAt?: string
 }
 
+export type MilestoneResult = { id: string; testId: string; side?: 'left' | 'right'; value: number; week: number; date: string; updatedAt?: string }
+
 // a local row waiting to be pushed; one entry per row, overwritten by newer saves
-export type Outbox = { id: string; table: 'settings' | 'progress' | 'sessions' | 'set_logs'; row: unknown; at: string }
+export type Outbox = { id: string; table: 'settings' | 'progress' | 'sessions' | 'set_logs' | 'milestone_tests'; row: unknown; at: string }

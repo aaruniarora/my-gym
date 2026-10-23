@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { skillTrees } from '../content'
-import { abilityStep, applyPain, applySession, applyTooHard, currentStep, withinAbility } from './progression'
+import { abilityStep, applyPain, applySession, applyTooHard, currentStep, requestCheck, withinAbility } from './progression'
 import type { DayMode, SessionPlan, SetLog, SkillProgress } from './types'
 
 const now = new Date('2026-10-20T08:00:00Z')
@@ -214,5 +214,33 @@ describe('per-side progression', () => {
       expect(res.progress).toEqual(atCm)
       expect(res.events).toEqual([])
     })
+  })
+})
+
+describe('check sets', () => {
+  const checkPlan: SessionPlan = {
+    ...plan(5, 'pull-up'),
+    blocks: [{ kind: 'strength', exercises: [{ exerciseId: 'pull-up', sets: 3, reps: [5, 5], restSeconds: 90, treeId: 'pull-up', stepIndex: 5, checkSet: true }] }],
+  }
+  const pulls = (reps: number): SetLog[] => [0, 1, 2].map((i) => ({ id: `c${i}`, sessionId: 'p', exerciseId: 'pull-up', setIndex: i, reps, repsLeft: 1, mode: 'normal', at: now.toISOString() }))
+  const pending: SkillProgress[] = [{ treeId: 'pull-up', stepIndex: 4, hits: 1, misses: 1, checkPending: true }]
+
+  it('a passed check set moves up one step and clears the request', () => {
+    const res = applySession(pending, checkPlan, pulls(5), now)
+    expect(res.progress[0]).toMatchObject({ stepIndex: 5, hits: 0, misses: 0 })
+    expect(res.progress[0].checkPending).toBeUndefined()
+    expect(res.events.join()).toContain('(check set)')
+  })
+
+  it('a failed check set keeps the step and misses and clears the request', () => {
+    const res = applySession(pending, checkPlan, pulls(3), now)
+    expect(res.progress[0]).toMatchObject({ stepIndex: 4, misses: 1 })
+    expect(res.progress[0].checkPending).toBeUndefined()
+    expect(res.events).toEqual([])
+  })
+
+  it('requestCheck creates the entry when absent and flags an existing one', () => {
+    expect(requestCheck([], 'pull-up')).toEqual([{ treeId: 'pull-up', stepIndex: 0, hits: 0, misses: 0, checkPending: true }])
+    expect(requestCheck([{ treeId: 'pull-up', stepIndex: 3, hits: 1, misses: 0 }], 'pull-up')).toEqual([{ treeId: 'pull-up', stepIndex: 3, hits: 1, misses: 0, checkPending: true }])
   })
 })

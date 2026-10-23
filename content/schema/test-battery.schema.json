@@ -42,6 +42,9 @@
           },
           "higherIsBetter": {
             "type": "boolean"
+          },
+          "core": {
+            "type": "boolean"
           }
         },
         "required": [

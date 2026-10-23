@@ -3,7 +3,7 @@ import { IDBFactory } from 'fake-indexeddb'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fixturePlan } from './fixturePlan'
 import type { SyncClient } from './sync'
-import type { SessionRecord, SetLog } from './types'
+import type { MilestoneResult, SessionRecord, SetLog } from './types'
 
 type Table = Parameters<SyncClient['upsert']>[0]
 type Row = Record<string, unknown>
@@ -13,7 +13,7 @@ const T1 = '2026-10-10T00:00:00.000Z'
 const T2 = '2026-10-20T00:00:00.000Z'
 
 class FakeClient implements SyncClient {
-  tables: Record<Table, Map<string, Row>> = { settings: new Map(), progress: new Map(), sessions: new Map(), set_logs: new Map() }
+  tables: Record<Table, Map<string, Row>> = { settings: new Map(), progress: new Map(), sessions: new Map(), set_logs: new Map(), milestone_tests: new Map() }
   clock = T2
   failOn: Table | undefined
   async upsert(table: Table, rows: Row[]) {
@@ -121,6 +121,23 @@ describe('sync', () => {
     await expect(sync.push(client)).rejects.toThrow('upsert sessions failed')
     expect((await db.listOutbox()).map((e) => e.table)).toEqual(['sessions'])
     expect(client.tables.set_logs.size).toBe(1)
+  })
+
+  it('saveTestResult then push upserts one milestone_tests row', async () => {
+    const client = new FakeClient()
+    const result: MilestoneResult = { id: 'm1', testId: 'pull-up-max', value: 7, week: 4, date: '2026-10-05' }
+    await db.saveTestResult(result)
+    await sync.push(client)
+    expect(client.tables.milestone_tests.size).toBe(1)
+    expect(client.tables.milestone_tests.get('m1')).toMatchObject({ test_id: 'pull-up-max', value: 7, week: 4, date: '2026-10-05' })
+    expect(await db.listOutbox()).toHaveLength(0)
+  })
+
+  it('pull lands a remote milestone_tests row in listTestResults', async () => {
+    const client = new FakeClient()
+    client.tables.milestone_tests.set('m2', { ...sync.toRow.milestone_tests({ id: 'm2', testId: 'front-split-left', side: 'left', value: 15, week: 8, date: '2026-11-02' }), updated_at: T1 })
+    await sync.pull(client)
+    expect(await db.listTestResults()).toMatchObject([{ id: 'm2', testId: 'front-split-left', side: 'left', value: 15, week: 8, date: '2026-11-02', updatedAt: T1 }])
   })
 
   it('toRow and fromRow round-trip a set log, mapping undefined to null and back', () => {

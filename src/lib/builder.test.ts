@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { exerciseById, niggleMobility, skillTrees } from '../content'
+import { exerciseById, niggleMobility, skillTrees, tests } from '../content'
 import { dayTemplates, FOOT_POOL } from './dayTemplates'
-import { buildSession, contacts, estimateSeconds, pickDayType, REST } from './builder'
-import type { DayMode, DayType, Location, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import { available, buildSession, buildTestSession, contacts, estimateSeconds, pickDayType, REST } from './builder'
+import { bestsFromLogs, coreTestsOrdered, isTestDay, testDayType, untestedThisWeek } from './program'
+import { currentStep } from './progression'
+import type { DayMode, DayType, Equipment, Location, MilestoneResult, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 const now = new Date('2026-10-20T08:00:00Z')
 const settings: Settings = { weeklyTarget: 4, countdownSeconds: 10, voice: true, beeps: true, voiceRate: 1, sidePause: true, bands: [], neverShow: [], favourites: [], niggles: [], bests: {}, headphoneControls: false, lastDraft: { minutes: 30, location: 'gym', mode: 'normal' }, placed: true }
@@ -47,10 +49,10 @@ describe('buildSession', () => {
     expect(Math.abs(build(37).estSeconds - 37 * 60)).toBeLessThanOrEqual(150)
   })
 
-  it('bare mode is 10 min with one strength pair', () => {
-    const plan = build(60, { mode: 'bare' })
-    expect(plan.minutesTarget).toBe(10)
-    expect(exercisesOf(plan, 'strength')).toHaveLength(2)
+  it('a 10 min normal session still has warmup, strength with two pairs and cooldown', () => {
+    const plan = build(10, { mode: 'normal' })
+    expect(plan.blocks.map((b) => b.kind)).toEqual(['warmup', 'strength', 'cooldown'])
+    expect(exercisesOf(plan, 'strength')).toHaveLength(4)
   })
 
   it('tired mode drops a set and adds rest on strength exercises', () => {
@@ -467,5 +469,231 @@ describe('focus toggles', () => {
 
   it('settings without a focus field behave as all on', () => {
     expect(kinds(build(30))).toEqual(kinds(build(30, { settings: withFocus({}) })))
+  })
+})
+
+describe('deload week', () => {
+  // 2026-10-20 is week 12 from 2026-08-04 and week 5 from 2026-09-22
+  const at = (startDate: string): Settings => ({ ...settings, program: { startDate, focus: [] } })
+  const w5 = build(60, { settings: at('2026-09-22') })
+  const w12 = build(60, { settings: at('2026-08-04') })
+
+  it('plans 0.6x strength sets, at least 1', () => {
+    const normal = exercisesOf(w5, 'strength')
+    expect(normal.length).toBeGreaterThan(0)
+    for (const pe of exercisesOf(w12, 'strength')) {
+      const base = normal.find((n) => n.exerciseId === pe.exerciseId)!
+      expect(pe.sets).toBe(Math.max(1, Math.round(0.6 * base.sets)))
+    }
+  })
+
+  it('does not deload the skill block', () => {
+    // the freed strength time grows skill sets back towards their cap, so they can only go up
+    const skill = exercisesOf(w12, 'skill')
+    expect(skill.map((pe) => pe.exerciseId)).toEqual(exercisesOf(w5, 'skill').map((pe) => pe.exerciseId))
+    for (const [i, pe] of skill.entries()) expect(pe.sets).toBeGreaterThanOrEqual(exercisesOf(w5, 'skill')[i].sets)
+  })
+})
+
+describe('check sets', () => {
+  it('plans the next pull-up step once as a check set', () => {
+    const progress: SkillProgress[] = [{ treeId: 'pull-up', stepIndex: 4, hits: 0, misses: 0, checkPending: true }]
+    const checks = all(build(60, { progress })).filter((pe) => pe.checkSet)
+    expect(checks).toHaveLength(1)
+    expect(checks[0]).toMatchObject({ exerciseId: 'pull-up', treeId: 'pull-up', stepIndex: 5, checkSet: true, sets: 3, reps: [5, 5] })
+  })
+})
+
+describe('buildTestSession', () => {
+  const plan = buildTestSession({ settings: { ...settings, bests: { 'pull-up': 2 } }, progress: [{ treeId: 'pull-up', stepIndex: 4, hits: 0, misses: 0 }], location: 'gym', now })
+
+  it('is a test day with one test block of 28 items', () => {
+    expect(plan.dayType).toBe('test')
+    const test = plan.blocks.filter((b) => b.kind === 'test')
+    expect(test).toHaveLength(1)
+    expect(test[0].exercises).toHaveLength(28)
+    for (const pe of test[0].exercises) expect(pe.testId).toBeTruthy()
+  })
+
+  it('leaves out tests whose gate is not met', () => {
+    const ids = exercisesOf(plan, 'test').map((pe) => pe.testId)
+    for (const id of ['tuck-front-lever-hold', 'skin-the-cat', 'german-hang-hold', 'dragon-flag-negative', 'archer-pull-up-max']) expect(ids).not.toContain(id)
+  })
+})
+
+describe('equipment availability', () => {
+  const gymList: Equipment[] = ['pull_up_bar', 'dip_station', 'trx', 'band', 'dumbbell', 'kettlebell', 'box', 'bench', 'jump_rope', 'slam_ball', 'wall', 'floor', 'door_anchor']
+  const homeList: Equipment[] = ['band', 'door_anchor', 'box', 'wall', 'floor']
+  const withEquip = (gym: Equipment[], home: Equipment[]): Settings => ({ ...settings, equipment: { gym, home } })
+  const step4: SkillProgress[] = [{ treeId: 'pull-up', stepIndex: 4, hits: 0, misses: 0 }]
+  const allAvailable = (plan: SessionPlan, s: Settings, location: Location) => {
+    for (const pe of all(plan)) expect(available(exerciseById[pe.exerciseId], s, location), pe.exerciseId).toBe(true)
+  }
+
+  it('plans band-assisted-pull-up on a home pull day with a pull-up bar ticked', () => {
+    const s = { ...withEquip(gymList, [...homeList, 'pull_up_bar']), bests: { 'pull-up': 2 } }
+    const plan = build(60, { location: 'home', settings: s, progress: step4 })
+    expect(plan.dayType).toBe('pull')
+    expect(all(plan).map((pe) => pe.exerciseId)).toContain('band-assisted-pull-up')
+    allAvailable(plan, s, 'home')
+  })
+
+  it('plans nothing that needs a pull-up bar at default home', () => {
+    const s = withEquip(gymList, homeList)
+    const plan = build(60, { location: 'home', settings: s })
+    for (const pe of all(plan)) expect(exerciseById[pe.exerciseId].equipment, pe.exerciseId).not.toContain('pull_up_bar')
+    allAvailable(plan, s, 'home')
+  })
+
+  it('swaps trx-row for an available alternate when the gym has no trx', () => {
+    const s = withEquip(gymList.filter((e) => e !== 'trx'), homeList)
+    const plan = build(60, { settings: s })
+    const ids = all(plan).map((pe) => pe.exerciseId)
+    expect(ids).not.toContain('trx-row')
+    expect(ids.some((id) => ['band-row', 'inverted-row', 'dumbbell-row'].includes(id))).toBe(true)
+    allAvailable(plan, s, 'gym')
+  })
+
+  it('needs jump_rope ticked at home for jump-rope', () => {
+    const rope = exerciseById['jump-rope']
+    expect(available(rope, withEquip(gymList, homeList), 'home')).toBe(false)
+    expect(available(rope, withEquip(gymList, [...homeList, 'jump_rope']), 'home')).toBe(true)
+  })
+})
+
+describe('test week layout', () => {
+  // 2026-10-20 is week 4 from 2026-09-29
+  const wk4 = (testMode: Settings['testMode'] = { mode: 'spread', weekday: 6 }): Settings => ({ ...settings, bests: { 'pull-up': 2 }, program: { startDate: '2026-09-29', focus: [] }, testMode })
+  const progress: SkillProgress[] = [{ treeId: 'pull-up', stepIndex: 4, hits: 0, misses: 0 }]
+  const histories: Record<string, SessionRecord[]> = {
+    pull: [],
+    push: [done('pull', 72)],
+    legs: [done('pull', 96), done('push', 72)],
+    skill_core: [done('pull', 96), done('push', 72), done('legs', 36)],
+  }
+  const planFor = (dayType: string, over: { mode?: DayMode; settings?: Settings; results?: MilestoneResult[] } = {}, minutes = 60) => {
+    const plan = buildSession({ minutes, location: 'gym', mode: 'normal', now, recent: histories[dayType], recentLogs: [], progress, ...over, settings: over.settings ?? wk4() })
+    expect(plan.dayType).toBe(dayType)
+    return plan
+  }
+  const testIds = (plan: SessionPlan) => exercisesOf(plan, 'test').map((pe) => pe.testId!)
+  const typeOf = (id: string) => testDayType(tests.find((t) => t.id === id)!)
+
+  it('puts the 3 pull tests in a test block right after the warm-up on a pull day', () => {
+    const plan = planFor('pull')
+    expect(plan.blocks.map((b) => b.kind).slice(0, 2)).toEqual(['warmup', 'test'])
+    expect(testIds(plan)).toEqual(['pull-up-max', 'band-assisted-pull-up-max', 'chest-to-bar-pull-up-max'])
+  })
+
+  it('plans 6 push or handstand tests on a push day', () => {
+    const ids = testIds(planFor('push'))
+    expect(ids).toHaveLength(6)
+    for (const id of ids) expect(typeOf(id)).toBe('push')
+  })
+
+  it('plans splits, pistol and pancake tests on a legs day', () => {
+    const ids = testIds(planFor('legs'))
+    expect(ids.length).toBeGreaterThanOrEqual(3)
+    for (const id of ids) expect(typeOf(id)).toBe('legs')
+    expect(ids).toEqual(expect.arrayContaining(['front-split-left', 'pistol-left', 'pancake-chest-to-floor']))
+  })
+
+  it('plans core and balance tests on a skill_core day', () => {
+    const ids = testIds(planFor('skill_core'))
+    expect(ids.length).toBeGreaterThanOrEqual(3)
+    for (const id of ids) expect(typeOf(id)).toBe('skill_core')
+  })
+
+  it('has no test block on a tired day or a 20 min day', () => {
+    expect(planFor('pull', { mode: 'tired' }).blocks.map((b) => b.kind)).not.toContain('test')
+    expect(planFor('pull', {}, 20).blocks.map((b) => b.kind)).not.toContain('test')
+  })
+
+  describe('past week 12 and without a program', () => {
+    const withStart = (startDate?: string): Settings => ({ ...wk4(), program: startDate ? { startDate, focus: [] } : undefined })
+    const strengthSets = (plan: SessionPlan) => exercisesOf(plan, 'strength').map((pe) => pe.sets)
+    const none = planFor('pull', { settings: withStart() })
+    // 2026-10-20 is week 13 from 2026-07-28 and week 20 from 2026-06-09
+    const past = [['week 13', '2026-07-28'], ['week 20', '2026-06-09']]
+
+    it.each(past)('%s plans the no-program strength sets and no test block', (_, startDate) => {
+      const plan = planFor('pull', { settings: withStart(startDate) })
+      expect(strengthSets(plan).length).toBeGreaterThan(0)
+      expect(strengthSets(plan)).toEqual(strengthSets(none))
+      expect(plan.blocks.map((b) => b.kind)).not.toContain('test')
+    })
+
+    it('week 12 is deloaded and has a test block', () => {
+      const plan = planFor('pull', { settings: withStart('2026-08-04') })
+      expect(plan.blocks.map((b) => b.kind)).toContain('test')
+      expect(strengthSets(plan).reduce((a, b) => a + b, 0)).toBeLessThan(strengthSets(none).reduce((a, b) => a + b, 0))
+      for (const [i, n] of strengthSets(plan).entries()) expect(n).toBeLessThan(strengthSets(none)[i])
+    })
+
+    it('no program has no deload and no test block', () => {
+      expect(none.blocks.map((b) => b.kind)).not.toContain('test')
+      expect(strengthSets(none)).toEqual(strengthSets(planFor('pull', { settings: withStart('2026-09-22') })))
+    })
+  })
+
+  it('rolls over: done pull tests give way to 3 other untested tests', () => {
+    const doneIds = ['pull-up-max', 'band-assisted-pull-up-max', 'chest-to-bar-pull-up-max']
+    const results: MilestoneResult[] = doneIds.map((testId) => ({ id: testId, testId, value: 1, week: 4, date: '2026-10-20' }))
+    const before = untestedThisWeek(wk4(), progress, [], 4, 'gym').map((t) => t.id)
+    const after = untestedThisWeek(wk4(), progress, results, 4, 'gym').map((t) => t.id)
+    expect(after).toHaveLength(before.length - 3)
+    for (const id of doneIds) expect(after).not.toContain(id)
+    const ids = testIds(planFor('pull', { results }))
+    expect(ids).toHaveLength(3)
+    for (const id of ids) expect(doneIds).not.toContain(id)
+  })
+
+  describe('day mode', () => {
+    const dayMode = wk4({ mode: 'day', weekday: 6 })
+    const core = coreTestsOrdered(dayMode, progress, 'gym')
+
+    it('orders the 12 core tests skills, alternating strength, core, flexibility', () => {
+      expect(core).toHaveLength(12)
+      expect(['chest-to-wall-handstand-hold', 'tuck-l-sit-hold']).toContain(core[0].id)
+      const strength = core.filter((t) => ['main_strength', 'accessory'].includes(exerciseById[t.exerciseId!].type))
+      strength.forEach((t, i) => expect(exerciseById[t.exerciseId!].pattern).toBe(i % 2 === 0 ? 'pull' : 'push'))
+      expect(core.slice(-3).map((t) => t.id)).toEqual(['front-split-left', 'front-split-right', 'middle-split'])
+    })
+
+    it('buildTestSession has 12 test items', () => {
+      expect(exercisesOf(buildTestSession({ settings: dayMode, progress, location: 'gym', now }), 'test')).toHaveLength(12)
+    })
+
+    it('buildSession inserts at most 3 non-core tests', () => {
+      const ids = testIds(planFor('pull', { settings: dayMode }))
+      expect(ids.length).toBeGreaterThan(0)
+      expect(ids.length).toBeLessThanOrEqual(3)
+      for (const id of ids) expect(core.map((t) => t.id)).not.toContain(id)
+    })
+
+    it('isTestDay is true on the Saturday in day mode and false in spread mode', () => {
+      const sat = new Date(2026, 9, 24)
+      expect(isTestDay(dayMode, sat)).toBe(true)
+      expect(isTestDay(dayMode, new Date(2026, 9, 23))).toBe(false)
+      expect(isTestDay(wk4(), sat)).toBe(false)
+    })
+  })
+})
+
+describe('bestsFromLogs', () => {
+  const log = (over: Partial<SetLog>): SetLog => ({ id: 'l', sessionId: 's', exerciseId: 'pull-up', setIndex: 0, reps: 9, repsLeft: 1, mode: 'normal', at: hoursAgo(1), ...over })
+  const muscleUp = skillTrees.find((t) => t.id === 'muscle-up')!
+
+  it('raises the best from a normal 9-rep log and unlocks the muscle-up tree', () => {
+    expect(currentStep([], muscleUp, now, {}).locked).toBe(true)
+    const bests = bestsFromLogs({}, [log({})])
+    expect(bests['pull-up']).toBe(9)
+    expect(currentStep([], muscleUp, now, bests).locked).toBe(false)
+  })
+
+  it('ignores tired, banded and cm logs', () => {
+    expect(bestsFromLogs({}, [log({ mode: 'tired' })])).toEqual({})
+    expect(bestsFromLogs({}, [log({ bandIds: ['b1'] })])).toEqual({})
+    expect(bestsFromLogs({}, [log({ exerciseId: 'front-split-passive', reps: undefined, cmFromFloor: 10 })])).toEqual({})
   })
 })
