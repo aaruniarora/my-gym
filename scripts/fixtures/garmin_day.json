@@ -1,0 +1,14 @@
+{
+  "_note": "Synthetic values shaped like garminconnect 0.3.20 responses; not real data.",
+  "date": "2000-01-02",
+  "sleep": {"dailySleepDTO": {"sleepTimeSeconds": 27000, "sleepScores": {"overall": {"value": 81}}}},
+  "body_battery": [{"date": "2000-01-02", "bodyBatteryValuesArray": [[1, 40], [2, 77], [3, null], [4, 55]]}],
+  "readiness": [
+    {"timestamp": "2000-01-02T10:00:00.0", "score": 64},
+    {"timestamp": "2000-01-02T06:00:00.0", "score": 58},
+    {"timestamp": "2000-01-02T12:00:00.0", "score": null}
+  ],
+  "hr": {"restingHeartRate": 52},
+  "hrv": {"hrvSummary": {"lastNightAvg": 47.6}},
+  "menstrual": {"dailyLog": {"flow": "MEDIUM", "symptoms": ["CRAMPS", "FATIGUE"]}}
+}

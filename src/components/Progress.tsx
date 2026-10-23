@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react'
 import { exerciseById, exercises, skillTrees, tests } from '../content'
+import { performanceByCycleDay, periodStarts } from '../lib/cycle'
 import { listAllSetLogs, listTestResults } from '../lib/db'
 import { currentStep } from '../lib/progression'
-import type { MilestoneResult, SetLog, Settings, SkillProgress } from '../lib/types'
+import type { Checkin, HealthDaily, MilestoneResult, SetLog, Settings, SkillProgress } from '../lib/types'
 import { cmSeries, personalRecords, testMarkers, treeStairs, weeklySeries } from '../lib/weekly'
 import { WeeklyChart } from './Charts'
 import SkillTrees from './SkillTrees'
 
-type Props = { settings: Settings; progress: SkillProgress[]; onRequestCheck: (treeId: string, side?: 'left' | 'right') => void }
+type Props = {
+  settings: Settings; progress: SkillProgress[]; onRequestCheck: (treeId: string, side?: 'left' | 'right') => void
+  health: HealthDaily[]; checkins: Checkin[]; logs: SetLog[]
+}
 
 const name = (id: string) => exerciseById[id]?.name ?? id
 const signed = (n: number) => `${n > 0 ? '+' : ''}${Math.round(n * 10) / 10}`
@@ -41,6 +45,12 @@ export default function Progress(props: Props) {
   const pick = (ps: { week: string; left?: number; right?: number; value?: number }[], k: 'left' | 'right' | 'value') =>
     ps.flatMap((p) => (p[k] === undefined ? [] : [{ week: p.week, value: p[k] }]))
   const testSeries = (id: string, label: string) => ({ label, points: testMarkers(results, id) })
+  const starts = settings.cycleTracking ? periodStarts(props.health) : []
+  const byDay = starts.length >= 3 ? performanceByCycleDay(props.health, props.checkins, props.logs, starts) : []
+  const cyclePoints = (k: 'reps' | 'energy') => byDay.flatMap((d) => {
+    const v = d[k]
+    return v == null ? [] : [{ week: String(d.day), value: v }]
+  })
   const prs = Object.entries(personalRecords(logs)).sort(([a], [b]) => name(a).localeCompare(name(b)))
 
   return (
@@ -93,6 +103,11 @@ export default function Progress(props: Props) {
       <WeeklyChart series={[testSeries('active-front-leg-raise-left', 'L'), testSeries('active-front-leg-raise-right', 'R')]} unit="cm" yLabel="Height" />
       <h4>Active side leg raise</h4>
       <WeeklyChart series={[testSeries('active-side-leg-raise-left', 'L'), testSeries('active-side-leg-raise-right', 'R')]} unit="cm" yLabel="Height" />
+
+      {starts.length >= 3 && <>
+        <h3>By cycle day</h3>
+        <WeeklyChart byDay series={[{ label: 'reps %', points: cyclePoints('reps') }, { label: 'energy %', points: cyclePoints('energy') }]} unit="% vs your mean" yLabel="By cycle day" />
+      </>}
 
       <h3>Personal records</h3>
       {prs.length === 0 && <p className="muted small">No sets logged yet.</p>}

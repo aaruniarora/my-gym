@@ -3,20 +3,20 @@ import type { Account } from '../App'
 import { getProgress, listSessions, listSetLogs } from '../lib/db'
 import { canSync } from '../lib/supabase'
 import { APP_VERSION } from '../lib/version'
-import type { Band, Settings } from '../lib/types'
+import type { Band, GarminStatus, Settings } from '../lib/types'
 import Info from './Info'
 import { DEFAULT_EQUIPMENT, EQUIPMENT } from './labels'
 
 type Props = {
   settings: Settings; onSettings: (s: Settings) => void; onPlacement: () => void
-  account: Account; onSignIn: () => void; onSync: () => void; onSignOut: () => void
+  account: Account; onSignIn: () => void; onSync: () => void; onSignOut: () => void; garminStatus?: GarminStatus
 }
 
 const FOCUS = [['strength', 'Strength'], ['mobility', 'Mobility'], ['flexibility', 'Flexibility']] as const
 const WEEKDAYS = [[1, 'Monday'], [2, 'Tuesday'], [3, 'Wednesday'], [4, 'Thursday'], [5, 'Friday'], [6, 'Saturday'], [0, 'Sunday']] as const
 const clamp =(v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
-export default function SettingsView({ settings, onSettings, onPlacement, account, onSignIn, onSync, onSignOut }: Props) {
+export default function SettingsView({ settings, onSettings, onPlacement, account, onSignIn, onSync, onSignOut, garminStatus }: Props) {
   const set = (patch: Partial<Settings>) => onSettings({ ...settings, ...patch })
   const focus = { strength: true, mobility: true, flexibility: true, ...settings.focus }
   const ticked = Object.values(focus).filter(Boolean).length
@@ -40,6 +40,10 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
     a.download = `my-gym-${new Date().toISOString().slice(0, 10)}.json`
     a.click()
   }
+
+  const g = garminStatus
+  // the script writes lastError only on failure and lastOk only on success; lastAttempt dates the newest one
+  const garminFailed = !!g?.lastError && (!g.lastOk || Date.parse(g.lastAttempt ?? '') > Date.parse(g.lastOk))
 
   function reset() {
     if (!confirm('Delete all local data? This cannot be undone.')) return
@@ -76,6 +80,9 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
           {WEEKDAYS.map(([d, label]) => <option key={d} value={d}>{label}</option>)}
         </select></label>
       )}
+
+      <label>Track my menstrual cycle <Info text="Adds period and cramps to the check-in, learns your own pattern after 3 cycles, and avoids test days that are usually low. Off: nothing is asked or stored." />
+        <input type="checkbox" checked={!!settings.cycleTracking} onChange={(e) => set({ cycleTracking: e.target.checked })} /></label>
 
       <h3>Equipment</h3>
       {(['gym', 'home'] as const).map((l) => (
@@ -124,6 +131,16 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
           </div>
         </>
       )}
+
+      <h3>Garmin</h3>
+      <p className="muted">Last sync: {g?.lastOk ? new Date(g.lastOk).toLocaleString() : 'never'}</p>
+      {garminFailed && <p className="muted">Garmin sync failed: log manually</p>}
+      <ol className="small muted">
+        <li>Run <code>python scripts/garmin_login.py</code> once and copy the printed token.</li>
+        <li>Add it as the GARMIN_TOKENS secret on GitHub, plus SUPABASE_EMAIL and SUPABASE_PASSWORD.</li>
+        <li>Add the VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY repository variables.</li>
+        <li>The Garmin sync action then runs daily. Full steps: Garmin section of supabase/README.md.</li>
+      </ol>
 
       <h3>Data</h3>
       <div className="row">

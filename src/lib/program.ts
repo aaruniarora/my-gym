@@ -131,3 +131,17 @@ export function bestsFromLogs(bests: Record<string, number>, logs: SetLog[]): Re
   }
   return out
 }
+
+// day mode: a test day on a usually symptomatic weekday moves to the nearest free one; ties prefer a day still ahead this week, else the later one
+export function suggestTestDayMove(settings: Settings, symptomaticWeekdays: number[], today?: Date): { from: number; to: number } | null {
+  const from = settings.testMode?.weekday
+  if (settings.testMode?.mode !== 'day' || from === undefined || !symptomaticWeekdays.includes(from)) return null
+  // Monday-first position, so "ahead this week" compares correctly
+  const pos = (d: number) => (d + 6) % 7
+  for (let k = 1; k <= 3; k++) {
+    const free = [(from + k) % 7, (from + 7 - k) % 7].filter((d) => !symptomaticWeekdays.includes(d))
+    const ahead = today && free.find((d) => pos(d) >= pos(today.getDay()))
+    if (free.length) return { from, to: ahead ?? free[0] }
+  }
+  return null
+}

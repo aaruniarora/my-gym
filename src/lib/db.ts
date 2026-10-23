@@ -1,5 +1,5 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
-import type { DayMode, MilestoneResult, Outbox, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import type { Activity, Checkin, DayMode, GarminStatus, HealthDaily, MilestoneResult, Outbox, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 interface MyGymDB extends DBSchema {
   settings: { key: string; value: Settings }
@@ -9,6 +9,10 @@ interface MyGymDB extends DBSchema {
   outbox: { key: string; value: Outbox; indexes: { table: string } }
   meta: { key: string; value: string }
   tests: { key: string; value: MilestoneResult; indexes: { testId: string } }
+  health: { key: string; value: HealthDaily }
+  checkins: { key: string; value: Checkin }
+  activities: { key: string; value: Activity; indexes: { date: string } }
+  garminStatus: { key: string; value: GarminStatus }
 }
 
 const defaultSettings: Settings = {
@@ -32,6 +36,7 @@ const defaultSettings: Settings = {
     home: ['band', 'door_anchor', 'box', 'wall', 'floor'],
   },
   testMode: { mode: 'spread', weekday: 6 },
+  cycleTracking: false,
 }
 
 // 'bare' was a fourth day mode; rows stored with it read as 'tired'
@@ -41,7 +46,7 @@ export const progressKey = (p: SkillProgress) => (p.side ? `${p.treeId}:${p.side
 
 let dbPromise: Promise<IDBPDatabase<MyGymDB>> | undefined
 // opened lazily so importing this module never touches indexedDB
-const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 4, {
+const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 5, {
   async upgrade(d, oldVersion, _newVersion, tx) {
     if (oldVersion < 1) {
       d.createObjectStore('settings')
@@ -62,6 +67,12 @@ const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 4, {
       d.createObjectStore('meta')
     }
     if (oldVersion < 4) d.createObjectStore('tests', { keyPath: 'id' }).createIndex('testId', 'testId')
+    if (oldVersion < 5) {
+      d.createObjectStore('health', { keyPath: 'date' })
+      d.createObjectStore('checkins', { keyPath: 'date' })
+      d.createObjectStore('activities', { keyPath: 'id' }).createIndex('date', 'date')
+      d.createObjectStore('garminStatus')
+    }
   },
 }))
 
@@ -185,7 +196,62 @@ export async function putTestResult(result: MilestoneResult) {
   await (await db()).put('tests', result)
 }
 
+export async function listHealth(sinceISO: string): Promise<HealthDaily[]> {
+  return (await db()).getAll('health', IDBKeyRange.lowerBound(sinceISO))
+}
+
+export async function saveHealth(health: HealthDaily) {
+  const h = { ...health, updatedAt: now() }
+  const tx = (await db()).transaction(['health', 'outbox'], 'readwrite')
+  await Promise.all([tx.objectStore('health').put(h), tx.objectStore('outbox').put(outboxEntry('health_daily', h.date, h)), tx.done])
+}
+
+export async function putHealth(health: HealthDaily) {
+  await (await db()).put('health', health)
+}
+
+export async function getCheckin(date: string): Promise<Checkin | undefined> {
+  return (await db()).get('checkins', date)
+}
+
+export async function listCheckins(sinceISO: string): Promise<Checkin[]> {
+  return (await db()).getAll('checkins', IDBKeyRange.lowerBound(sinceISO))
+}
+
+export async function saveCheckin(checkin: Checkin) {
+  const c = { ...checkin, updatedAt: now() }
+  const tx = (await db()).transaction(['checkins', 'outbox'], 'readwrite')
+  await Promise.all([tx.objectStore('checkins').put(c), tx.objectStore('outbox').put(outboxEntry('checkins', c.date, c)), tx.done])
+}
+
+export async function putCheckin(checkin: Checkin) {
+  await (await db()).put('checkins', checkin)
+}
+
+export async function listActivities(sinceISO: string): Promise<Activity[]> {
+  return (await db()).getAllFromIndex('activities', 'date', IDBKeyRange.lowerBound(sinceISO))
+}
+
+export async function saveActivity(activity: Activity) {
+  const a = { ...activity, updatedAt: now() }
+  const tx = (await db()).transaction(['activities', 'outbox'], 'readwrite')
+  await Promise.all([tx.objectStore('activities').put(a), tx.objectStore('outbox').put(outboxEntry('activities', a.id, a)), tx.done])
+}
+
+export async function putActivity(activity: Activity) {
+  await (await db()).put('activities', activity)
+}
+
+// written by the Garmin Action; pulled only
+export async function getGarminStatus(): Promise<GarminStatus | undefined> {
+  return (await db()).get('garminStatus', 'garmin')
+}
+
+export async function putGarminStatus(status: GarminStatus) {
+  await (await db()).put('garminStatus', status, 'garmin')
+}
+
 // used by pull for rows deleted remotely
-export async function deleteLocal(store: 'progress' | 'sessions' | 'setLogs' | 'tests', key: string) {
+export async function deleteLocal(store: 'progress' | 'sessions' | 'setLogs' | 'tests' | 'health' | 'checkins' | 'activities', key: string) {
   await (await db()).delete(store, key)
 }
