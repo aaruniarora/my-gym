@@ -2,16 +2,17 @@ export type Point = { week: string; value: number }
 export type Series = { label: string; points: Point[] }
 export type Marker = Point & { label: string }
 
-type Props = { series: Series[]; unit: string; yLabel: string; markers?: Marker[]; step?: boolean }
+// byDay: week holds a day number (cycle day) instead of an ISO week start
+type Props = { series: Series[]; unit: string; yLabel: string; markers?: Marker[]; step?: boolean; byDay?: boolean }
 
 const [W, H, L, R, T, B] = [320, 160, 34, 30, 18, 24]
-const time = (week: string) => Date.parse(week + 'T00:00:00')
-const short = (week: string) => new Date(time(week)).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
 
 // one point per week, at most 2 series; x is spaced by date so gaps show
-export function WeeklyChart({ series, unit, yLabel, markers = [], step = false }: Props) {
+export function WeeklyChart({ series, unit, yLabel, markers = [], step = false, byDay = false }: Props) {
+  const time = (week: string) => (byDay ? Number(week) : Date.parse(week + 'T00:00:00'))
+  const short = (week: string) => (byDay ? `day ${week}` : new Date(time(week)).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }))
   const shown = series.slice(0, 2).filter((s) => s.points.length > 0)
-  const weeks = [...new Set([...shown.flatMap((s) => s.points), ...markers].map((p) => p.week))].sort()
+  const weeks = [...new Set([...shown.flatMap((s) => s.points), ...markers].map((p) => p.week))].sort((a, b) => time(a) - time(b))
   if (new Set(shown.flatMap((s) => s.points.map((p) => p.week))).size < 2) return <p className="muted small">Train 2 weeks to see a trend</p>
   const values = [...shown.flatMap((s) => s.points), ...markers].map((p) => p.value)
   let [lo, hi] = [Math.min(...values), Math.max(...values)]
@@ -22,7 +23,7 @@ export function WeeklyChart({ series, unit, yLabel, markers = [], step = false }
   const path = (ps: Point[]) => ps.map((p, i) => (i === 0 ? `M${x(p.week)},${y(p.value)}` : step ? `H${x(p.week)}V${y(p.value)}` : `L${x(p.week)},${y(p.value)}`)).join('')
 
   return (
-    <svg className="chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${yLabel} per week`}>
+    <svg className="chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${yLabel} per ${byDay ? 'cycle day' : 'week'}`}>
       <text x={0} y={11} className="chart-label">{yLabel} ({unit})</text>
       <line x1={L} x2={W - R} y1={H - B} y2={H - B} className="chart-axis" />
       <line x1={L} x2={L} y1={T} y2={H - B} className="chart-axis" />

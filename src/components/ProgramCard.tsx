@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 import { skillTrees, tests as battery } from '../content'
 import { listTestResults } from '../lib/db'
-import { blockOf, isTestDay, isTestWeek, nextTestWeek, proposeFocus, quarterWeek, testAllowed, untestedThisWeek } from '../lib/program'
+import { blockOf, isTestDay, isTestWeek, nextTestWeek, proposeFocus, quarterWeek, suggestTestDayMove, testAllowed, untestedThisWeek } from '../lib/program'
 import { localISO } from '../lib/trained'
 import type { MilestoneResult, SessionRecord, Settings, SkillProgress } from '../lib/types'
 import Info from './Info'
 
-type Props = { settings: Settings; progress: SkillProgress[]; recent: SessionRecord[]; onSettings: (s: Settings) => void; onStartTest: () => void }
+type Props = { settings: Settings; progress: SkillProgress[]; recent: SessionRecord[]; onSettings: (s: Settings) => void; onStartTest: () => void; symptomaticWeekdays: number[] }
 
 const treeName = (id: string) => skillTrees.find((t) => t.id === id)?.name ?? id
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const short = (iso: string) => new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
 
-export default function ProgramCard({ settings, progress, recent, onSettings, onStartTest }: Props) {
+export default function ProgramCard({ settings, progress, recent, onSettings, onStartTest, symptomaticWeekdays }: Props) {
   const today = localISO(new Date())
   const program = settings.program
   const now = new Date()
@@ -61,6 +61,7 @@ export default function ProgramCard({ settings, progress, recent, onSettings, on
   // the test week is the quarter week, so it starts on the quarter's start weekday
   const [y, m, d] = program.startDate.split('-').map(Number)
   const weekStart = localISO(new Date(y, m - 1, d + (week - 1) * 7))
+  const moveTo = testMode.mode === 'day' ? suggestTestDayMove(settings, symptomaticWeekdays, now) : null
   const sessions = recent.filter((s) => s.completed && s.plan.date.slice(0, 10) >= weekStart).length
   return (
     <div className="card">
@@ -75,6 +76,12 @@ export default function ProgramCard({ settings, progress, recent, onSettings, on
       {isTestWeek(week) && testMode.mode === 'day' && (isTestDay(settings, now)
         ? <button className="primary wide" onClick={onStartTest}>Start test session</button>
         : <p className="muted small">Test day: {WEEKDAYS[testMode.weekday]}</p>)}
+      {moveTo && (
+        <div className="row">
+          <span className="small" style={{ flex: 1, alignSelf: 'center' }}>Your test day usually falls on a low day; move it to {WEEKDAYS[moveTo.to]}?</span>
+          <button onClick={() => onSettings({ ...settings, testMode: { ...testMode, weekday: moveTo.to } })}>Move</button>
+        </div>
+      )}
     </div>
   )
 }

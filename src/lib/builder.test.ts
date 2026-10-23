@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { exerciseById, niggleMobility, skillTrees, tests } from '../content'
 import { dayTemplates, FOOT_POOL } from './dayTemplates'
 import { available, buildSession, buildTestSession, contacts, estimateSeconds, pickDayType, REST } from './builder'
-import { bestsFromLogs, coreTestsOrdered, isTestDay, testDayType, untestedThisWeek } from './program'
+import { bestsFromLogs, coreTestsOrdered, isTestDay, suggestTestDayMove, testDayType, untestedThisWeek } from './program'
 import { currentStep } from './progression'
-import type { DayMode, DayType, Equipment, Location, MilestoneResult, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import { localISO } from './trained'
+import type { Activity, DayMode, DayType, Equipment, Location, MilestoneResult, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 const now = new Date('2026-10-20T08:00:00Z')
 const settings: Settings = { weeklyTarget: 4, countdownSeconds: 10, voice: true, beeps: true, voiceRate: 1, sidePause: true, bands: [], neverShow: [], favourites: [], niggles: [], bests: {}, headphoneControls: false, lastDraft: { minutes: 30, location: 'gym', mode: 'normal' }, placed: true }
@@ -695,5 +696,58 @@ describe('bestsFromLogs', () => {
     expect(bestsFromLogs({}, [log({ mode: 'tired' })])).toEqual({})
     expect(bestsFromLogs({}, [log({ bandIds: ['b1'] })])).toEqual({})
     expect(bestsFromLogs({}, [log({ exerciseId: 'front-split-passive', reps: undefined, cmFromFloor: 10 })])).toEqual({})
+  })
+})
+
+describe('hard activity yesterday', () => {
+  const legsDue = [done('pull', 96), done('push', 72)]
+  const activity = (over: Partial<Activity> = {}): Activity => ({ id: 'a1', date: '2026-10-19', type: 'dance', minutes: 90, intensity: 'hard', stretched: false, ...over })
+  const deepIds = new Set([
+    ...skillTrees.filter((t) => ['front-split', 'middle-split', 'pike-pancake'].includes(t.id)).flatMap((t) => t.steps.map((s) => s.exerciseId)),
+    'nordic-negative',
+    ...skillTrees.find((t) => t.id === 'pistol')!.steps.slice(1).map((s) => s.exerciseId),
+  ])
+  const withActivities = (activities: Activity[], recent = legsDue) => buildSession({ minutes: 60, location: 'gym', mode: 'normal', now, recent, recentLogs: [], progress: [], settings, activities })
+
+  it('picks legs without the activity and the next non-legs type with it', () => {
+    expect(pickDayType(legsDue, settings, now)).toBe('legs')
+    expect(pickDayType(legsDue, settings, now, [activity()])).toBe('skill_core')
+  })
+
+  it('an easy dance activity does not change the day type', () => {
+    expect(pickDayType(legsDue, settings, now, [activity({ intensity: 'easy' })])).toBe('legs')
+  })
+
+  it('plans no split, pancake, nordic or deep pistol steps', () => {
+    for (const pe of all(withActivities([activity()]))) expect(deepIds.has(pe.exerciseId), pe.exerciseId).toBe(false)
+  })
+
+  it('a stretched 30 min activity counts as hamstring stretching, so the cool-down plans less of it', () => {
+    const hamstringSecs = (activities: Activity[]) =>
+      withActivities(activities, []).blocks.at(-1)!.exercises.filter((pe) => exerciseById[pe.exerciseId].stretchAreas?.includes('hamstrings')).reduce((n, pe) => n + (pe.seconds ?? 0), 0)
+    expect(hamstringSecs([])).toBeGreaterThan(0)
+    expect(hamstringSecs([activity({ intensity: 'easy', stretched: true, minutes: 30 })])).toBeLessThan(hamstringSecs([]))
+  })
+})
+
+describe('test day move and symptomatic days', () => {
+  const dayMode: Settings = { ...settings, testMode: { mode: 'day', weekday: 6 } }
+
+  it('moves a day-mode test day off a symptomatic weekday to the nearest free one', () => {
+    expect(suggestTestDayMove(dayMode, [6])).toEqual({ from: 6, to: 0 })
+    expect(suggestTestDayMove(dayMode, [6, 0])).toEqual({ from: 6, to: 5 })
+  })
+
+  it('does not move a free weekday or spread mode', () => {
+    expect(suggestTestDayMove(dayMode, [2])).toBeNull()
+    expect(suggestTestDayMove({ ...settings, testMode: { mode: 'spread', weekday: 6 } }, [6])).toBeNull()
+  })
+
+  it('spread mode skips the test block on a symptomatic day of a test week', () => {
+    // 2026-10-20 is week 4 from 2026-09-29
+    const s: Settings = { ...settings, bests: { 'pull-up': 2 }, program: { startDate: '2026-09-29', focus: [] }, testMode: { mode: 'spread', weekday: 6 } }
+    const kinds = (symptomaticDays: string[]) => buildSession({ minutes: 60, location: 'gym', mode: 'normal', now, recent: [], recentLogs: [], progress: [], settings: s, symptomaticDays }).blocks.map((b) => b.kind)
+    expect(kinds([])).toContain('test')
+    expect(kinds([localISO(now)])).not.toContain('test')
   })
 })

@@ -9,17 +9,31 @@ import SettingsView from './components/Settings'
 import Summary from './components/Summary'
 import Today, { type Draft } from './components/Today'
 import { available, buildSession, buildTestSession } from './lib/builder'
-import { clearOutbox, deleteMeta, getMeta, getProgress, getSettings, listOutbox, listTestResults, listSessions, listSetLogs, saveProgress, saveSession, saveSetLog, saveSettings, setMeta } from './lib/db'
+import { cycleDayOf, detectPattern, periodStarts, redFlag, symptomaticDays } from './lib/cycle'
+import {
+  clearOutbox, deleteMeta, getGarminStatus, getMeta, getProgress, getSettings, listActivities, listAllSetLogs, listCheckins, listHealth, listOutbox, listTestResults,
+  listSessions, listSetLogs, saveActivity, saveCheckin, saveHealth, saveProgress, saveSession, saveSetLog, saveSettings, setMeta,
+} from './lib/db'
 import { exerciseById, tests } from './content'
 import { afterSignIn, launchScreen } from './lib/launch'
 import { canSync, supabase } from './lib/supabase'
 import { supabaseSyncClient, sync } from './lib/sync'
 import { applyTestResults, bestsFromLogs } from './lib/program'
 import { applyPain, applySession, applyTooHard, requestCheck, withinAbility } from './lib/progression'
-import type { MilestoneResult, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './lib/types'
+import { suggestMode } from './lib/readiness'
+import { localISO } from './lib/trained'
+import type { Activity, Checkin, DayMode, GarminStatus, HealthDaily, MilestoneResult, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './lib/types'
 
 type Screen = 'today' | 'player' | 'summary' | 'placement' | 'history' | 'progress' | 'settings' | 'signin'
 export type Account = { email?: string; offline: boolean; lastSync?: string; failed: boolean }
+// health data derived for Today and the builder; cycle parts stay empty unless cycle tracking is on
+type Health = {
+  health: HealthDaily[]; checkins: Checkin[]; activities: Activity[]; logs: SetLog[]; garminStatus?: GarminStatus
+  suggested: { mode: DayMode | null; reason: string } | null; redFlag: string | null; symptomaticDays: string[]; symptomaticWeekdays: number[]
+}
+
+const DAY_MS = 24 * 3600 * 1000
+const daysAgo = (n: number) => localISO(new Date(Date.now() - n * DAY_MS))
 
 const syncClient = supabase && supabaseSyncClient(supabase)
 
@@ -33,6 +47,7 @@ export default function App() {
   const [plan, setPlan] = useState<SessionPlan>()
   const [summary, setSummary] = useState<{ record: SessionRecord; logs: SetLog[]; events: string[] }>()
   const [account, setAccount] = useState<Account>()
+  const [hd, setHd] = useState<Health>({ health: [], checkins: [], activities: [], logs: [], suggested: null, redFlag: null, symptomaticDays: [], symptomaticWeekdays: [] })
   // milestone results from the running test session, applied to bests on finish
   const testResults = useRef<MilestoneResult[]>([])
   const { needRefresh: [needRefresh], updateServiceWorker } = useRegisterSW()
@@ -47,7 +62,28 @@ export default function App() {
     setResults(await listTestResults())
     const s = await getSettings()
     setSettings(s)
+    await loadHealth(s)
     return s
+  }
+
+  async function loadHealth(s: Settings) {
+    const [health, checkins, activities, garminStatus] = await Promise.all([listHealth(daysAgo(200)), listCheckins(daysAgo(200)), listActivities(daysAgo(7)), getGarminStatus()])
+    const tracking = !!s.cycleTracking
+    const logs = tracking ? await listAllSetLogs() : []
+    const today = localISO(new Date())
+    const starts = tracking ? periodStarts(health) : []
+    const readiness = suggestMode({ checkin: checkins.find((c) => c.date === today), health: health.find((h) => h.date === today), settings: s })
+    const pattern = tracking ? detectPattern(health, checkins, logs, starts) : null
+    const day = cycleDayOf(today, starts)?.day
+    const suggested = readiness.mode ? readiness : pattern && day && pattern.days.includes(day) ? { mode: 'tired' as const, reason: pattern.reason } : null
+    // symptomatic cycle days projected onto the coming 7 days of the current cycle
+    const sym = tracking ? symptomaticDays(health, checkins, logs, starts) : []
+    const next = Array.from({ length: 7 }, (_, i) => new Date(Date.now() + i * DAY_MS))
+    const symDates = next.filter((d) => sym.includes(cycleDayOf(localISO(d), starts)?.day ?? 0))
+    setHd({
+      health, checkins, activities, logs, garminStatus, suggested, redFlag: tracking ? redFlag(starts, new Date()) : null,
+      symptomaticDays: symDates.map(localISO), symptomaticWeekdays: [...new Set(symDates.map((d) => d.getDay()))],
+    })
   }
 
   async function loadAccount(failed = false) {
@@ -85,7 +121,19 @@ export default function App() {
   if (!settings || !account) return null
 
   const updateSettings = (s: Settings) => { setSettings(s); void saveSettings(s) }
-  const build = (d: Draft) => buildSession({ ...d, now: new Date(), recent, recentLogs, progress, settings, results })
+  const build = (d: Draft) => buildSession({ ...d, now: new Date(), recent, recentLogs, progress, settings, results, activities: hd.activities, symptomaticDays: hd.symptomaticDays })
+
+  // period and cramps go to the day's health row as manual fields, keeping any Garmin values already there;
+  // only when one of them changed, so a plain energy/sleep check-in never turns a Garmin row manual
+  async function checkin(c: Checkin, activities: Activity[], manualHealth?: Partial<HealthDaily>) {
+    await saveCheckin(c)
+    await Promise.all(activities.map(saveActivity))
+    const day = hd.health.find((h) => h.date === c.date)
+    const changed = (['periodFlow', 'cramps'] as const).some((k) => manualHealth?.[k] !== undefined && manualHealth[k] !== day?.[k])
+    if (changed) await saveHealth({ ...day, ...manualHealth, date: c.date, source: 'manual' })
+    if (settings) await loadHealth(settings)
+    void runSync()
+  }
 
   async function finish(record: SessionRecord, logs: SetLog[]) {
     await saveSession(record)
@@ -181,11 +229,13 @@ export default function App() {
   return (
     <>
       {needRefresh && <button className="banner" onClick={() => void updateServiceWorker(true)}>New version ready — tap to update</button>}
-      {screen === 'today' && <Today settings={settings} progress={progress} recent={recent} onStartTest={startTest} onSettings={updateSettings} build={build} onStart={(p) => { setPlan(p); setScreen('player') }} />}
+      {screen === 'today' && <Today settings={settings} progress={progress} recent={recent} onStartTest={startTest} onSettings={updateSettings} build={build} onStart={(p) => { setPlan(p); setScreen('player') }}
+        suggested={hd.suggested} redFlag={hd.redFlag} symptomaticWeekdays={hd.symptomaticWeekdays} checkin={hd.checkins.find((c) => c.date === localISO(new Date()))}
+        health={hd.health.find((h) => h.date === localISO(new Date()))} activities={hd.activities} onCheckin={checkin} />}
       {screen === 'history' && <History settings={settings} />}
-      {screen === 'progress' && <ProgressView settings={settings} progress={progress} onRequestCheck={check} />}
+      {screen === 'progress' && <ProgressView settings={settings} progress={progress} onRequestCheck={check} health={hd.health} checkins={hd.checkins} logs={hd.logs} />}
       {screen === 'settings' && <SettingsView settings={settings} onSettings={updateSettings} onPlacement={() => setScreen('placement')}
-        account={account} onSignIn={() => setScreen('signin')} onSync={runSync} onSignOut={signOut} />}
+        account={account} onSignIn={() => setScreen('signin')} onSync={runSync} onSignOut={signOut} garminStatus={hd.garminStatus} />}
       <nav className="bottom-nav">
         {(['today', 'progress', 'history', 'settings'] as const).map((s) => (
           <button key={s} className={screen === s ? 'active' : ''} onClick={() => setScreen(s)}>

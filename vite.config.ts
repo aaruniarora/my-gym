@@ -3,16 +3,19 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { execSync } from 'node:child_process'
+import pkg from './package.json' with { type: 'json' }
 
 function gitShortSha() {
   try { return execSync('git rev-parse --short HEAD').toString().trim() } catch { return undefined }
 }
 const sha = (process.env.GITHUB_SHA ?? gitShortSha() ?? 'dev').slice(0, 7)
-const built = new Date().toISOString().slice(0, 10)
+const built = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+// 1.4.0 shows as 1.4; patch releases keep the third number
+const version = pkg.version.replace(/\.0$/, '')
 
 export default defineConfig({
   base: '/my-gym/',
-  define: { __APP_VERSION__: JSON.stringify(`${sha} · ${built}`) },
+  define: { __APP_VERSION__: JSON.stringify(`${version} · ${built} (${sha})`) },
   plugins: [
     react(),
     VitePWA({

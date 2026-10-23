@@ -101,10 +101,35 @@ export type Settings = {
   equipment?: { gym: Equipment[]; home: Equipment[] }
   // test weeks: tests spread over the week's sessions, or one test day (weekday as JS getDay(), 0 = Sunday)
   testMode?: { mode: 'spread' | 'day'; weekday: number }
+  // opt-in; cycle features stay off unless ticked
+  cycleTracking?: boolean
   updatedAt?: string
 }
 
 export type MilestoneResult = { id: string; testId: string; side?: 'left' | 'right'; value: number; week: number; date: string; updatedAt?: string }
 
+export type PeriodFlow = 'none' | 'light' | 'medium' | 'heavy'
+
+// one row per local date (yyyy-mm-dd); manual fields win over Garmin ones
+export type HealthDaily = {
+  date: string
+  periodFlow?: PeriodFlow
+  cramps?: number
+  sleepHours?: number
+  sleepScore?: number
+  bodyBattery?: number
+  readiness?: number
+  restingHr?: number
+  hrv?: number
+  source: 'garmin' | 'manual'
+  updatedAt?: string
+}
+
+export type Checkin = { date: string; energy?: number; sleepQuality?: number; periodFlow?: PeriodFlow; cramps?: number; notes?: string; updatedAt?: string }
+
+export type Activity = { id: string; date: string; type: 'dance' | 'taekwondo' | 'run' | 'other'; minutes: number; intensity: 'easy' | 'moderate' | 'hard'; stretched: boolean; updatedAt?: string }
+
+export type GarminStatus = { lastOk?: string; lastError?: string; lastAttempt?: string; updatedAt?: string }
+
 // a local row waiting to be pushed; one entry per row, overwritten by newer saves
-export type Outbox = { id: string; table: 'settings' | 'progress' | 'sessions' | 'set_logs' | 'milestone_tests'; row: unknown; at: string }
+export type Outbox = { id: string; table: 'settings' | 'progress' | 'sessions' | 'set_logs' | 'milestone_tests' | 'health_daily' | 'checkins' | 'activities'; row: unknown; at: string }

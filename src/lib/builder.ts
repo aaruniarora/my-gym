@@ -3,8 +3,9 @@ import { effectiveDose, exerciseById, exercises, niggleMobility, skillTrees, tes
 import { COOLDOWN_AREAS, dayTemplates, FOOT_POOL, FULL_BODY_SKILLS, GENERAL_COOLDOWN, SPLITS_BLOCK, WARMUP_POOL } from './dayTemplates'
 import { available, coreTestsOrdered, deloadFactor, isTestWeek, quarterWeek, testAllowed, testsForSession } from './program'
 import { abilityStep, checkTarget, currentStep, withinAbility } from './progression'
+import { localISO } from './trained'
 export { available } from './program'
-import type { Block, BlockKind, DayMode, DayType, Location, MilestoneResult, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import type { Activity, Block, BlockKind, DayMode, DayType, Location, MilestoneResult, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 const HOUR = 3600 * 1000
 const ROTATION: Exclude<DayType, 'test'>[] = ['pull', 'push', 'legs', 'skill_core']
@@ -62,17 +63,29 @@ const covers = (d: DayType): DayType[] => (d === 'full_body' ? ['pull', 'push', 
 const lastWeek = (recent: SessionRecord[], now: Date) =>
   recent.filter((s) => s.completed && now.getTime() - new Date(s.startedAt).getTime() < 7 * 24 * HOUR)
 const returningFromBreak = (recent: SessionRecord[], now: Date) => lastWeek(recent, now).length === 0 && recent.some((s) => s.completed)
+// a hard dance, taekwondo or run class today or yesterday counts as recent leg/hip work
+const HARD_TYPES: Activity['type'][] = ['dance', 'taekwondo', 'run']
+export const hardLegsRecently = (activities: Activity[] = [], now: Date) =>
+  activities.some((a) => a.intensity === 'hard' && HARD_TYPES.includes(a.type) && now.getTime() - new Date(`${a.date}T00:00`).getTime() < 48 * HOUR)
+// after hard leg work: no splits tree steps, no nordics, no pistol tree steps past box squats
+const DEEP_LEG_IDS = new Set([
+  ...skillTrees.filter((t) => ['front-split', 'middle-split', 'pike-pancake'].includes(t.id)).flatMap((t) => t.steps.map((s) => s.exerciseId)),
+  ...(skillTrees.find((t) => t.id === 'pistol')?.steps.slice(1).map((s) => s.exerciseId) ?? []),
+  'nordic-negative',
+])
+const STRETCH_ACTIVITY_AREAS = ['hamstrings', 'hip_flexors', 'adductors']
 // settings saved before focus existed have none
 const focusOf = (s: Settings) => ({ strength: true, mobility: true, flexibility: true, ...s.focus })
 
 // never 'test': test days come from buildTestSession
-export function pickDayType(recent: SessionRecord[], settings: Settings, now: Date): Exclude<DayType, 'test'> {
+export function pickDayType(recent: SessionRecord[], settings: Settings, now: Date, activities?: Activity[]): Exclude<DayType, 'test'> {
   if (settings.weeklyTarget <= 3 || returningFromBreak(recent, now)) return 'full_body'
   const week = lastWeek(recent, now).sort((a, b) => ended(b) - ended(a))
   const start = ROTATION.findIndex((d) => d === week[0]?.plan.dayType) + 1
   const count = (d: DayType) => week.filter((s) => covers(s.plan.dayType).includes(d)).length
   const fresh = ROTATION.map((_, i) => ROTATION[(start + i) % ROTATION.length])
     .filter((d) => !week.some((s) => covers(s.plan.dayType).includes(d) && now.getTime() - ended(s) < 48 * HOUR))
+    .filter((d) => d !== 'legs' || !hardLegsRecently(activities, now))
   return fresh.sort((a, b) => count(a) - count(b))[0] ?? (week.length >= 5 && focusOf(settings).mobility ? 'movement' : 'light')
 }
 
@@ -93,11 +106,16 @@ export function buildSession(input: {
   settings: Settings
   // milestone results, so test weeks only plan tests not done yet
   results?: MilestoneResult[]
+  // other activity from the last 7 days
+  activities?: Activity[]
+  // local yyyy-mm-dd dates that are usually symptomatic cycle days (cycle tracking only)
+  symptomaticDays?: string[]
 }): SessionPlan {
   const { location, mode, now, recent, progress, settings } = input
   const minutes = input.minutes
   const short = minutes <= 10
-  const dayType = pickDayType(recent, settings, now)
+  const dayType = pickDayType(recent, settings, now, input.activities)
+  const hardLegs = hardLegsRecently(input.activities, now)
   const t = dayTemplates[dayType]
   const easy = mode === 'tired' || returningFromBreak(recent, now)
   const tired = mode === 'tired'
@@ -120,7 +138,7 @@ export function buildSession(input: {
     // niggle mobility entries may load their own area (allowLoaded)
     const niggleOk = kind === 'niggle_mobility' || !ex?.loads.some((a) => niggles.includes(a))
     // no plyo on legs days
-    return !!ex && !used.has(id) && !settings.neverShow.includes(id) && available(ex, settings, location) && niggleOk && !(dayType === 'legs' && plyo(ex))
+    return !!ex && !used.has(id) && !settings.neverShow.includes(id) && available(ex, settings, location) && niggleOk && !(dayType === 'legs' && plyo(ex)) && !(hardLegs && DEEP_LEG_IDS.has(id))
   }
   const fav = (id: string) => +settings.favourites.includes(id)
 
@@ -344,7 +362,8 @@ export function buildSession(input: {
   const logged = (area: string) =>
     weekLogs
       .filter((l) => ['stretch', 'mobility'].includes(exerciseById[l.exerciseId]?.type) && exerciseById[l.exerciseId].stretchAreas?.includes(area as never))
-      .reduce((n, l) => n + (l.seconds ?? (l.reps ?? 0) * 3), 0)
+      .reduce((n, l) => n + (l.seconds ?? (l.reps ?? 0) * 3), 0) +
+    (STRETCH_ACTIVITY_AREAS.includes(area) ? (input.activities ?? []).filter((a) => a.stretched && now.getTime() - new Date(`${a.date}T00:00`).getTime() < 7 * 24 * HOUR).reduce((n, a) => n + a.minutes * 60, 0) : 0)
   // largest deficit against the 10 min/area/week target first, i.e. fewest logged seconds
   const areas = Object.keys(COOLDOWN_AREAS).sort((a, b) => logged(a) - logged(b))
   const splits = !short && (t.splits || minutes >= 75 || onlyFlex)
@@ -366,8 +385,9 @@ export function buildSession(input: {
   }
   cooldown.exercises.unshift(...activeFlex)
   blocks.push(cooldown)
-  // test week: this day type's untested tests after the warm-up (day mode: optional ones only, max 3); never trimmed
-  if (week && isTestWeek(week) && !tired && minutes > 20) {
+  // test week: this day type's untested tests after the warm-up (day mode: optional ones only, max 3); never trimmed. Spread mode skips symptomatic days
+  const symptomatic = settings.testMode?.mode !== 'day' && !!input.symptomaticDays?.includes(localISO(now))
+  if (week && isTestWeek(week) && !tired && minutes > 20 && !symptomatic) {
     const due = testsForSession(settings, progress, input.results ?? [], week, dayType, location).slice(0, settings.testMode?.mode === 'day' ? 3 : 6)
     blocks.push({ kind: 'test', exercises: due.map((t) => ({ exerciseId: t.exerciseId!, sets: 1, restSeconds: 120, testId: t.id })) })
   }

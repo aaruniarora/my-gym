@@ -13,14 +13,17 @@ const T1 = '2026-10-10T00:00:00.000Z'
 const T2 = '2026-10-20T00:00:00.000Z'
 
 class FakeClient implements SyncClient {
-  tables: Record<Table, Map<string, Row>> = { settings: new Map(), progress: new Map(), sessions: new Map(), set_logs: new Map(), milestone_tests: new Map() }
+  tables: Record<Table | 'garmin_status', Map<string, Row>> = {
+    settings: new Map(), progress: new Map(), sessions: new Map(), set_logs: new Map(), milestone_tests: new Map(),
+    health_daily: new Map(), checkins: new Map(), activities: new Map(), garmin_status: new Map(),
+  }
   clock = T2
   failOn: Table | undefined
   async upsert(table: Table, rows: Row[]) {
     if (table === this.failOn) throw new Error(`upsert ${table} failed`)
-    for (const r of rows) this.tables[table].set(String(table === 'settings' ? 'settings' : table === 'progress' ? r.key : r.id), { ...r, updated_at: this.clock })
+    for (const r of rows) this.tables[table].set(String(table === 'settings' ? 'settings' : table === 'progress' ? r.key : table === 'health_daily' || table === 'checkins' ? r.date : r.id), { ...r, updated_at: this.clock })
   }
-  async pullSince(table: Table, since: string | null) {
+  async pullSince(table: Table | 'garmin_status', since: string | null) {
     return [...this.tables[table].values()].filter((r) => !since || (r.updated_at as string) > since)
   }
   userId = () => 'u1'
@@ -138,6 +141,25 @@ describe('sync', () => {
     client.tables.milestone_tests.set('m2', { ...sync.toRow.milestone_tests({ id: 'm2', testId: 'front-split-left', side: 'left', value: 15, week: 8, date: '2026-11-02' }), updated_at: T1 })
     await sync.pull(client)
     expect(await db.listTestResults()).toMatchObject([{ id: 'm2', testId: 'front-split-left', side: 'left', value: 15, week: 8, date: '2026-11-02', updatedAt: T1 }])
+  })
+
+  it('a manual health row keeps its fields when a newer Garmin row for the same day is pulled', async () => {
+    const client = new FakeClient()
+    await db.putHealth({ date: '2026-10-19', source: 'manual', periodFlow: 'medium', sleepHours: undefined, updatedAt: T1 })
+    client.tables.health_daily.set('2026-10-19', { ...sync.toRow.health_daily({ date: '2026-10-19', source: 'garmin', sleepHours: 7.5, sleepScore: 80, periodFlow: 'none' }), updated_at: T2 })
+    await sync.pull(client)
+    expect(await db.listHealth('')).toMatchObject([{ date: '2026-10-19', periodFlow: 'medium', sleepHours: 7.5, sleepScore: 80, source: 'manual' }])
+  })
+
+  it('pull lands garmin_status in getGarminStatus and enqueueAll never queues it', async () => {
+    const client = new FakeClient()
+    client.tables.garmin_status.set('u1', { last_ok: T1, last_error: null, last_attempt: T1, updated_at: T1 })
+    expect(await sync.pull(client)).toBe(1)
+    expect(await db.getGarminStatus()).toMatchObject({ lastOk: T1, lastAttempt: T1, updatedAt: T1 })
+    await sync.enqueueAll()
+    expect((await db.listOutbox()).map((e) => e.table)).not.toContain('garmin_status')
+    await sync.push(client)
+    expect(client.tables.garmin_status.get('u1')?.updated_at).toBe(T1)
   })
 
   it('toRow and fromRow round-trip a set log, mapping undefined to null and back', () => {
