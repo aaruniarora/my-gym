@@ -179,6 +179,13 @@ History opens on a **month calendar**, with the session list below it.
 - **The week row** shows "3 / 4 this week" against the weekly target. The streak is counted in weeks that hit the target.
 - **Tapping a day** shows that day's sessions with their sets.
 
+### Test weeks (weeks 1, 4, 8, 12)
+
+A setting, **"How do you want to test?"**, offers two options:
+- **Across the test week (default):** each normal session that week includes the 3–6 tests that match its day type, so every test is done fresh and the full set is done by the end of the week. Tests not yet done appear in the next session that week.
+- **On one test day:** pick the weekday (default Saturday) for a dedicated test session. It runs the core tests in fatigue-aware order (NSCA principle: least fatiguing first): skills and balance → max-strength tests, alternating push and pull → core holds → flexibility last, when warm. The core is about 10–12 tests in 45–60 min, and the rest are optional and fill into that week's sessions.
+- **PRs aren't tied to tests.** Any logged set that beats a best updates it straight away. Tests are standardised checkpoints, so the 4-weekly comparisons are like for like.
+
 ### Progress graphs (Phase 4)
 
 - **Every graph has one point per week, not per day**, so a single tired session or a different band doesn't hide the trend.
@@ -417,7 +424,7 @@ Each phase ends with something usable that I review before the next one starts.
 
 ## 6. Open items
 
-- [x] Check whether Garmin cycle data appears in Apple Health: **it doesn't**, so the plan is a Garmin sync via GitHub Action (pending my OK on the caveats).
+- [x] Check whether Garmin cycle data appears in Apple Health: **it doesn't**, so the plan is a Garmin sync via GitHub Action. **Caveats accepted (2026-10-22).**
 - [x] Phase 1 review decisions:
   - forearm stretches are allowed in the wrist niggle block (pain-free)
   - the "stop if painful" note is enough for niggle band drills

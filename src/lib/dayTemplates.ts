@@ -32,7 +32,7 @@ export const FULL_BODY_SKILLS = ['handstand', 'l-sit', 'bridge']
 
 const none = { secondary: [], core: [], conditioning: ['burpee', 'mountain-climber', 'skipping'], splits: false }
 
-export const dayTemplates: Record<DayType, DayTemplate> = {
+export const dayTemplates: Record<Exclude<DayType, 'test'>, DayTemplate> = {
   pull: {
     ...none,
     strengthPairs: [['tree:pull-up', 'tree:push-up'], ['trx-row', 'tree:dip']],

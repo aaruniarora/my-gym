@@ -1,12 +1,14 @@
 import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react'
 import type { Exercise } from '../../content/schema'
-import { exerciseById } from '../content'
+import { exerciseById, tests } from '../content'
 import { beep, speak, unlockAudio } from '../lib/audio'
 import { REST } from '../lib/builder'
-import { lastSetLog } from '../lib/db'
+import { lastSetLog, saveTestResult } from '../lib/db'
 import { setMediaTitle, startMediaSession, stopMediaSession } from '../lib/mediaSession'
+import { quarterWeek } from '../lib/program'
 import { flatten, nextPos, prevPos } from '../lib/sequence'
-import type { BlockKind, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings } from '../lib/types'
+import { localISO } from '../lib/trained'
+import type { BlockKind, MilestoneResult, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings } from '../lib/types'
 import { acquire, release } from '../lib/wakeLock'
 import SetLogger from './SetLogger'
 import TechniqueCard, { Demo } from './TechniqueCard'
@@ -19,9 +21,13 @@ type Props = {
   onPain?: (treeId: string) => void
   onTooHard?: (treeId: string) => void
   canDo?: (exerciseId: string) => boolean
+  // equipment check for swap alternates
+  canUse?: (exerciseId: string) => boolean
+  // test sessions: called with the saved results just before onFinish
+  onResults?: (results: MilestoneResult[]) => void
 }
 
-type Phase = 'card' | 'ready' | 'work' | 'rest'
+type Phase = 'card' | 'ready' | 'work' | 'rest' | 'test'
 // rest: adaptive with rating; interval: fixed work/rest; transition: mobility/stretch hand-over, no rating
 type RestKind = 'rest' | 'interval' | 'transition'
 // the set just logged, kept for rating, edit and rest adjustment
@@ -29,6 +35,10 @@ type Last = { ids: string[]; exerciseId: string; base: number; target: number; l
 
 const SIDE_PAUSE = 3
 const CARD_KINDS: BlockKind[] = ['skill', 'strength', 'secondary', 'core', 'conditioning']
+const BONUS_KINDS: BlockKind[] = ['strength', 'secondary', 'core']
+// bonus slots get one extra set
+const withBonus = (plan: SessionPlan, bonus: string[]) =>
+  flatten({ ...plan, blocks: plan.blocks.map((b, i) => ({ ...b, exercises: b.exercises.map((pe, j) => (bonus.includes(`${i}-${j}`) ? { ...pe, sets: pe.sets + 1 } : pe)) })) })
 const RATINGS = [['Easy', 3], ['Good', 1], ['Hard', 0]] as const
 
 const doseText = (ex: Exercise, pe: PlannedExercise) =>
@@ -39,8 +49,9 @@ const doseText = (ex: Exercise, pe: PlannedExercise) =>
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 const clamp = (n: number, [lo, hi]: [number, number]) => Math.min(hi, Math.max(lo, n))
 
-export default function Player({ plan, settings, onFinish, onAbort, onPain, onTooHard, canDo = () => true }: Props) {
-  const items = useMemo(() => flatten(plan), [plan])
+export default function Player({ plan, settings, onFinish, onAbort, onPain, onTooHard, canDo = () => true, canUse, onResults }: Props) {
+  const [bonus, setBonus] = useState<string[]>([])
+  const items = useMemo(() => withBonus(plan, bonus), [plan, bonus])
   const [startedAt] = useState(() => new Date().toISOString())
   const [pos, setPos] = useState(0)
   const [phase, setPhase] = useState<Phase>('card')
@@ -64,6 +75,9 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const started = useRef(false)
   const tooHardReported = useRef(new Set<string>())
   const media = useRef({ toggle: () => {}, next: () => {}, previous: () => {} })
+  // result ids per position, so re-running a test overwrites its own result
+  const results = useRef<Record<number, MilestoneResult>>({})
+  const [attempts, setAttempts] = useState(['', '', ''])
 
   useEffect(() => {
     void acquire()
@@ -97,7 +111,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   }, [ex.id, ex.loggable.cm])
 
   // the card shows once per slot+exercise, for the session's first exercise and main blocks only
-  const needsCard = (i: number, seenList = seen, swaps = swapped) =>
+  const needsCard = (i: number, seenList = seen, swaps = swapped) => !!items[i].pe.testId ||
     !seenList.includes(`${items[i].key}:${swaps[items[i].key] ?? items[i].pe.exerciseId}`) && (!started.current || CARD_KINDS.includes(items[i].kind))
 
   function startTimer(seconds: number) {
@@ -110,6 +124,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const addRest = (s: number) => pausedLeft === null ? setDeadline(deadline + s * 1000) : setPausedLeft(pausedLeft + s * 1000)
 
   function finish(completed: boolean, all = logs) {
+    onResults?.(Object.values(results.current))
     onFinish({ plan, startedAt, endedAt: new Date().toISOString(), completed, painEvents, tooHardEvents }, all)
   }
 
@@ -117,6 +132,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     if (i >= items.length) return finish(true)
     setPos(i)
     setSheet(null)
+    if (items[i].pe.testId) { setAttempts(['', '', '']); return setPhase('test') }
     if (needsCard(i, seenList, swaps)) return setPhase('card')
     const next = exerciseById[swaps[items[i].key] ?? items[i].pe.exerciseId]
     speak(`Next: ${next.name}, ${doseText(next, items[i].pe)}, starting in ${settings.countdownSeconds}`, settings)
@@ -277,6 +293,14 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     enter(p)
   }
 
+  // the new set lands right after the slot's last one, so positions already passed stay put
+  function addBonus() {
+    const from = trail[trail.length - 1]
+    const b = [...bonus, items[from].key]
+    setBonus(b)
+    setPos(nextPos(withBonus(plan, b), from + 1, skipped))
+  }
+
   function replace(id: string) {
     const s = { ...swapped, [item.key]: id }
     setSwapped(s)
@@ -299,7 +323,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   }
 
   function easier() {
-    if (ex.regression && exerciseById[ex.regression] && canDo(ex.regression)) {
+    if (ex.regression && exerciseById[ex.regression] && canDo(ex.regression) && (!canUse || canUse(ex.regression))) {
       speak('Switching to an easier variation', settings)
       replace(ex.regression)
     } else skipExercise()
@@ -311,7 +335,21 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     setSheet('edit')
   }
 
-  const end = () => logs.length === 0 ? onAbort() : finish(false)
+  // test results are stored straight away; no set logs are created for tests
+  function saveResult(value: number) {
+    const testId = pe.testId!
+    const side = testId.endsWith('-left') ? 'left' : testId.endsWith('-right') ? 'right' : undefined
+    const r: MilestoneResult = {
+      id: results.current[pos]?.id ?? crypto.randomUUID(), testId, ...(side && { side }), value,
+      week: settings.program ? quarterWeek(settings.program.startDate, new Date()) : 0, date: localISO(new Date()),
+    }
+    results.current = { ...results.current, [pos]: r }
+    void saveTestResult(r)
+    setTrail([...trail, pos])
+    enter(nextPos(items, pos + 1, skipped))
+  }
+
+  const end = () => logs.length === 0 && Object.keys(results.current).length === 0 ? onAbort() : finish(false)
   const done = () => logSet()
 
   media.current = {
@@ -325,7 +363,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     ...(ex.alternates.general ?? []),
     ...ex.alternates.home.filter((id) => plan.location === 'home' || exerciseById[id]?.homeOk),
     ...active.flatMap((a) => ex.alternates.niggle[a] ?? []),
-  ])].filter((id) => exerciseById[id] && id !== ex.id && (plan.location !== 'home' || exerciseById[id].homeOk) && !settings.neverShow.includes(id) && canDo(id))
+  ])].filter((id) => exerciseById[id] && id !== ex.id && (canUse ? canUse(id) : plan.location !== 'home' || exerciseById[id].homeOk) && !settings.neverShow.includes(id) && canDo(id))
 
   const elapsed = workTotal - secLeft
   const sideLabel = !perSide ? '' : elapsed < rightSecs ? 'Right side' : elapsed < rightSecs + sidePause ? 'Switch sides' : 'Left side'
@@ -335,12 +373,24 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
   const setCm = (id: string, value: string) => setLogs(logs.map((l) => (l.id === id ? { ...l, cmFromFloor: value === '' ? undefined : Number(value) } : l)))
   const cmHint = (id: string) => last?.lastCm?.[last.ids.indexOf(id)]
   const rating = lastLogs[0]?.repsLeft
+  const justDone = phase === 'rest' && restKind === 'rest' ? items[trail[trail.length - 1]] : undefined
+  const offerBonus = plan.mode === 'push' && rating === 3 && !!justDone && BONUS_KINDS.includes(justDone.kind) && justDone.setIndex === justDone.pe.sets - 1 &&
+    !bonus.includes(justDone.key) && (now - Date.parse(startedAt)) / 1000 < plan.estSeconds
+  const test = phase === 'test' ? tests.find((t) => t.id === pe.testId) : undefined
+  // active leg-raise tests take the best of 3 attempts
+  const attemptCount = test?.id.startsWith('active-') ? 3 : 1
+  const attemptValues = attempts.slice(0, attemptCount).filter((a) => a !== '').map(Number)
+  const testUnit = { reps: 'reps', seconds: 'seconds', cm_from_floor: 'cm from floor', cm_height: 'cm height', pass_fail: '' }
 
   return (
     <main className="player">
       {atEnd
         ? <h2>Last set done</h2>
-        : <>
+        : test ? <>
+          <p className="muted">Milestone test</p>
+          <h2>{test.name}</h2>
+          <p>{test.protocol}</p>
+        </> : <>
           <p className="muted">Set {item.setIndex + 1} of {pe.sets}{phase === 'rest' && ' - up next'}</p>
           <h2>{ex.name}</h2>
           <p>{doseText(ex, pe)}</p>
@@ -357,6 +407,20 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
           <ul className="cues">{ex.technique.cues.map((c) => <li key={c}>{c}</li>)}</ul>
         </div>
       )}
+
+      {test && (test.metric === 'pass_fail'
+        ? <div className="row big">
+          <button className="primary" onClick={() => saveResult(1)}>Pass</button>
+          <button onClick={() => saveResult(0)}>Fail</button>
+        </div>
+        : <div className="logger">
+          {attempts.slice(0, attemptCount).map((a, i) => (
+            <label key={i}>{attemptCount > 1 ? `Attempt ${i + 1}, ` : ''}{testUnit[test.metric]}
+              <input type="number" inputMode="decimal" min={0} value={a} onChange={(e) => setAttempts(attempts.map((x, j) => (j === i ? e.target.value : x)))} />
+            </label>
+          ))}
+          <button className="primary wide" disabled={attemptValues.length === 0} onClick={() => saveResult(Math.max(...attemptValues))}>Save result</button>
+        </div>)}
 
       {phase === 'ready' && <><p>Get ready</p><div className="timer">{secLeft}</div></>}
       {phase === 'work' && (timed
@@ -376,6 +440,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
             {RATINGS.map(([label, r]) => <button key={label} className={rating === r ? 'primary' : ''} onClick={() => rate(r)}>{label}</button>)}
           </div>
           <button className="link" onClick={openEdit}>edit</button>
+          {offerBonus && <button className="wide" onClick={addBonus}>Bonus set?</button>}
         </>}
         <div className="row">
           <button onClick={() => addRest(30)}>+30 s</button>
@@ -383,7 +448,12 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
         </div>
       </>}
 
-      <div className="controls">
+      {test ? <div className="controls">
+        <button onClick={previous}>Previous</button>
+        <button onClick={skipExercise}>Skip test</button>
+        <button onClick={() => setSheet('technique')}>Technique</button>
+        <button onClick={end}>End session</button>
+      </div> : <div className="controls">
         <button onClick={previous}>Previous</button>
         <button onClick={togglePause}>{paused ? 'Resume' : 'Pause'}</button>
         <button onClick={skipSet}>Skip set</button>
@@ -393,7 +463,7 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
         <button onClick={tooHard}>Too hard</button>
         <button className="danger" onClick={pain}>Pain</button>
         <button onClick={end}>End session</button>
-      </div>
+      </div>}
 
       {sheet && (
         <div className="sheet">

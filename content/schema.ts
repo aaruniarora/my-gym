@@ -107,6 +107,8 @@ export const TestBatterySchema = z.strictObject({
   protocol: z.string().min(1),
   scheduledWeeks: z.array(count.min(1)).min(1),
   higherIsBetter: z.boolean(),
+  // core tests run on the single test day; the rest fill into that week's sessions
+  core: z.boolean().optional(),
 })
 
 // allowLoaded: user-confirmed pain-free even though the exercise loads this area

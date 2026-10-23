@@ -1,5 +1,5 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
-import type { Outbox, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import type { DayMode, MilestoneResult, Outbox, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 interface MyGymDB extends DBSchema {
   settings: { key: string; value: Settings }
@@ -8,6 +8,7 @@ interface MyGymDB extends DBSchema {
   progress: { key: string; value: SkillProgress & { key: string } }
   outbox: { key: string; value: Outbox; indexes: { table: string } }
   meta: { key: string; value: string }
+  tests: { key: string; value: MilestoneResult; indexes: { testId: string } }
 }
 
 const defaultSettings: Settings = {
@@ -26,13 +27,21 @@ const defaultSettings: Settings = {
   lastDraft: { minutes: 30, location: 'gym', mode: 'normal' },
   placed: false,
   focus: { strength: true, mobility: true, flexibility: true },
+  equipment: {
+    gym: ['pull_up_bar', 'dip_station', 'trx', 'band', 'dumbbell', 'kettlebell', 'box', 'bench', 'jump_rope', 'slam_ball', 'wall', 'floor', 'door_anchor'],
+    home: ['band', 'door_anchor', 'box', 'wall', 'floor'],
+  },
+  testMode: { mode: 'spread', weekday: 6 },
 }
+
+// 'bare' was a fourth day mode; rows stored with it read as 'tired'
+const unbare = <T extends { mode: DayMode }>(x: T): T => ((x.mode as string) === 'bare' ? { ...x, mode: 'tired' } : x)
 
 export const progressKey = (p: SkillProgress) => (p.side ? `${p.treeId}:${p.side}` : p.treeId)
 
 let dbPromise: Promise<IDBPDatabase<MyGymDB>> | undefined
 // opened lazily so importing this module never touches indexedDB
-const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 3, {
+const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 4, {
   async upgrade(d, oldVersion, _newVersion, tx) {
     if (oldVersion < 1) {
       d.createObjectStore('settings')
@@ -52,6 +61,7 @@ const db = () => (dbPromise ??= openDB<MyGymDB>('my-gym', 3, {
       d.createObjectStore('outbox', { keyPath: 'id' }).createIndex('table', 'table')
       d.createObjectStore('meta')
     }
+    if (oldVersion < 4) d.createObjectStore('tests', { keyPath: 'id' }).createIndex('testId', 'testId')
   },
 }))
 
@@ -85,7 +95,8 @@ export async function deleteMeta(key: string) {
 }
 
 export async function getSettings(): Promise<Settings> {
-  return { ...defaultSettings, ...(await (await db()).get('settings', 'settings')) }
+  const s = { ...defaultSettings, ...(await (await db()).get('settings', 'settings')) }
+  return { ...s, lastDraft: unbare(s.lastDraft) }
 }
 
 export async function saveSettings(settings: Settings) {
@@ -99,11 +110,11 @@ export async function putSettings(settings: Settings) {
 }
 
 export async function listSessions(sinceISO: string): Promise<SessionRecord[]> {
-  return (await db()).getAllFromIndex('sessions', 'date', IDBKeyRange.lowerBound(sinceISO))
+  return (await (await db()).getAllFromIndex('sessions', 'date', IDBKeyRange.lowerBound(sinceISO))).map((r) => ({ ...r, plan: unbare(r.plan) }))
 }
 
 export async function listAllSessions(): Promise<SessionRecord[]> {
-  return (await db()).getAll('sessions')
+  return (await (await db()).getAll('sessions')).map((r) => ({ ...r, plan: unbare(r.plan) }))
 }
 
 export async function saveSession(record: SessionRecord) {
@@ -117,16 +128,17 @@ export async function putSession(record: SessionRecord) {
 }
 
 export async function listSetLogs(sessionId: string): Promise<SetLog[]> {
-  return (await db()).getAllFromIndex('setLogs', 'sessionId', sessionId)
+  return (await (await db()).getAllFromIndex('setLogs', 'sessionId', sessionId)).map(unbare)
 }
 
 export async function listAllSetLogs(): Promise<SetLog[]> {
-  return (await db()).getAll('setLogs')
+  return (await (await db()).getAll('setLogs')).map(unbare)
 }
 
 export async function lastSetLog(exerciseId: string, side?: 'left' | 'right', withCm?: boolean): Promise<SetLog | undefined> {
   const logs = (await (await db()).getAllFromIndex('setLogs', 'exerciseId', exerciseId)).filter((l) => (!side || l.side === side) && (!withCm || l.cmFromFloor !== undefined))
-  return logs.sort((a, b) => a.at.localeCompare(b.at)).at(-1)
+  const last = logs.sort((a, b) => a.at.localeCompare(b.at)).at(-1)
+  return last && unbare(last)
 }
 
 export async function saveSetLog(log: SetLog) {
@@ -159,7 +171,21 @@ export async function putProgress(p: SkillProgress) {
   await (await db()).put('progress', { ...p, key: progressKey(p) })
 }
 
+export async function listTestResults(): Promise<MilestoneResult[]> {
+  return (await db()).getAll('tests')
+}
+
+export async function saveTestResult(result: MilestoneResult) {
+  const r = { ...result, updatedAt: now() }
+  const tx = (await db()).transaction(['tests', 'outbox'], 'readwrite')
+  await Promise.all([tx.objectStore('tests').put(r), tx.objectStore('outbox').put(outboxEntry('milestone_tests', r.id, r)), tx.done])
+}
+
+export async function putTestResult(result: MilestoneResult) {
+  await (await db()).put('tests', result)
+}
+
 // used by pull for rows deleted remotely
-export async function deleteLocal(store: 'progress' | 'sessions' | 'setLogs', key: string) {
+export async function deleteLocal(store: 'progress' | 'sessions' | 'setLogs' | 'tests', key: string) {
   await (await db()).delete(store, key)
 }

@@ -1,12 +1,14 @@
 import type { Exercise } from '../../content/schema'
 import { effectiveDose, exerciseById, exercises, niggleMobility, skillTrees, tests } from '../content'
 import { COOLDOWN_AREAS, dayTemplates, FOOT_POOL, FULL_BODY_SKILLS, GENERAL_COOLDOWN, SPLITS_BLOCK, WARMUP_POOL } from './dayTemplates'
-import { abilityStep, currentStep, withinAbility } from './progression'
-import type { Block, BlockKind, DayMode, DayType, Location, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
+import { available, coreTestsOrdered, deloadFactor, isTestWeek, quarterWeek, testAllowed, testsForSession } from './program'
+import { abilityStep, checkTarget, currentStep, withinAbility } from './progression'
+export { available } from './program'
+import type { Block, BlockKind, DayMode, DayType, Location, MilestoneResult, PlannedExercise, SessionPlan, SessionRecord, SetLog, Settings, SkillProgress } from './types'
 
 const HOUR = 3600 * 1000
-const ROTATION: DayType[] = ['pull', 'push', 'legs', 'skill_core']
-const ORDER: BlockKind[] = ['warmup', 'niggle_mobility', 'balance', 'spring', 'skill', 'strength', 'secondary', 'core', 'conditioning', 'flexibility', 'cooldown']
+const ROTATION: Exclude<DayType, 'test'>[] = ['pull', 'push', 'legs', 'skill_core']
+const ORDER: BlockKind[] = ['warmup', 'test', 'niggle_mobility', 'balance', 'spring', 'skill', 'strength', 'secondary', 'core', 'conditioning', 'flexibility', 'cooldown']
 // [kind, lowest sets per exercise before the next step]
 const REMOVE_ORDER: [BlockKind, number][] = [['conditioning', 1], ['secondary', 1], ['core', 1], ['spring', 1], ['balance', 1], ['cooldown', 1], ['secondary', 1], ['strength', 2], ['cooldown', 1], ['skill', 1], ['strength', 1]]
 const STRETCH_AREA_CAP = 240
@@ -63,10 +65,11 @@ const returningFromBreak = (recent: SessionRecord[], now: Date) => lastWeek(rece
 // settings saved before focus existed have none
 const focusOf = (s: Settings) => ({ strength: true, mobility: true, flexibility: true, ...s.focus })
 
-export function pickDayType(recent: SessionRecord[], settings: Settings, now: Date): DayType {
+// never 'test': test days come from buildTestSession
+export function pickDayType(recent: SessionRecord[], settings: Settings, now: Date): Exclude<DayType, 'test'> {
   if (settings.weeklyTarget <= 3 || returningFromBreak(recent, now)) return 'full_body'
   const week = lastWeek(recent, now).sort((a, b) => ended(b) - ended(a))
-  const start = ROTATION.indexOf(week[0]?.plan.dayType) + 1
+  const start = ROTATION.findIndex((d) => d === week[0]?.plan.dayType) + 1
   const count = (d: DayType) => week.filter((s) => covers(s.plan.dayType).includes(d)).length
   const fresh = ROTATION.map((_, i) => ROTATION[(start + i) % ROTATION.length])
     .filter((d) => !week.some((s) => covers(s.plan.dayType).includes(d) && now.getTime() - ended(s) < 48 * HOUR))
@@ -88,9 +91,11 @@ export function buildSession(input: {
   recentLogs: SetLog[]
   progress: SkillProgress[]
   settings: Settings
+  // milestone results, so test weeks only plan tests not done yet
+  results?: MilestoneResult[]
 }): SessionPlan {
   const { location, mode, now, recent, progress, settings } = input
-  const minutes = mode === 'bare' ? 10 : input.minutes
+  const minutes = input.minutes
   const short = minutes <= 10
   const dayType = pickDayType(recent, settings, now)
   const t = dayTemplates[dayType]
@@ -103,13 +108,19 @@ export function buildSession(input: {
   const caps = new Map<PlannedExercise, number>()
   const focus = focusOf(settings)
   const onlyFlex = focus.flexibility && !focus.strength && !focus.mobility
+  // week 12 of the quarter is a deload: fewer working sets, skill and flexibility unchanged
+  const week = settings.program && quarterWeek(settings.program.startDate, now)
+  const factor = week ? deloadFactor(week) : 1
+  const deload = (kind: BlockKind, sets: number) => (['strength', 'secondary', 'core', 'conditioning'].includes(kind) ? Math.max(1, Math.round(sets * factor)) : sets)
+  // trees whose check set is already planned this session
+  const checked = new Set<string>()
 
   const ok = (id: string, kind: BlockKind) => {
     const ex = exerciseById[id]
     // niggle mobility entries may load their own area (allowLoaded)
     const niggleOk = kind === 'niggle_mobility' || !ex?.loads.some((a) => niggles.includes(a))
     // no plyo on legs days
-    return !!ex && !used.has(id) && !settings.neverShow.includes(id) && (location === 'gym' || ex.homeOk) && niggleOk && !(dayType === 'legs' && plyo(ex))
+    return !!ex && !used.has(id) && !settings.neverShow.includes(id) && available(ex, settings, location) && niggleOk && !(dayType === 'legs' && plyo(ex))
   }
   const fav = (id: string) => +settings.favourites.includes(id)
 
@@ -117,16 +128,28 @@ export function buildSession(input: {
     let id = ref
     let tree: { treeId?: string; stepIndex?: number } = {}
     let weakSide: 'left' | 'right' | undefined
-    if (ref.startsWith('tree:')) {
-      const st = skillTrees.find((s) => s.id === ref.slice(5))!
+    let check: ReturnType<typeof checkTarget> | undefined
+    const st = ref.startsWith('tree:') ? skillTrees.find((s) => s.id === ref.slice(5))! : undefined
+    if (st) {
       if (!focus.flexibility && st.kind === 'flexibility') return undefined
-      if (st.perSide) {
+      // "I can already do this": plan the next step once as a check set, unless that step is locked or not available here
+      const pending = checked.has(st.id) ? undefined : progress.find((p) => p.treeId === st.id && p.checkPending)
+      const next = pending && st.steps[pending.stepIndex + 1]
+      if (pending && next && ok(next.exerciseId, kind) && !currentStep([{ ...pending, stepIndex: pending.stepIndex + 1 }], st, now, bests, pending.side).locked) {
+        checked.add(st.id)
+        check = checkTarget(next, exerciseById[next.exerciseId])
+        id = next.exerciseId
+        tree = { treeId: st.id, stepIndex: pending.stepIndex + 1 }
+        weakSide = pending.side
+      } else if (st.perSide) {
         // weaker side: lower step, else the larger last logged cm on that step
         const [l, r] = (['left', 'right'] as const).map((side) => currentStep(progress, st, now, bests, side).stepIndex)
         const lastCm = (side: 'left' | 'right') =>
           input.recentLogs.filter((x) => x.exerciseId === st.steps[l].exerciseId && x.side === side && x.cmFromFloor !== undefined).sort((a, b) => a.at.localeCompare(b.at)).at(-1)?.cmFromFloor ?? -Infinity
         weakSide = l < r ? 'left' : r < l ? 'right' : lastCm('left') > lastCm('right') ? 'left' : lastCm('right') > lastCm('left') ? 'right' : undefined
       }
+    }
+    if (st && !check) {
       // tied per-side trees read the left entry (both sides are on the same step)
       const side = weakSide ?? (st.perSide ? 'left' : undefined)
       const cs = currentStep(progress, st, now, bests, side)
@@ -155,8 +178,8 @@ export function buildSession(input: {
       if (kind === 'skill' && loaded.length) return undefined
       const alts = loaded.length
         ? loaded.flatMap((a) => ex.alternates.niggle[a] ?? [])
-        : location === 'home' && !ex.homeOk
-          ? ex.alternates.home
+        : !available(ex, settings, location)
+          ? ex.alternates.home.some((a) => ok(a, kind)) ? ex.alternates.home : (ex.alternates.general ?? [])
           : [...(ex.alternates.general ?? []), ...ex.alternates.home, ...(tree.treeId && ex.regression ? [ex.regression] : [])]
       const alt = alts.filter((a) => ok(a, kind)).sort((a, b) => fav(b) - fav(a))[0]
       if (!alt) return undefined
@@ -169,7 +192,7 @@ export function buildSession(input: {
     }
     // too easy: a recorded best of 2x the planned top moves up one variation
     const cur = exerciseById[id]
-    if ((bests[id] ?? 0) >= 2 * top(cur)) {
+    if (!check && (bests[id] ?? 0) >= 2 * top(cur)) {
       const lockedStep = (x: string) =>
         skillTrees.some((st) => {
           const i = st.steps.findIndex((s) => s.exerciseId === x)
@@ -188,7 +211,7 @@ export function buildSession(input: {
     }
     // safety net for linked ids (tree ref, alternate, too-easy): never above the user's current tree step; template-fixed ids are exempt
     const linked = ref.startsWith('tree:') || id !== ref
-    if (linked && !withinAbility(id, progress, bests, now)) {
+    if (linked && !check && !withinAbility(id, progress, bests, now)) {
       const step = abilityStep(id, progress, bests, now)
       if (!step || !ok(step, kind)) return undefined
       const st = skillTrees.find((s) => s.steps.some((x) => x.exerciseId === step))!
@@ -201,6 +224,7 @@ export function buildSession(input: {
     const own = ex.dose?.restSeconds
     let sets = kind === 'balance' ? 2 : kind === 'strength' || kind === 'secondary' || kind === 'core' || kind === 'spring' ? d.sets[1] : kind === 'skill' || kind === 'conditioning' ? d.sets[0] : 1
     if (easy && sets > 1 && kind !== 'conditioning') sets--
+    sets = deload(kind, sets)
     const stepTarget = tree.treeId ? skillTrees.find((s) => s.id === tree.treeId)!.steps[tree.stepIndex!].target : undefined
     if (kind === 'balance' && stepTarget) sets = stepTarget.sets
     if (stepTarget?.cmFromFloor !== undefined) sets = ex.mode.startsWith('time') ? Math.min(stepTarget.sets, Math.floor(STRETCH_AREA_CAP / top(ex))) : stepTarget.sets
@@ -215,13 +239,20 @@ export function buildSession(input: {
       // rep-mode core/conditioning has no interval format
       else pe.restSeconds = r.range[1]
     }
+    if (check) {
+      delete pe.interval
+      Object.assign(pe, { sets: check.sets, checkSet: true, restSeconds: Math.max(pe.restSeconds, r.range[1]) })
+      if (check.reps !== undefined) [pe.reps, pe.seconds] = [[check.reps, check.reps], undefined]
+      else [pe.seconds, pe.reps] = [check.seconds, undefined]
+    }
     const flexKind = kind === 'flexibility' || kind === 'cooldown' || (tired && kind === 'warmup')
-    caps.set(pe, kind === 'skill' ? (easy ? 4 : 5) : flexKind ? Math.min(3, d.sets[1]) : sets)
+    caps.set(pe, check ? pe.sets : kind === 'skill' ? (easy ? 4 : 5) : flexKind ? Math.min(3, d.sets[1]) : sets)
     used.add(id)
     return pe
   }
 
-  const secs = (pe: PlannedExercise) => estimateSeconds(pe, exerciseById[pe.exerciseId])
+  // a test item is estimated at 2 min
+  const secs = (pe: PlannedExercise) => (pe.testId ? 120 : estimateSeconds(pe, exerciseById[pe.exerciseId]))
   const blockSecs = (b: Block) => b.exercises.reduce((n, pe) => n + secs(pe), 0)
   const list = (kind: BlockKind, refs: string[]): Block => ({ kind, exercises: refs.map((r) => plan(r, kind)).filter((pe) => !!pe) })
   // adds exercises one at a time until the block reaches its budget
@@ -246,8 +277,8 @@ export function buildSession(input: {
       if (out.length >= n) break
       const pe = plan(id, kind)
       if (!pe) continue
-      pe.sets = sets
-      caps.set(pe, sets)
+      pe.sets = deload(kind, sets)
+      caps.set(pe, pe.sets)
       out.push(pe)
     }
     return out
@@ -266,7 +297,7 @@ export function buildSession(input: {
   }
 
   const strength: Block = { kind: 'strength', exercises: [] }
-  for (const [a, b] of focus.strength ? t.strengthPairs.slice(0, mode === 'bare' ? 1 : undefined) : []) {
+  for (const [a, b] of focus.strength ? t.strengthPairs : []) {
     const pa = plan(a, 'strength')
     const pb = plan(b, 'strength')
     if (pa && pb) {
@@ -281,9 +312,21 @@ export function buildSession(input: {
     for (const pe of [pa, pb]) if (pe) strength.exercises.push(short && !pe.interval ? Object.assign(pe, { restSeconds: 30 }) : pe)
   }
 
+  // pending check sets for trees outside today's template: strength trees join the strength block, the rest the skill block
+  if (focus.strength && !short)
+    for (const p of progress.filter((x) => x.checkPending)) {
+      const st = skillTrees.find((x) => x.id === p.treeId)
+      if (!st || checked.has(st.id)) continue
+      const kind = st.kind === 'strength' || minutes < 20 ? 'strength' : 'skill'
+      const pe = plan(`tree:${st.id}`, kind)
+      if (pe?.checkSet) (kind === 'strength' ? strength : skill).exercises.push(pe)
+      // no check possible (next step locked or unavailable): the normal step stays free for later blocks
+      else if (pe) used.delete(pe.exerciseId)
+    }
+
   const blocks: Block[] = [strength]
   if (t.balance) blocks.push(list('balance', t.balance))
-  if (t.spring) blocks.push(list('spring', t.spring.map((r) => (r === 'jump-rope' && location === 'home' ? 'pogo-hop' : r))))
+  if (t.spring) blocks.push(list('spring', t.spring.map((r) => (r === 'jump-rope' && !available(exerciseById[r], settings, location) ? 'pogo-hop' : r))))
   if (!short && focus.strength) {
     if (minutes >= 20) blocks.push(skill)
     // under 60 min the stabiliser takes the last template slot
@@ -323,6 +366,11 @@ export function buildSession(input: {
   }
   cooldown.exercises.unshift(...activeFlex)
   blocks.push(cooldown)
+  // test week: this day type's untested tests after the warm-up (day mode: optional ones only, max 3); never trimmed
+  if (week && isTestWeek(week) && !tired && minutes > 20) {
+    const due = testsForSession(settings, progress, input.results ?? [], week, dayType, location).slice(0, settings.testMode?.mode === 'day' ? 3 : 6)
+    blocks.push({ kind: 'test', exercises: due.map((t) => ({ exerciseId: t.exerciseId!, sets: 1, restSeconds: 120, testId: t.id })) })
+  }
 
   const needsWrist = blocks.some((b) => b.exercises.some((pe) => exerciseById[pe.exerciseId].flags?.some((f) => f === 'hand_balancing' || f === 'needs_wrist_prep')))
   const strengthWork = blocks.some((b) => ['skill', 'strength', 'secondary', 'core'].includes(b.kind) && b.exercises.length)
@@ -341,7 +389,7 @@ export function buildSession(input: {
   const segStart = warm.exercises.length
   warm.exercises.push(...(bal ? [bal] : []))
   const [feet] = focus.mobility && minutes >= 60 ? pick(rotate(FOOT_POOL), 'warmup', 1, 1) : []
-  const [rope] = focus.mobility && minutes >= 30 && location === 'gym' && dayType !== 'legs' ? pick(['jump-rope'], 'warmup', 1, 1) : []
+  const [rope] = focus.mobility && minutes >= 30 && available(exerciseById['jump-rope'], settings, location) && dayType !== 'legs' ? pick(['jump-rope'], 'warmup', 1, 1) : []
   if (rope) rope.seconds = minutes >= 60 ? 45 : 30
   warm.exercises.push(...[feet, rope].filter((pe) => !!pe))
   // warm-up pace: mobility rest instead of skill-hold rest, so the segment stays short
@@ -355,16 +403,17 @@ export function buildSession(input: {
   while (total() > target + 120) {
     let changed = false
     for (const [i, [kind, floor]] of REMOVE_ORDER.entries()) {
-      const b = blocks.find((x) => x.kind === kind && x.exercises.length)
+      // check sets are never trimmed
+      const b = blocks.find((x) => x.kind === kind && x.exercises.some((pe) => !pe.checkSet))
       if (!b) continue
       // the first cool-down pass stops at its target, the late one at the 2 min floor
       const coolFloor = i === REMOVE_ORDER.findIndex(([k]) => k === 'cooldown') ? Math.max(coolTarget, COOLDOWN_MIN) : COOLDOWN_MIN
       const keeps = (s: number) => kind !== 'cooldown' || blockSecs(b) - s >= coolFloor
-      const pe = b.exercises.filter((x) => x.sets > floor && keeps(secs(x) / x.sets)).sort((x, y) => y.sets - x.sets)[0]
+      const pe = b.exercises.filter((x) => x.sets > floor && !x.checkSet && keeps(secs(x) / x.sets)).sort((x, y) => y.sets - x.sets)[0]
       if (pe) pe.sets--
       else if (kind === 'cooldown' && b.exercises.length > 1 && keeps(secs(b.exercises.at(-1)!))) b.exercises.pop()
       // strength and the movement-day blocks only lose sets, never the whole block
-      else if (!['strength', 'cooldown', 'balance', 'spring'].includes(kind)) b.exercises = []
+      else if (!['strength', 'cooldown', 'balance', 'spring'].includes(kind)) b.exercises = b.exercises.filter((x) => x.checkSet)
       else continue
       changed = true
       break
@@ -385,8 +434,8 @@ export function buildSession(input: {
 
   let finisherTried = false
   while (total() < target - 120) {
-    // tired days (and strength unticked) fill spare time with mobility and flexibility; only ticked parts grow
-    const soft = tired || !focus.strength
+    // tired days, deload weeks (and strength unticked) fill spare time with mobility and flexibility; only ticked parts grow
+    const soft = tired || factor < 1 || !focus.strength
     const pe = soft
       ? (growable(focus.mobility ? warm : undefined, stretchRoom) ?? growable(cooldown, coolRoom))
       : (growable(strength) ?? growable(skill) ?? growable(cooldown, coolRoom))
@@ -401,12 +450,12 @@ export function buildSession(input: {
       continue
     }
     const maxRest = (x: PlannedExercise) => REST[exerciseById[x.exerciseId].type].range[1]
-    const slow = skill.exercises.find((x) => x.restSeconds < maxRest(x) && total() + x.sets * 30 <= target + 120)
+    const slow = factor === 1 && skill.exercises.find((x) => x.restSeconds < maxRest(x) && total() + x.sets * 30 <= target + 120)
     if (slow) {
       slow.restSeconds = Math.min(maxRest(slow), slow.restSeconds + 30)
       continue
     }
-    if (finisherTried || short || tired || !focus.strength || !t.conditioning.length) break
+    if (finisherTried || short || tired || factor < 1 || !focus.strength || !t.conditioning.length) break
     finisherTried = true
     const finisher: Block = { kind: 'conditioning', exercises: [] }
     blocks.push(finisher)
@@ -434,4 +483,24 @@ export function buildSession(input: {
       while (allContacts() > cap && contacts(pe, exerciseById[pe.exerciseId]) > 0) if (!--pe.sets) b.exercises.splice(b.exercises.indexOf(pe), 1)
   const kept = ordered.filter((b) => b.exercises.length)
   return { id: `${date}-${dayType}`, date, dayType, mode, location, minutesTarget: minutes, blocks: kept, estSeconds: total() }
+}
+
+// milestone test session: short warm-up, one item per eligible test, short cool-down
+export function buildTestSession(input: { settings: Settings; progress: SkillProgress[]; location: Location; now: Date }): SessionPlan {
+  const { settings, progress, location, now } = input
+  // day mode runs the core tests in fatigue order; the optional ones fill into the week's sessions
+  const eligible = settings.testMode?.mode === 'day' ? coreTestsOrdered(settings, progress, location) : tests.filter((t) => testAllowed(t, settings, progress, location))
+  const item = (exerciseId: string): PlannedExercise => {
+    const d = effectiveDose(exerciseById[exerciseId])
+    return { exerciseId, sets: 1, restSeconds: REST.mobility.base, ...(d.seconds ? { seconds: d.seconds[0] } : { reps: d.reps }) }
+  }
+  const needsWrist = eligible.some((t) => exerciseById[t.exerciseId!].flags?.some((f) => f === 'hand_balancing' || f === 'needs_wrist_prep'))
+  const blocks: Block[] = [
+    { kind: 'warmup', exercises: [...(needsWrist ? ['wrist-prep'] : []), 'leg-swing', 'hip-circle'].map(item) },
+    { kind: 'test', exercises: eligible.map((t) => ({ exerciseId: t.exerciseId!, sets: 1, restSeconds: 120, testId: t.id })) },
+    { kind: 'cooldown', exercises: GENERAL_COOLDOWN.slice(0, 2).map(item) },
+  ]
+  const date = now.toISOString().slice(0, 10)
+  const estSeconds = blocks.reduce((n, b) => n + b.exercises.reduce((m, pe) => m + estimateSeconds(pe, exerciseById[pe.exerciseId]), 0), 0)
+  return { id: `${date}-test`, date, dayType: 'test', mode: 'normal', location, minutesTarget: Math.round(estSeconds / 60), blocks, estSeconds }
 }

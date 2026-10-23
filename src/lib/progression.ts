@@ -1,4 +1,4 @@
-import type { SkillTree } from '../../content/schema'
+import type { Exercise, SkillTree } from '../../content/schema'
 import { exerciseById, skillTrees, tests } from '../content'
 import type { SessionPlan, SetLog, SkillProgress } from './types'
 
@@ -44,6 +44,9 @@ export function abilityStep(exerciseId: string, progress: SkillProgress[], bests
   for (let i = abilityIndex(first.tree, progress, bests, now); i >= 0; i--) if (stepOk(first.tree, i, progress, bests, now)) return first.tree.steps[i].exerciseId
 }
 
+// "I can already do this": the next step's check set, or 3x5 / 3x10 s when the step has none
+export const checkTarget = (step: SkillTree['steps'][number], ex: Exercise) => step.checkSet ?? (ex.mode.startsWith('time') ? { sets: 3, seconds: 10 } : { sets: 3, reps: 5 })
+
 export function applySession(progress: SkillProgress[], plan: SessionPlan, logs: SetLog[], now: Date, bests: Record<string, number> = {}) {
   const next = progress.map((p) => ({ ...p }))
   const events: string[] = []
@@ -58,6 +61,20 @@ export function applySession(progress: SkillProgress[], plan: SessionPlan, logs:
       let entry = next.find((p) => p.treeId === tree.id && p.side === side)
       if (!entry) next.push((entry = { treeId: tree.id, ...(side && { side }), stepIndex: 0, hits: 0, misses: 0 }))
       const label = side ? `${tree.id} (${side})` : tree.id
+      // check set: pass moves up one step, a miss just clears the request
+      if (pe.checkSet) {
+        if (!entry.checkPending || entry.stepIndex + 1 !== pe.stepIndex) continue
+        const ex = exerciseById[pe.exerciseId]
+        const t = checkTarget(tree.steps[pe.stepIndex], ex)
+        const need = t.sets * (ex.mode.endsWith('per_side') && !side ? 2 : 1)
+        const exLogs = counted.filter((l) => l.exerciseId === pe.exerciseId && (!side || (l.side ?? side) === side))
+        if (!exLogs.length) continue
+        delete entry.checkPending
+        if (exLogs.length < need || !exLogs.slice(0, need).every((l) => (t.reps !== undefined ? (l.reps ?? 0) >= t.reps : (l.seconds ?? 0) >= (t.seconds ?? 0)))) continue
+        Object.assign(entry, { stepIndex: pe.stepIndex, hits: 0, misses: 0 })
+        events.push(`${label}: moved up to ${pe.exerciseId} (check set)`)
+        continue
+      }
       // dropped-back or locked sessions run an earlier step; they don't move the tree
       if (entry.stepIndex !== pe.stepIndex) continue
       const target = tree.steps[pe.stepIndex].target
@@ -116,4 +133,11 @@ export function applyTooHard(progress: SkillProgress[], treeId: string, now: Dat
     const misses = p.misses + 1
     return misses >= 3 ? { ...p, hits: 0, misses: 0, droppedUntil: new Date(now.getTime() + WEEK_MS).toISOString() } : { ...p, hits: 0, misses }
   })
+}
+
+// "I can already do this": the next session plans a check set for the tree's next step
+export function requestCheck(progress: SkillProgress[], treeId: string, side?: Side): SkillProgress[] {
+  const has = progress.some((p) => p.treeId === treeId && p.side === side)
+  const all = has ? progress : [...progress, { treeId, ...(side && { side }), stepIndex: 0, hits: 0, misses: 0 }]
+  return all.map((p) => (p.treeId === treeId && p.side === side ? { ...p, checkPending: true } : p))
 }

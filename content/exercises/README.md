@@ -143,6 +143,8 @@ Home means bands only. `homeOk: true` is allowed only if every `equipment` entry
 
 `description` is one sentence saying what the gate unlocks. Each requirement names a test in `content/test-battery.json`, its `metric` (`reps`, `seconds`, `cm_from_floor`, `pass_fail`, `cm_height`; `pass_fail` uses `"min": 1`; `cm_height` is a wall-mark height in cm where higher is better, while `cm_from_floor` is a gap where lower is better) and the minimum.
 
+A test may set `"core": true`: core tests run on the single test day, and the rest fill into that week's sessions.
+
 A tree may set `"perSide": true` (e.g. `front-split`): left and right each keep their own step and progress separately.
 
 ## Niggle mobility blocks

@@ -4,6 +4,8 @@ import { getProgress, listSessions, listSetLogs } from '../lib/db'
 import { canSync } from '../lib/supabase'
 import { APP_VERSION } from '../lib/version'
 import type { Band, Settings } from '../lib/types'
+import Info from './Info'
+import { DEFAULT_EQUIPMENT, EQUIPMENT } from './labels'
 
 type Props = {
   settings: Settings; onSettings: (s: Settings) => void; onPlacement: () => void
@@ -11,12 +13,15 @@ type Props = {
 }
 
 const FOCUS = [['strength', 'Strength'], ['mobility', 'Mobility'], ['flexibility', 'Flexibility']] as const
-const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
+const WEEKDAYS = [[1, 'Monday'], [2, 'Tuesday'], [3, 'Wednesday'], [4, 'Thursday'], [5, 'Friday'], [6, 'Saturday'], [0, 'Sunday']] as const
+const clamp =(v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
 
 export default function SettingsView({ settings, onSettings, onPlacement, account, onSignIn, onSync, onSignOut }: Props) {
   const set = (patch: Partial<Settings>) => onSettings({ ...settings, ...patch })
   const focus = { strength: true, mobility: true, flexibility: true, ...settings.focus }
   const ticked = Object.values(focus).filter(Boolean).length
+  const testMode: NonNullable<Settings['testMode']> = settings.testMode ?? { mode: 'spread', weekday: 6 }
+  const kit = settings.equipment ?? DEFAULT_EQUIPMENT
   const bands = [...settings.bands].sort((a, b) => a.order - b.order)
   const setBands = (list: Band[]) => set({ bands: list.map((b, i) => ({ ...b, order: i })) })
   const editBand = (i: number, patch: Partial<Band>) => setBands(bands.map((b, j) => (j === i ? { ...b, ...patch } : b)))
@@ -56,12 +61,32 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
       <p className="muted">Play/pause = done or pause, next/previous track = skip/back; keeps a silent audio track playing</p>
       <button className="wide" onClick={onPlacement}>Where are you now?</button>
 
-      <h3>Focus</h3>
+      <h3>Focus <Info text="Untick a part to leave it out of every session; at least one stays on." /></h3>
       {FOCUS.map(([key, label]) => (
         <label key={key}>{label} <input type="checkbox" checked={focus[key]}
           onChange={(e) => { if (e.target.checked || ticked > 1) set({ focus: { ...focus, [key]: e.target.checked } }) }} /></label>
       ))}
       {ticked === 1 && <p className="muted">Keep at least one</p>}
+
+      <h3>How do you want to test? <Info text="Across the week: each session in a test week includes the 3–6 tests that fit its day, done fresh. One test day: the core tests in one 45–60 min session, least fatiguing first." /></h3>
+      <label>Across the test week <input type="radio" name="testMode" checked={testMode.mode === 'spread'} onChange={() => set({ testMode: { ...testMode, mode: 'spread' } })} /></label>
+      <label>On one test day <input type="radio" name="testMode" checked={testMode.mode === 'day'} onChange={() => set({ testMode: { ...testMode, mode: 'day' } })} /></label>
+      {testMode.mode === 'day' && (
+        <label>Test day <select value={testMode.weekday} onChange={(e) => set({ testMode: { ...testMode, weekday: Number(e.target.value) } })}>
+          {WEEKDAYS.map(([d, label]) => <option key={d} value={d}>{label}</option>)}
+        </select></label>
+      )}
+
+      <h3>Equipment</h3>
+      {(['gym', 'home'] as const).map((l) => (
+        <fieldset key={l}>
+          <legend>{l === 'gym' ? 'At the gym' : 'At home'}</legend>
+          {EQUIPMENT.map(([e, label]) => (
+            <label key={e}>{label} <input type="checkbox" checked={kit[l].includes(e)}
+              onChange={(ev) => set({ equipment: { ...kit, [l]: ev.target.checked ? [...kit[l], e] : kit[l].filter((x) => x !== e) } })} /></label>
+          ))}
+        </fieldset>
+      ))}
 
       <h3>Bands (lightest first)</h3>
       {bands.map((b, i) => (

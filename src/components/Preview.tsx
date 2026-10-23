@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import { exerciseById } from '../content'
 import type { BlockKind, SessionPlan, Settings } from '../lib/types'
+import Info from './Info'
+import { modeLabel } from './labels'
 import TechniqueCard from './TechniqueCard'
 
-const LABELS: Partial<Record<BlockKind, string>> = { warmup: 'Warm-up', cooldown: 'Flexibility cool-down', balance: 'Balance', spring: 'Spring' }
+const LABELS: Partial<Record<BlockKind, string>> = { warmup: 'Warm-up', skill: 'Skill practice', cooldown: 'Flexibility cool-down', balance: 'Balance', spring: 'Spring' }
+const INFO: Partial<Record<BlockKind, string>> = {
+  skill: 'Short, fresh practice of a skill such as handstand; quality over fatigue.',
+  cooldown: "Stretching sized to your session; rotates by what you've done least this week.",
+}
 
 type Props = { plan: SessionPlan; settings: Settings; onSettings: (s: Settings) => void }
 
@@ -12,10 +18,10 @@ export default function Preview({ plan, settings, onSettings }: Props) {
 
   return (
     <div>
-      <p className="muted">{plan.dayType === 'movement' ? 'Movement day' : plan.dayType.replace('_', ' ')} · {plan.mode} · {plan.location} · about {Math.round(plan.estSeconds / 60)} min (target {plan.minutesTarget})</p>
+      <p className="muted">{plan.dayType === 'movement' ? 'Movement day' : plan.dayType.replace('_', ' ')} · {modeLabel(plan.mode)} · {plan.location} · about {Math.round(plan.estSeconds / 60)} min (target {plan.minutesTarget})</p>
       {plan.blocks.map((b, i) => (
         <section key={i}>
-          <h3>{LABELS[b.kind] ?? b.kind.replace('_', ' ')}</h3>
+          <h3>{LABELS[b.kind] ?? b.kind.replace('_', ' ')}{INFO[b.kind] && <> <Info text={INFO[b.kind]!} /></>}</h3>
           <ul className="plan">
             {b.exercises.map((pe, j) => {
               const ex = exerciseById[pe.exerciseId]

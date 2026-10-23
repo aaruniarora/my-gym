@@ -3,8 +3,12 @@ import type { SkillTree } from '../../content/schema'
 import { exerciseById, skillTrees, tests } from '../content'
 import { currentStep } from '../lib/progression'
 import type { Settings, SkillProgress } from '../lib/types'
+import { CheckButton } from './SkillTrees'
 
-type Props = { settings: Settings; progress: SkillProgress[]; onSave: (progress: SkillProgress[], settings: Settings) => void; onCancel?: () => void }
+type Props = {
+  settings: Settings; progress: SkillProgress[]; onSave: (progress: SkillProgress[], settings: Settings) => void; onCancel?: () => void
+  onRequestCheck: (treeId: string, side?: 'left' | 'right') => void
+}
 
 const BESTS: [string, string][] = [
   ['plank', 's'], ['hollow-hold', 's'], ['pull-up', 'reps'], ['full-push-up', 'reps'], ['dip', 'reps'],
@@ -21,7 +25,7 @@ const SIDES = ['left', 'right'] as const
 // per-side trees place each side separately
 const slots = (t: SkillTree) => (t.perSide ? SIDES.map((side) => ({ side, key: `${t.id}:${side}` })) : [{ side: undefined, key: t.id }])
 
-export default function Placement({ settings, progress, onSave, onCancel }: Props) {
+export default function Placement({ settings, progress, onSave, onCancel, onRequestCheck }: Props) {
   const [steps, setSteps] = useState<Record<string, number>>(() =>
     Object.fromEntries(skillTrees.flatMap((t) => slots(t).map(({ side, key }) => [key, progress.find((p) => p.treeId === t.id && p.side === side)?.stepIndex ?? 0]))))
   const [bests, setBests] = useState(settings.bests)
@@ -50,6 +54,8 @@ export default function Placement({ settings, progress, onSave, onCancel }: Prop
               </select>
             </label>
             {missing.length > 0 && <p className="muted">Locked until: {missing.join(', ')}</p>}
+            {/* checks the step after the saved one, not the unsaved selection */}
+            <CheckButton tree={t} side={side} settings={settings} progress={progress} onRequestCheck={onRequestCheck} />
           </div>
         )
       }))}
