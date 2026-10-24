@@ -61,8 +61,6 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
       <label>Beeps <input type="checkbox" checked={settings.beeps} onChange={(e) => set({ beeps: e.target.checked })} /></label>
       <label>Voice rate {settings.voiceRate.toFixed(1)} <input type="range" min={0.8} max={1.4} step={0.1} value={settings.voiceRate} onChange={(e) => set({ voiceRate: Number(e.target.value) })} /></label>
       <label>Pause between sides <input type="checkbox" checked={settings.sidePause} onChange={(e) => set({ sidePause: e.target.checked })} /></label>
-      <label>Headphone controls (experimental) <input type="checkbox" checked={settings.headphoneControls} onChange={(e) => set({ headphoneControls: e.target.checked })} /></label>
-      <p className="muted">Play/pause = done or pause, next/previous track = skip/back; keeps a silent audio track playing</p>
       <button className="wide" onClick={onPlacement}>Where are you now?</button>
 
       <h3>Focus <Info text="Untick a part to leave it out of every session; at least one stays on." /></h3>
@@ -132,21 +130,23 @@ export default function SettingsView({ settings, onSettings, onPlacement, accoun
         </>
       )}
 
-      <h3>Garmin</h3>
-      <p className="muted">Last sync: {g?.lastOk ? new Date(g.lastOk).toLocaleString() : 'never'}</p>
-      {garminFailed && <p className="muted">Garmin sync failed: log manually</p>}
-      <ol className="small muted">
-        <li>Run <code>python scripts/garmin_login.py</code> once and copy the printed token.</li>
-        <li>Add it as the GARMIN_TOKENS secret on GitHub, plus SUPABASE_EMAIL and SUPABASE_PASSWORD.</li>
-        <li>Add the VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY repository variables.</li>
-        <li>The Garmin sync action then runs daily. Full steps: Garmin section of supabase/README.md.</li>
-      </ol>
+      {g && (
+        <>
+          <h3>Garmin</h3>
+          {g.lastOk && <p className="muted">Garmin: last synced {new Date(g.lastOk).toLocaleString()}</p>}
+          {garminFailed && <p className="muted">Garmin sync failed: log manually</p>}
+        </>
+      )}
 
       <h3>Data</h3>
-      <div className="row">
-        <button onClick={exportData}>Export data</button>
+      <button onClick={exportData}>Export data</button>
+
+      <details>
+        <summary>Advanced</summary>
+        <label>Headphone controls (experimental) <input type="checkbox" checked={settings.headphoneControls} onChange={(e) => set({ headphoneControls: e.target.checked })} /></label>
+        <p className="muted">Play/pause = done or pause, next/previous track = skip/back; keeps a silent audio track playing</p>
         <button className="danger" onClick={reset}>Reset all local data</button>
-      </div>
+      </details>
       <p className="muted">Version {APP_VERSION}</p>
     </main>
   )

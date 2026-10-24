@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { countsAsTrained, dayStatus, loggedWorkSeconds, monthGrid, plannedSets, streakWeeks, weekCount } from './trained'
-import type { SessionRecord, SetLog } from './types'
+import { countsAsTrained, dayStatus, loggedWorkSeconds, monthGrid, periodDays, periodInfo, plannedSets, streakWeeks, weekCount } from './trained'
+import type { Checkin, HealthDaily, SessionRecord, SetLog } from './types'
 
 // 2 exercises x 3 sets = 6 planned sets
 const planFor = (id: string) => ({
@@ -123,5 +123,47 @@ describe('monthGrid', () => {
 
   it('has 7 entries in every row', () => {
     expect(grid.every((row) => row.length === 7)).toBe(true)
+  })
+})
+
+const hd = (date: string, extra: Partial<HealthDaily> = {}): HealthDaily => ({ date, source: 'garmin', ...extra })
+const ci = (date: string, extra: Partial<Checkin> = {}): Checkin => ({ date, ...extra })
+
+describe('periodDays', () => {
+  it('includes dates with flow from health and from check-ins', () => {
+    const days = periodDays([hd('2026-10-01', { periodFlow: 'medium' })], [ci('2026-10-02', { periodFlow: 'heavy' })])
+    expect([...days].sort()).toEqual(['2026-10-01', '2026-10-02'])
+  })
+
+  it('a check-in of none clears a health light day', () => {
+    expect(periodDays([hd('2026-10-01', { periodFlow: 'light' })], [ci('2026-10-01', { periodFlow: 'none' })]).size).toBe(0)
+  })
+
+  it('a check-in without flow keeps the health flow', () => {
+    expect(periodDays([hd('2026-10-01', { periodFlow: 'light' })], [ci('2026-10-01', { energy: 3 })]).has('2026-10-01')).toBe(true)
+  })
+
+  it('none-only data gives an empty set', () => {
+    expect(periodDays([hd('2026-10-01', { periodFlow: 'none' })], [ci('2026-10-02', { periodFlow: 'none' })]).size).toBe(0)
+  })
+
+  it('is empty for empty arrays, which is what History passes when cycleTracking is off', () => {
+    expect(periodDays([], []).size).toBe(0)
+  })
+})
+
+describe('periodInfo', () => {
+  it('prefers check-in flow and cramps over health', () => {
+    const info = periodInfo('2026-10-01', [hd('2026-10-01', { periodFlow: 'light', cramps: 1 })], [ci('2026-10-01', { periodFlow: 'heavy', cramps: 3 })])
+    expect(info).toEqual({ flow: 'heavy', cramps: 3 })
+  })
+
+  it('falls back to health for fields the check-in lacks', () => {
+    expect(periodInfo('2026-10-01', [hd('2026-10-01', { periodFlow: 'light', cramps: 1 })], [ci('2026-10-01', { cramps: 2 })])).toEqual({ flow: 'light', cramps: 2 })
+  })
+
+  it('returns null when neither has period data for the date', () => {
+    expect(periodInfo('2026-10-01', [hd('2026-10-02', { periodFlow: 'light' })], [ci('2026-10-01', { energy: 3 })])).toBeNull()
+    expect(periodInfo('2026-10-01', [], [])).toBeNull()
   })
 })

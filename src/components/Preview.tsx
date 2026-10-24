@@ -20,7 +20,7 @@ export default function Preview({ plan, settings, onSettings }: Props) {
     <div>
       <p className="muted">{plan.dayType === 'movement' ? 'Movement day' : plan.dayType.replace('_', ' ')} · {modeLabel(plan.mode)} · {plan.location} · about {Math.round(plan.estSeconds / 60)} min (target {plan.minutesTarget})</p>
       {plan.blocks.map((b, i) => (
-        <section key={i}>
+        <section key={i} className={`block block-${b.kind}`}>
           <h3>{LABELS[b.kind] ?? b.kind.replace('_', ' ')}{INFO[b.kind] && <> <Info text={INFO[b.kind]!} /></>}</h3>
           <ul className="plan">
             {b.exercises.map((pe, j) => {

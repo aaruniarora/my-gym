@@ -122,7 +122,7 @@ export default function Today({ settings, progress, recent, onSettings, build, o
       <h3>How much today? <Info text="Normal is the full session, Feeling strong offers bonus sets if you have energy left, and Low energy means fewer sets, easier reps and more stretching that still counts." /></h3>
       <div className="choices">
         {MODES.map(([m, label, note]) => (
-          <label key={m} className={`choice${mode === m ? ' selected' : ''}`}>
+          <label key={m} className={`choice mode-${m}${mode === m ? ' selected' : ''}`}>
             <input type="radio" name="mode" checked={mode === m} onChange={() => setDraft({ mode: m })} />
             <strong>{label}</strong>
             <span className="small">{note}</span>
