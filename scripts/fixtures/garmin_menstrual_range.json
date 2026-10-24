@@ -1,0 +1,13 @@
+{
+  "_note": "Synthetic, assumed shape for get_menstrual_calendar_data (undocumented in garminconnect 0.3.20); not real data.",
+  "cycleSummaries": [
+    {
+      "startDate": "2000-01-01",
+      "dayLogs": [
+        {"calendarDate": "2000-01-01", "flow": "HEAVY", "symptoms": ["CRAMPS"]},
+        {"calendarDate": "2000-01-02", "flow": "LIGHT", "symptoms": []}
+      ]
+    },
+    {"startDate": "2000-01-29", "dayLogs": [{"calendarDate": "2000-01-29", "symptoms": ["FATIGUE"]}]}
+  ]
+}

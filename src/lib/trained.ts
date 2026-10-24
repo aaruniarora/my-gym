@@ -1,5 +1,5 @@
 import { exerciseById } from '../content'
-import type { SessionPlan, SessionRecord, SetLog } from './types'
+import type { Checkin, HealthDaily, PeriodFlow, SessionPlan, SessionRecord, SetLog } from './types'
 
 export type DayStatus = 'completed' | 'partial' | 'started' | 'none'
 
@@ -76,4 +76,19 @@ export function monthGrid(year: number, month0: number): (string | null)[][] {
   const weeks: (string | null)[][] = []
   for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7))
   return weeks
+}
+
+// the check-in wins over health data for the same date, as in periodInfo
+export function periodDays(health: HealthDaily[], checkins: Checkin[]): Set<string> {
+  const flow = new Map<string, PeriodFlow | undefined>(health.map((h) => [h.date, h.periodFlow]))
+  for (const c of checkins) flow.set(c.date, c.periodFlow ?? flow.get(c.date))
+  return new Set([...flow].filter(([, f]) => f && f !== 'none').map(([d]) => d))
+}
+
+export function periodInfo(date: string, health: HealthDaily[], checkins: Checkin[]): { flow?: PeriodFlow; cramps?: number } | null {
+  const h = health.find((x) => x.date === date)
+  const c = checkins.find((x) => x.date === date)
+  const flow = c?.periodFlow ?? h?.periodFlow
+  const cramps = c?.cramps ?? h?.cramps
+  return flow === undefined && cramps === undefined ? null : { flow, cramps }
 }

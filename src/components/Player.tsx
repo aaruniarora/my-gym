@@ -386,15 +386,15 @@ export default function Player({ plan, settings, onFinish, onAbort, onPain, onTo
     <main className="player">
       {atEnd
         ? <h2>Last set done</h2>
-        : test ? <>
+        : test ? <div className={`block block-${item.kind}`}>
           <p className="muted">Milestone test</p>
           <h2>{test.name}</h2>
           <p>{test.protocol}</p>
-        </> : <>
+        </div> : <div className={`block block-${item.kind}`}>
           <p className="muted">Set {item.setIndex + 1} of {pe.sets}{phase === 'rest' && ' - up next'}</p>
           <h2>{ex.name}</h2>
           <p>{doseText(ex, pe)}</p>
-        </>}
+        </div>}
 
       {phase === 'card' && <>
         <TechniqueCard exercise={ex} />

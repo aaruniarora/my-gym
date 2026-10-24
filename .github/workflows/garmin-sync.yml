@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
+    inputs:
+      days:
+        description: 'Days to backfill (max 200)'
+        default: '3'
+        required: false
 
 permissions:
   contents: read
@@ -21,6 +26,7 @@ jobs:
       - run: pip install -r scripts/requirements-garmin.txt
       - run: python scripts/garmin_sync.py
         env:
+          DAYS: ${{ inputs.days || '3' }}
           GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
           GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
           GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}

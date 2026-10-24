@@ -32,8 +32,8 @@ export function WeeklyChart({ series, unit, yLabel, markers = [], step = false, 
       {shown.map((s, i) => {
         const end = s.points.at(-1)!
         return (
-          <g key={s.label}>
-            <path d={path(s.points)} fill="none" stroke="currentColor" strokeWidth={2} strokeDasharray={i ? '5 3' : undefined} />
+          <g key={s.label} className={`chart-series-${i + 1}`}>
+            <path d={path(s.points)} fill="none" stroke="currentColor" strokeWidth={2} />
             {s.points.map((p) => <circle key={p.week} cx={x(p.week)} cy={y(p.value)} r={2.5} fill="currentColor" />)}
             <text x={x(end.week) + 4} y={y(end.value) + 4} className="chart-label">{s.label}</text>
           </g>

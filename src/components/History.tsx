@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { exerciseById } from '../content'
-import { listSessions, listSetLogs } from '../lib/db'
-import { countsAsTrained, dayStatus, localISO, mondayOf, monthGrid, streakWeeks, weekCount } from '../lib/trained'
-import type { SessionRecord, SetLog, Settings } from '../lib/types'
+import { listCheckins, listHealth, listSessions, listSetLogs } from '../lib/db'
+import { countsAsTrained, dayStatus, localISO, mondayOf, monthGrid, periodDays, periodInfo, streakWeeks, weekCount } from '../lib/trained'
+import type { Checkin, HealthDaily, SessionRecord, SetLog, Settings } from '../lib/types'
 
 const minutes = (s: SessionRecord, logs: SetLog[]) => {
   const end = s.endedAt ?? logs[logs.length - 1]?.at
@@ -19,16 +19,23 @@ export default function History({ settings }: { settings: Settings }) {
   const [logsBySession, setLogsBySession] = useState<Record<string, SetLog[]>>({})
   const [open, setOpen] = useState<string>()
   const [day, setDay] = useState<string>()
+  const [health, setHealth] = useState<HealthDaily[]>([])
+  const [checkins, setCheckins] = useState<Checkin[]>([])
+  const tracking = !!settings.cycleTracking
 
   useEffect(() => {
     // plan.date is UTC, so reach one extra day back; 26 weeks keeps half-year streaks counted
-    const since = new Date(Math.min(new Date(month.y, month.m, 1).getTime() - 86400000, Date.now() - 182 * 86400000))
-    void listSessions(since.toISOString().slice(0, 10)).then(async (s) => {
+    const since = new Date(Math.min(new Date(month.y, month.m, 1).getTime() - 86400000, Date.now() - 182 * 86400000)).toISOString().slice(0, 10)
+    if (tracking) {
+      void listHealth(since).then(setHealth)
+      void listCheckins(since).then(setCheckins)
+    }
+    void listSessions(since).then(async (s) => {
       const logs = await Promise.all(s.map((x) => listSetLogs(x.plan.id)))
       setLogsBySession(Object.fromEntries(s.map((x, i) => [x.plan.id, logs[i].sort((a, b) => a.at.localeCompare(b.at))])))
       setSessions(s.sort((a, b) => b.startedAt.localeCompare(a.startedAt)))
     })
-  }, [month])
+  }, [month, tracking])
 
   const shift = (n: number) => {
     setDay(undefined)
@@ -67,6 +74,8 @@ export default function History({ settings }: { settings: Settings }) {
     ))
   }
 
+  const period = tracking ? periodDays(health, checkins) : new Set<string>()
+  const info = tracking && day ? periodInfo(day, health, checkins) : null
   const shown = day ? sessions.filter((s) => localISO(new Date(s.startedAt)) === day) : sessions
 
   return (
@@ -85,12 +94,15 @@ export default function History({ settings }: { settings: Settings }) {
       <div className="cal">
         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => <span key={d} className="muted small">{d}</span>)}
         {monthGrid(month.y, month.m).flat().map((d, i) => d ? (
-          <button key={d} className={`cal-day${d === todayISO ? ' cal-today' : ''}${d === day ? ' active' : ''}`} onClick={() => setDay(day === d ? undefined : d)}>
+          <button key={d} className={`cal-day${d === todayISO ? ' cal-today' : ''}${d === day ? ' active' : ''}${period.has(d) ? ' cal-period' : ''}`} onClick={() => setDay(day === d ? undefined : d)}>
+            {period.has(d) && <span className="cal-period-mark" aria-label="Period">▒</span>}
             {Number(d.slice(8))}
             <span className={dotClass[dayStatus(sessions, logsBySession, d)]} />
           </button>
         ) : <span key={i} />)}
       </div>
+      <p className="muted small">● trained  ○ started{tracking && '  ▒ period'}</p>
+      {info && <p><strong>Period: {info.flow ?? '–'} · Cramps: {info.cramps ?? '–'}</strong></p>}
       {day && <button className="link" onClick={() => setDay(undefined)}>Show all sessions</button>}
       {shown.length === 0 && <p className="muted">{day ? 'No sessions this day.' : 'No sessions yet.'}</p>}
       {shown.map((s) => {

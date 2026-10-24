@@ -29,5 +29,8 @@ A daily GitHub Action (`.github/workflows/garmin-sync.yml`, 05:00 UTC) copies th
 
    Paste the printed string as the `GARMIN_TOKENS` secret. Don't commit or share it: it gives access to your Garmin account. Repeat this step if the sync starts failing at login.
 4. **Run it.** Actions > Garmin sync > Run workflow. The log only shows counts and `ok`/`failed`.
+5. **Backfill:** Actions → Garmin sync → Run workflow → days: 180 (one-time, ~6 months). It takes a few minutes; the daily run goes back to 3 days.
 
 **When it fails**, the Action exits red and writes the error type to `garmin_status`; the app then shows "Garmin sync failed: log manually" and you can log period and sleep in the check-in.
+
+**`failed: no Garmin data`** means every Garmin endpoint returned nothing or errored for every day (watch not synced, or Garmin changed its API). Nothing is written to `health_daily`; `garmin_status` gets `last_error: no data`. The counts line above it (`sleep a/N, body_battery b/N, ...`) shows which data types arrived.

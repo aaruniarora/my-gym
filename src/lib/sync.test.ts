@@ -168,4 +168,26 @@ describe('sync', () => {
     expect(row).toMatchObject({ cm_from_floor: 40, band_ids: ['red', 'blue'], side: 'left', weight_kg: null })
     expect(sync.fromRow.set_logs(row)).toEqual({ ...l, weightKg: undefined, reps: undefined, seconds: undefined, setup: undefined, note: undefined })
   })
+
+  it('supabaseSyncClient pages pullSince by 1000 and pull lands all 1,500 health rows and the max updated_at', async () => {
+    const rows = Array.from({ length: 1500 }, (_, i) => ({
+      date: new Date(Date.UTC(2020, 0, 1 + i)).toISOString().slice(0, 10), source: 'garmin', sleep_hours: '7.5', updated_at: new Date(Date.parse(T0) + i * 1000).toISOString(),
+    }))
+    const ranges: [number, number][] = []
+    // fake of from().select().gt().order().range() over the seeded rows
+    const sb = {
+      auth: { onAuthStateChange: () => {} },
+      from: (table: string) => {
+        const all = table === 'health_daily' ? rows : []
+        const q = { gt: () => q, order: () => q, range: async (a: number, b: number) => (table === 'health_daily' && ranges.push([a, b]), { data: all.slice(a, b + 1), error: null }) }
+        return { select: () => q }
+      },
+    }
+    const client = sync.supabaseSyncClient(sb as never)
+    expect(await client.pullSince('health_daily', null)).toHaveLength(1500)
+    expect(ranges).toEqual([[0, 999], [1000, 1999]])
+    expect(await sync.pull(client)).toBe(1500)
+    expect(await db.listHealth('')).toHaveLength(1500)
+    expect(await db.getMeta('lastPull')).toBe(rows[1499].updated_at)
+  })
 })
