@@ -3,7 +3,9 @@
   --bg: #fff;
   --fg: #111;
   --muted: #666;
-  --card: #f2f2f2;
+  --card: #F5F1FA;
+  --plum: #4F2366;
+  --maroon: #7A2340;
   --accent: #7B5EA7;
   --accent-text: #FFFFFF;
   --accent-strong: #5E4386;
@@ -37,7 +39,9 @@
     --bg: #111;
     --fg: #f2f2f2;
     --muted: #999;
-    --card: #222;
+    --card: #1E1A26;
+    --plum: #E3CCF5;
+    --maroon: #F2A9C1;
     --accent: #C3A8F0;
     --accent-text: #1B1426;
     --accent-strong: #D9C8F7;
@@ -240,3 +244,13 @@ button.info { min-height: 0; min-width: 0; width: 24px; height: 24px; padding: 0
 .block-cooldown, .block-flexibility { --block-bg: var(--block-cooldown-bg); --block-fg: var(--block-cooldown-fg); }
 .block-balance, .block-spring, .block-conditioning { --block-bg: var(--block-mint-bg); --block-fg: var(--block-mint-fg); }
 .block-test { --block-bg: var(--block-test-bg); --block-fg: var(--block-test-fg); }
+
+/* plum page titles, maroon section headings, lilac controls */
+h2 { color: var(--plum); }
+.settings h3 { color: var(--maroon); border-bottom: 2px solid var(--accent-soft); padding-bottom: 4px; margin-top: 24px; }
+input[type='checkbox'], input[type='radio'], input[type='range'] { accent-color: var(--accent); }
+.settings fieldset { border-color: var(--accent); background: var(--card); }
+.settings fieldset legend { color: var(--maroon); font-weight: 600; padding: 0 4px; }
+.settings > label, .settings fieldset > label { border-radius: 8px; }
+.settings select, .settings input:not([type='checkbox']):not([type='radio']):not([type='range']) { border: 1px solid var(--accent); border-radius: 8px; }
+.bottom-nav button.active { background: var(--accent-soft); border-radius: 12px; }
