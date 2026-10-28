@@ -48,6 +48,10 @@ describe.each([['light', tokens(light)], ['dark', tokens(dark)]] as const)('cont
     expect(ratio(t[`block-${k}-fg`], t.bg)).toBeGreaterThanOrEqual(3)
   })
 
+  it.each(['plum', 'maroon'])('%s on bg, card and accent-soft is at least 4.5', (k) => {
+    for (const b of ['bg', 'card', 'accent-soft']) expect(ratio(t[k], t[b]), b).toBeGreaterThanOrEqual(4.5)
+  })
+
   it('chart-2 on bg is at least 3', () => {
     expect(ratio(t['chart-2'], t.bg)).toBeGreaterThanOrEqual(3)
   })
