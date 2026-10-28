@@ -47,6 +47,9 @@ export default function Today({ settings, progress, recent, onSettings, build, o
   const today = localISO(now)
   const yesterday = localISO(new Date(now.getTime() - DAY))
   const [activityDate, setActivityDate] = useState(today)
+  const [adding, setAdding] = useState(false)
+  const twoDaysAgo = localISO(new Date(now.getTime() - 2 * DAY))
+  const dayLabel = (d: string) => (d === today ? 'Today' : d === yesterday ? 'Yesterday' : '2 days ago')
   const tracking = !!settings.cycleTracking
   const form = { ...prefillCheckin(health, tracking), ...checkin, ...edit }
   const effective = { minutes: Math.min(120, Math.max(10, minutes)), location, mode }
@@ -159,14 +162,17 @@ export default function Today({ settings, progress, recent, onSettings, build, o
             {[0, 1, 2, 3].map((v) => <button key={v} className={form.cramps === v ? 'primary' : ''} aria-pressed={form.cramps === v} onClick={() => setEdit({ ...edit, cramps: v })}>{v}</button>)}
           </div>
         </>}
-        <p>Other activity today or yesterday</p>
-        {saved.filter((a) => a.date === today || a.date === yesterday).map((a) => (
-          <p key={a.id} className="muted small">{a.date === today ? 'Today' : 'Yesterday'} · {a.type} · {a.minutes} min · {a.intensity}{a.stretched && ' · stretching'}</p>
+        <p>Other training (optional) <Info text="Only if you did dance, taekwondo, a run or similar in the last 2 days. A hard session keeps heavy legs and deep splits out of today's plan." /></p>
+        {saved.filter((a) => [today, yesterday, twoDaysAgo].includes(a.date)).map((a) => (
+          <p key={a.id} className="muted small">{dayLabel(a.date)} · {a.type} · {a.minutes} min · {a.intensity}{a.stretched && ' · stretching'}</p>
         ))}
+        {!adding && <button onClick={() => setAdding(true)}>+ Add other training</button>}
+        {adding && <>
         <div className="row">
           <select aria-label="Day" value={activityDate} onChange={(e) => setActivityDate(e.target.value)}>
             <option value={today}>Today</option>
             <option value={yesterday}>Yesterday</option>
+            <option value={twoDaysAgo}>2 days ago</option>
           </select>
           <select aria-label="Activity" value={activity.type} onChange={(e) => setActivity({ ...activity, type: e.target.value as Activity['type'] })}>
             {(['dance', 'taekwondo', 'run', 'other'] as const).map((t) => <option key={t} value={t}>{t[0].toUpperCase() + t.slice(1)}</option>)}
@@ -176,11 +182,16 @@ export default function Today({ settings, progress, recent, onSettings, build, o
             {(['easy', 'moderate', 'hard'] as const).map((i) => <option key={i} value={i}>{i[0].toUpperCase() + i.slice(1)}</option>)}
           </select>
         </div>
-        <label className="row">Included stretching <input type="checkbox" checked={activity.stretched} onChange={(e) => setActivity({ ...activity, stretched: e.target.checked })} /></label>
-        <button disabled={!(activity.minutes > 0)} onClick={() => setActivities([...activities, { id: crypto.randomUUID(), date: activityDate, ...activity }])}>Add</button>
+        <label className="row">Did it include a good amount of stretching? (e.g. splits, long cool-down) <input type="checkbox" checked={activity.stretched} onChange={(e) => setActivity({ ...activity, stretched: e.target.checked })} /></label>
+        <p className="muted small">If yes, it counts toward your weekly stretching, so today's cool-down won't repeat it.</p>
+        <div className="row">
+          <button disabled={!(activity.minutes > 0)} onClick={() => { setActivities([...activities, { id: crypto.randomUUID(), date: activityDate, ...activity }]); setActivity(NEW_ACTIVITY); setAdding(false) }}>Add</button>
+          <button onClick={() => setAdding(false)}>Cancel</button>
+        </div>
+        </>}
         {activities.map((a) => (
           <div key={a.id} className="row">
-            <span style={{ flex: 1, alignSelf: 'center' }}>{a.date === today ? 'Today' : 'Yesterday'} · {a.type} · {a.minutes} min · {a.intensity}{a.stretched && ' · stretching'}</span>
+            <span style={{ flex: 1, alignSelf: 'center' }}>{dayLabel(a.date)} · {a.type} · {a.minutes} min · {a.intensity}{a.stretched && ' · stretching'}</span>
             <button onClick={() => setActivities(activities.filter((x) => x.id !== a.id))}>Remove</button>
           </div>
         ))}
